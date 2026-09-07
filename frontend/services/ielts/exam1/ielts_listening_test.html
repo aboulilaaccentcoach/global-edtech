@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global EdTech Original IELTS Practice Test 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f0f4f9; color: #0b1e33; padding: 20px; }
+        
+        .main-content { max-width: 1000px; margin: 0 auto; }
+        
+        /* HERO */
+        .hero { background: linear-gradient(135deg, #1a5fb4 0%, #2a7de1 100%); color: white; padding: 30px; border-radius: 20px; margin-bottom: 20px; text-align: center; }
+        .hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero p { font-size: 16px; opacity: 0.9; }
+        
+        /* CONTAINER */
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        
+        /* TIMER */
+        .timer-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 15px 20px; background: #f8faff; border-radius: 50px; border: 1px solid #e6edf8; }
+        .timer-time { font-size: 28px; font-weight: 800; color: #2a7de1; }
+        .btn-timer { padding: 8px 20px; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; }
+        .btn-timer.primary { background: #2a7de1; color: white; }
+        .btn-timer.secondary { background: #eef2f7; color: #333; }
+        
+        /* AUDIO */
+        .audio-card { background: #f8faff; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #e6edf8; }
+        .audio-card audio { width: 100%; margin-top: 10px; }
+        .audio-label { font-weight: 700; color: #2a7de1; }
+        
+        /* SECTION TABS */
+        .section-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 15px; border: 2px solid #e6edf8; border-radius: 15px; background: white; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.3s ease; }
+        .tab-btn.active { border-color: #2a7de1; background: #f0f4fe; color: #2a7de1; transform: translateY(-2px); }
+        
+        /* SECTIONS */
+        .section-panel { display: none; }
+        .section-panel.active { display: block; }
+        
+        .section-card { border: 1px solid #e6edf8; border-radius: 15px; padding: 20px; margin-bottom: 20px; }
+        .section-topic { font-size: 20px; font-weight: 700; color: #2a7de1; margin-bottom: 15px; }
+        
+        /* QUESTIONS */
+        .answer-box { background: #f0f4fe; border: 2px solid #e6edf8; border-radius: 10px; padding: 8px; width: 150px; font-size: 14px; font-family: 'Inter', sans-serif; text-align: center; }
+        .answer-box:focus { outline: none; border-color: #2a7de1; }
+        
+        .option-label { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 10px; background: #f8faff; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
+        .option-label:hover { border-color: #e6edf8; }
+        .option-label input { accent-color: #2a7de1; }
+        .opt-letter { font-weight: 700; color: #2a7de1; }
+        
+        /* ACTION BAR */
+        .action-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e6edf8; }
+        .btn { padding: 12px 25px; border: none; border-radius: 50px; cursor: pointer; font-weight: 700; }
+        .btn-primary { background: #2a7de1; color: white; }
+        .btn-secondary { background: #eef2f7; color: #333; }
+        .btn-success { background: #1d9c73; color: white; }
+        .score-display { font-size: 20px; font-weight: 800; color: #2a7de1; }
+        
+        /* RESULTS */
+        .results-panel { display: none; margin-top: 20px; background: #f8faff; padding: 20px; border-radius: 15px; border: 1px solid #e6edf8; }
+        .band-badge { background: #2a7de1; color: white; padding: 8px 20px; border-radius: 50px; display: inline-block; margin-bottom: 15px; }
+        .band-num { font-size: 28px; font-weight: 800; }
+        
+        .band-scale { margin-top: 20px; font-size: 14px; }
+        .band-scale-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #e6edf8; }
+        
+        /* MAP IMAGE */
+        .map-container { text-align: center; margin: 20px 0; }
+        .map-container img { max-width: 100%; border-radius: 10px; border: 2px solid #e6edf8; }
+    </style>
+</head>
+<body>
+
+<div class="main-content">
+    
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Global EdTech Original IELTS <span style="background:rgba(255,255,255,0.2); padding:0 10px; border-radius:5px;">Practice Test 1</span></h1>
+        <p>Practice with original listening questions and get instant feedback.</p>
+        <div style="margin-top:20px;">
+            <span style="margin-right:20px;">🕐 35 Minutes</span>
+            <span style="margin-right:20px;">📝 40 Questions</span>
+            <span>🎧 4 Sections</span>
+        </div>
+    </div>
+
+    <!-- CONTAINER -->
+    <div class="container">
+        
+        <!-- TIMER -->
+        <div class="timer-section">
+            <div class="timer-display"><span class="timer-time" id="timer">35:00</span></div>
+            <div class="timer-controls">
+                <button class="btn-timer primary" id="btn-start" onclick="startTimer()">Start</button>
+                <button class="btn-timer secondary" id="btn-pause" onclick="pauseTimer()" disabled>Pause</button>
+                <button class="btn-timer secondary" onclick="resetTimer()">Reset</button>
+        <a href="/" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 11px; font-weight: bold; margin-left: 15px; line-height: 1.2;"><span style="font-size: 20px; margin-bottom: 2px;">🏠</span>Home</a>
+            </div>
+        </div>
+
+        <!-- AUDIO (We will show the correct one based on section) -->
+        <div class="audio-card" id="audio-1">
+            <div class="audio-label">Section 1 Audio</div>
+            <audio controls id="player-1">
+                <source src="section1.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <div class="audio-card" id="audio-2" style="display:none;">
+            <div class="audio-label">Section 2 Audio</div>
+            <audio controls id="player-2">
+                <source src="section2.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <div class="audio-card" id="audio-3" style="display:none;">
+            <div class="audio-label">Section 3 Audio</div>
+            <audio controls id="player-3">
+                <source src="section3.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+        <div class="audio-card" id="audio-4" style="display:none;">
+            <div class="audio-label">Section 4 Audio</div>
+            <audio controls id="player-4">
+                <source src="section4.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- TABS -->
+        <div class="section-tabs">
+            <button class="tab-btn active" data-section="1" onclick="switchSection(1)">Section 1<br><small>Q1-10</small></button>
+            <button class="tab-btn" data-section="2" onclick="switchSection(2)">Section 2<br><small>Q11-20</small></button>
+            <button class="tab-btn" data-section="3" onclick="switchSection(3)">Section 3<br><small>Q21-30</small></button>
+            <button class="tab-btn" data-section="4" onclick="switchSection(4)">Section 4<br><small>Q31-40</small></button>
+        </div>
+
+        <!-- DYNAMIC CONTENT AREA -->
+        <div id="section-content"></div>
+
+        <!-- ACTION BAR -->
+        <div class="action-bar">
+            <button class="btn btn-primary" onclick="checkAnswers()">Check Answers</button>
+            <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
+            <button class="btn btn-success" onclick="showAnswers()">Show Answers</button>
+            <div class="score-display" id="score-display">📊 0 / 40</div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results-panel" id="results-panel">
+            <h3>Your Results</h3>
+            <div class="band-badge" id="band-badge"><span>Band</span> <span class="band-num" id="band-num">—</span></div>
+            <div class="results-summary" id="results-summary"></div>
+            <div class="band-scale">
+                <div class="band-scale-row"><span>Band 5.0</span><span>15 – 18</span></div>
+                <div class="band-scale-row"><span>Band 5.5</span><span>19 – 22</span></div>
+                <div class="band-scale-row"><span>Band 6.0</span><span>23 – 26</span></div>
+                <div class="band-scale-row"><span>Band 6.5</span><span>27 – 29</span></div>
+                <div class="band-scale-row"><span>Band 7.0</span><span>30 – 32</span></div>
+                <div class="band-scale-row"><span>Band 7.5</span><span>33 – 34</span></div>
+                <div class="band-scale-row"><span>Band 8.0</span><span>35 – 36</span></div>
+                <div class="band-scale-row"><span>Band 8.5</span><span>37 – 38</span></div>
+                <div class="band-scale-row"><span>Band 9.0</span><span>39 – 40</span></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- IMPORT DATA -->
+<script src="new_listening_data.js"></script>
+
+<!-- MAIN LOGIC -->
+<script>
+    // ============================================================
+    // GLOBAL EDTECH LISTENING LOGIC
+    // ============================================================
+    
+    // Get the data
+    const examData = window.newListeningQuestions;
+    
+    // Timer Variables
+    let timeLeft = 35 * 60;
+    let timerInterval = null;
+    let isRunning = false;
+    
+    // ============================================================
+    // SECTION SWITCHING & BUILDING
+    // ============================================================
+    function switchSection(n) {
+        // Update Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.tab-btn[data-section="${n}"]`).classList.add('active');
+        
+        // Toggle Audio
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById(`audio-${i}`).style.display = (i === n) ? 'block' : 'none';
+        }
+        
+        // Build the section content
+        buildSection(n);
+    }
+    
+    // ============================================================
+    // SECTION BUILDERS (Based on your data)
+    // ============================================================
+    function buildSection(n) {
+        const content = document.getElementById('section-content');
+        let html = '';
+        
+        // --- SECTION 1 (Notes Completion) ---
+        if (n === 1 && examData.section1) {
+            const data = examData.section1;
+            html += `<div class="section-card">
+                <div class="section-topic">${data.title}</div>
+                <p><strong>Instructions:</strong> ${data.instruction}</p>
+                <div style="margin-top:20px;">`;
+            
+            data.questions.forEach(q => {
+               html += `<div style="margin-bottom:15px;">
+               <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
+               </div>`;
+            });
+            
+            html += `</div></div>`;
+        }
+        
+        // --- SECTION 2 (Part 1: Multiple Choice + Part 2: Map) ---
+        else if (n === 2) {
+            // Part 1
+            const p1 = examData.section2_part1;
+            html += `<div class="section-card">
+                <div class="section-topic">${p1.title}</div>
+                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+            
+            p1.questions.forEach(q => {
+                html += `<div style="margin-top:20px;">
+                    <strong>${q.id}.</strong> ${q.q}<br>`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+                });
+                html += `</div>`;
+            });
+            html += `</div>`;
+            
+            // Part 2 (Map)
+            const p2 = examData.section2_part2;
+            html += `<div class="section-card">
+                <div class="section-topic">${p2.title}</div>
+                <p><strong>Instructions:</strong> ${p2.instruction}</p>
+                <div class="map-container">
+                    <img src="${p2.image}" alt="Map">
+                </div>`;
+            
+            p2.questions.forEach(q => {
+                html += `<div style="margin-bottom:10px;">
+                    <strong>${q.id}.</strong> ${q.label} <input type="text" class="answer-box" data-q="${q.id}">
+                </div>`;
+            });
+            html += `</div>`;
+        }
+        
+        // --- SECTION 3 (Part 1: Multiple Choice) ---
+               // --- SECTION 3 (Multiple Choice + Fill-in-the-blank) ---
+        else if (n === 3 && examData.section3_part1) {
+            const p1 = examData.section3_part1;
+            const p2 = examData.section3_part2;
+            
+            // Part 1: Multiple Choice
+            html += `<div class="section-card">
+                <div class="section-topic">${p1.title}</div>
+                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+            
+            p1.questions.forEach(q => {
+                html += `<div style="margin-top:20px;">
+                    <strong>${q.id}.</strong> ${q.q}<br>`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+                });
+                html += `</div>`;
+            });
+            html += `</div>`;
+            
+            // Part 2: Fill in the blank
+            html += `<div class="section-card">
+                <div class="section-topic">${p2.title}</div>
+                <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
+            
+            p2.questions.forEach(q => {
+                html += `<div style="margin-bottom:15px;">
+                    <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
+                </div>`;
+            });
+            html += `</div>`;
+        }
+        
+        // --- SECTION 4 (Part 1: Multiple Choice) ---
+                // --- SECTION 4 (Multiple Choice + Fill-in-the-blank) ---
+        else if (n === 4 && examData.section4_part1) {
+            const p1 = examData.section4_part1;
+            const p2 = examData.section4_part2;
+            
+            // Part 1: Multiple Choice
+            html += `<div class="section-card">
+                <div class="section-topic">${p1.title}</div>
+                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+            
+            p1.questions.forEach(q => {
+                html += `<div style="margin-top:20px;">
+                    <strong>${q.id}.</strong> ${q.q}<br>`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+                });
+                html += `</div>`;
+            });
+            html += `</div>`;
+            
+            // Part 2: Fill in the blank
+            html += `<div class="section-card">
+                <div class="section-topic">${p2.title}</div>
+                <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
+            
+            p2.questions.forEach(q => {
+                html += `<div style="margin-bottom:15px;">
+                    <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
+                </div>`;
+            });
+            html += `</div>`;
+        }
+        
+        content.innerHTML = html;
+    }
+    
+    // ============================================================
+    // TIMER FUNCTIONS
+    // ============================================================
+    function startTimer() {
+        if (isRunning) return;
+        isRunning = true;
+        document.getElementById('btn-start').disabled = true;
+        document.getElementById('btn-pause').disabled = false;
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${m}:${s}`;
+            
+            if (timeLeft <= 0) {
+                pauseTimer();
+                alert("Time is up!");
+                checkAnswers();
+            }
+        }, 1000);
+    }
+    
+    function pauseTimer() {
+        isRunning = false;
+        clearInterval(timerInterval);
+        document.getElementById('btn-start').disabled = false;
+        document.getElementById('btn-pause').disabled = true;
+    }
+    
+    function resetTimer() {
+        pauseTimer();
+        timeLeft = 35 * 60;
+        document.getElementById('timer').textContent = '35:00';
+    }
+    
+    // ============================================================
+    // CHECK ANSWERS / SCORING
+    // ============================================================
+    function checkAnswers() {
+        let correctCount = 0;
+        let totalCount = 0;
+        
+        const checkAll = (questions) => {
+            questions.forEach(q => {
+                totalCount++;
+                if (q.type === 'mc') {
+                    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    if (selected && selected.value === q.answer) correctCount++;
+                } else {
+                    const input = document.querySelector(`input[data-q="${q.id}"]`);
+                    if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) correctCount++;
+                }
+            });
+        };
+        
+        checkAll(examData.section1.questions);
+        checkAll(examData.section2_part1.questions);
+        checkAll(examData.section2_part2.questions);
+        checkAll(examData.section3_part1.questions);
+        checkAll(examData.section4_part1.questions);
+        
+        document.getElementById('score-display').textContent = `📊 ${correctCount} / ${totalCount}`;
+        
+        // Determine Band
+        let band = '—';
+        if (correctCount >= 39) band = '9.0';
+        else if (correctCount >= 37) band = '8.5';
+        else if (correctCount >= 35) band = '8.0';
+        else if (correctCount >= 32) band = '7.5';
+        else if (correctCount >= 30) band = '7.0';
+        else if (correctCount >= 26) band = '6.5';
+        else if (correctCount >= 23) band = '6.0';
+        else if (correctCount >= 19) band = '5.5';
+        else if (correctCount >= 15) band = '5.0';
+        
+        document.getElementById('band-num').textContent = band;
+        document.getElementById('results-summary').innerHTML = `<strong>Score:</strong> ${correctCount} / ${totalCount} <br> <strong>Band:</strong> ${band}`;
+        
+        document.getElementById('results-panel').style.display = 'block';
+    }
+    
+    function clearAll() {
+        document.querySelectorAll('.answer-box').forEach(i => i.value = '');
+        document.querySelectorAll('.answer-radio').forEach(i => i.checked = false);
+        document.getElementById('score-display').textContent = '📊 0 / 40';
+        document.getElementById('results-panel').style.display = 'none';
+    }
+    
+        function showAnswers() {
+        // Fill in Section 1 answers
+        examData.section1.questions.forEach(q => {
+            const input = document.querySelector(`input[data-q="${q.id}"]`);
+            if (input) input.value = q.answer;
+        });
+        
+        // Fill in Multiple Choice answers
+        const mcData = [...examData.section2_part1.questions, ...examData.section3_part1.questions, ...examData.section4_part1.questions];
+        mcData.forEach(q => {
+            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+            if (radio) radio.checked = true;
+        });
+        
+        // Fill in Section 2 Map answers
+        examData.section2_part2.questions.forEach(q => {
+            const input = document.querySelector(`input[data-q="${q.id}"]`);
+            if (input) input.value = q.answer;
+        });
+        
+        // Fill in Section 3 Part 2 (Q27-30) answers
+        examData.section3_part2.questions.forEach(q => {
+            const input = document.querySelector(`input[data-q="${q.id}"]`);
+            if (input) input.value = q.answer;
+        });
+        
+        // Fill in Section 4 Part 2 (Q36-40) answers
+        examData.section4_part2.questions.forEach(q => {
+            const input = document.querySelector(`input[data-q="${q.id}"]`);
+            if (input) input.value = q.answer;
+        });
+    }
+    
+    // Initialize on page load
+    window.onload = function() {
+        switchSection(1);
+    };
+</script>
+
+<!-- Navigation -->
+<div style="text-align: center; margin-top: 40px;">
+    <button onclick="window.location.href='IELTS_READING_TEST1.HTML'" style="padding: 15px 30px; font-size: 1.2rem; background: #2a7de1; color: white; border: none; border-radius: 8px; cursor: pointer;">Next: Reading Section</button>
+</div>
+<script>
+</body>
+</html>

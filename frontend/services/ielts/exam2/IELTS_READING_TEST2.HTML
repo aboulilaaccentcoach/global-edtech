@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global EdTech Original IELTS Test 2 Reading</title>
+    <style>
+        :root {
+            --bg: #f7f7f8; --surface: #ffffff; --surface-muted: #f2f2f3; --border: #e4e4e7;
+            --text-primary: #18181b; --text-secondary: #52525b; --text-tertiary: #a1a1aa;
+            --accent: #2a7de1; --positive: #16a34a; --danger: #dc2626;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --radius: 10px; --radius-sm: 6px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text-primary); height: 100vh; display: flex; flex-direction: column; }
+
+        .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .logo { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+        .timer { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+
+        .nav-tabs { display: flex; gap: 8px; padding: 12px 24px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .tab-btn { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text-secondary); cursor: pointer; font-size: 14px; font-weight: 600; text-align: center; transition: all 0.2s; }
+        .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .tab-btn:hover:not(.active) { background: var(--surface-muted); }
+
+        .reading-container { flex: 1; display: flex; overflow: hidden; background: var(--surface); border-bottom: 1px solid var(--border); }
+        .passage-panel { width: 50%; overflow-y: auto; padding: 30px 40px; border-right: 1px solid var(--border); line-height: 1.8; font-size: 15.5px; color: var(--text-primary); }
+        .passage-panel h2 { font-size: 24px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+        .passage-panel .sub { font-style: italic; text-align: center; color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+        .passage-panel p { margin-bottom: 16px; }
+
+        .questions-panel { width: 50%; overflow-y: auto; padding: 30px 40px; background: var(--bg); }
+        .questions-panel h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+        .q-label { font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px; font-style: italic; line-height: 1.6; }
+        .q-block { margin-bottom: 24px; padding: 16px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); }
+        .q-text { font-size: 15px; font-weight: 500; margin-bottom: 12px; line-height: 1.6; display: flex; gap: 10px; }
+        .q-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--surface-muted); font-size: 13px; font-weight: 700; flex-shrink: 0; }
+        .q-num.answered { background: var(--text-primary); color: #fff; }
+        .q-num.correct { background: var(--positive); color: #fff; }
+        .q-num.wrong { background: var(--danger); color: #fff; }
+
+        .opts { display: flex; flex-direction: column; gap: 8px; margin-left: 38px; }
+        .opt-label { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer; transition: 0.2s; font-size: 14px; color: var(--text-secondary); }
+        .opt-label:hover { background: var(--surface-muted); }
+        .opt-label input[type="radio"] { width: 16px; height: 16px; accent-color: var(--text-primary); }
+        .opt-label.sel { background: var(--surface-muted); border-color: var(--border); color: var(--text-primary); }
+
+        .txt-inp { margin-left: 38px; width: calc(100% - 38px); padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; outline: none; }
+        .txt-inp:focus { border-color: var(--text-primary); }
+        .txt-inp.ok { border-color: var(--positive); background: #f0fdf4; }
+        .txt-inp.bad { border-color: var(--danger); background: #fef2f2; }
+
+        .fb { font-size: 12px; margin-left: 38px; margin-top: 6px; color: var(--text-tertiary); display: none; }
+        .fb.vis { display: block; }
+
+        .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .left-controls { display: flex; gap: 12px; }
+        .right-controls { display: flex; gap: 12px; }
+        .btn { padding: 10px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-secondary { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+        .btn-secondary:hover { background: #f0f4fe; }
+        .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .btn-primary:hover { background: #1a5fb4; }
+        .dots { display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+        .dot.on { background: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .reading-container { flex-direction: column; }
+            .passage-panel { width: 100%; max-height: 40%; border-right: none; border-bottom: 1px solid var(--border); }
+            .questions-panel { width: 100%; max-height: 60%; }
+            .nav-tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="logo">Global EdTech Original IELTS Test 2 Reading</div>
+        <div class="timer">60 Minutes</div>
+        <a href="/" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 11px; font-weight: bold; margin-left: 15px; line-height: 1.2;"><span style="font-size: 20px; margin-bottom: 2px;">🏠</span>Home</a>
+    </div>
+
+    <div class="nav-tabs" id="navTabs">
+        <button class="tab-btn active" onclick="switchTab(1)">Passage 1</button>
+        <button class="tab-btn" onclick="switchTab(2)">Passage 2</button>
+        <button class="tab-btn" onclick="switchTab(3)">Passage 3</button>
+    </div>
+
+    <div class="reading-container" id="reading-container"></div>
+
+    <div class="footer">
+        <div class="left-controls">
+            <button class="btn btn-secondary" onclick="prevTab()" id="prevBtn" disabled>← Previous</button>
+            <button class="btn btn-secondary" onclick="window.location.href='Writing_IELTS_Test2.html'" id="nextBtn">Next: Writing Section</button>
+        </div>
+        <div class="dots" id="dots"></div>
+        <div class="right-controls">
+            <button class="btn btn-secondary" onclick="resetPassage()">Reset</button>
+            <button class="btn btn-secondary" onclick="showAnswers()">Show Answers</button>
+            <button class="btn btn-primary" onclick="checkPassage()">Check Answers</button>
+        </div>
+    </div>
+
+    <!-- Import Data -->
+    <script src="new_reading_data2.js"></script>
+
+    <!-- Main Logic -->
+    <script>
+        const readingData = window.newReadingQuestions2;
+        let currentPassage = 1;
+        const totalPassages = readingData.passages.length;
+
+        function switchTab(n) {
+            currentPassage = n;
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === n - 1));
+            document.getElementById('prevBtn').disabled = (n === 1);
+            renderPassages();
+        }
+
+        function prevTab() { if (currentPassage > 1) switchTab(currentPassage - 1); }
+        function nextTab() { if (currentPassage < totalPassages) switchTab(currentPassage + 1); else finishTest(); }
+
+        function renderPassages() {
+            const container = document.getElementById('reading-container');
+            const passage = readingData.passages[currentPassage - 1];
+            const qStart = passage.questions[0].id;
+            const qEnd = passage.questions[passage.questions.length - 1].id;
+
+            let passageHtml = `<div class="passage-panel"><h2>Passage ${passage.id}</h2><p class="sub">${passage.title}</p>`;
+            const paragraphs = passage.passage.split('\n');
+            paragraphs.forEach(p => { if (p.trim()) passageHtml += `<p>${p.trim()}</p>`; });
+            passageHtml += `</div>`;
+
+            let questionHtml = `<div class="questions-panel"><h3>Questions ${qStart} – ${qEnd}</h3><div class="q-section"><div class="q-label">Answer the questions below.</div>`;
+
+            passage.questions.forEach(q => {
+                if (q.type === 'tfng') {
+                    questionHtml += `<div class="q-block" data-q="${q.id}" data-type="tfng">
+                        <div class="q-text"><span class="q-num" id="n${q.id}">${q.id}</span>${q.q}</div>
+                        <div class="opts">
+                            <label class="opt-label"><input type="radio" name="q${q.id}" value="True"><span>True</span></label>
+                            <label class="opt-label"><input type="radio" name="q${q.id}" value="False"><span>False</span></label>
+                            <label class="opt-label"><input type="radio" name="q${q.id}" value="Not Given"><span>Not Given</span></label>
+                        </div><div class="fb" id="fb${q.id}"></div></div>`;
+                } else if (q.type === 'mc') {
+                    questionHtml += `<div class="q-block" data-q="${q.id}" data-type="mc">
+                        <div class="q-text"><span class="q-num" id="n${q.id}">${q.id}</span>${q.q}</div><div class="opts">`;
+                    q.options.forEach((opt, i) => {
+                        const letter = String.fromCharCode(65 + i);
+                        questionHtml += `<label class="opt-label"><input type="radio" name="q${q.id}" value="${letter}"><span>${letter} — ${opt}</span></label>`;
+                    });
+                    questionHtml += `</div><div class="fb" id="fb${q.id}"></div></div>`;
+                } else if (q.type === 'match') {
+                    questionHtml += `<div class="q-block" data-q="${q.id}" data-type="match">
+                        <div class="q-text"><span class="q-num" id="n${q.id}">${q.id}</span>${q.q}</div>
+                        <input type="text" class="txt-inp" id="inp${q.id}"><div class="fb" id="fb${q.id}"></div></div>`;
+                } else if (q.type === 'fill') {
+                    questionHtml += `<div class="q-block" data-q="${q.id}" data-type="fill">
+                        <div class="q-text"><span class="q-num" id="n${q.id}">${q.id}</span>${q.q.replace('______', '')}</div>
+                        <input type="text" class="txt-inp" id="inp${q.id}"><div class="fb" id="fb${q.id}"></div></div>`;
+                }
+            });
+
+            questionHtml += `</div></div>`;
+            container.innerHTML = passageHtml + questionHtml;
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = document.getElementById('dots');
+            dots.innerHTML = '';
+            const passage = readingData.passages[currentPassage - 1];
+            passage.questions.forEach(q => {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (q.type === 'tfng' || q.type === 'mc') {
+                    if (document.querySelector(`input[name="q${q.id}"]:checked`)) dot.classList.add('on');
+                } else {
+                    if (document.getElementById(`inp${q.id}`) && document.getElementById(`inp${q.id}`).value.trim() !== '') dot.classList.add('on');
+                }
+                dots.appendChild(dot);
+            });
+        }
+
+        function resetPassage() {
+            readingData.passages.forEach(passage => {
+                passage.questions.forEach(q => {
+                    if (q.type === 'tfng' || q.type === 'mc') {
+                        document.querySelectorAll(`input[name="q${q.id}"]`).forEach(radio => {
+                            radio.checked = false;
+                            radio.closest('.opt-label').classList.remove('sel');
+                        });
+                    } else {
+                        const inp = document.getElementById(`inp${q.id}`);
+                        if (inp) { inp.value = ''; inp.classList.remove('ok', 'bad'); }
+                    }
+                    const fb = document.getElementById(`fb${q.id}`);
+                    if (fb) { fb.classList.remove('vis'); fb.textContent = ''; }
+                    const num = document.getElementById(`n${q.id}`);
+                    if (num) num.classList.remove('correct', 'wrong', 'answered');
+                });
+            });
+            currentPassage = 1;
+            switchTab(1);
+        }
+
+        function checkPassage() {
+            const passage = readingData.passages[currentPassage - 1];
+            let correctCount = 0;
+            let totalCount = 0;
+            passage.questions.forEach(q => {
+                totalCount++;
+                let user = '';
+                if (q.type === 'tfng' || q.type === 'mc') {
+                    const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+                    user = sel ? sel.value : '';
+                    if (user) sel.closest('.opt-label').classList.add('sel');
+                } else {
+                    const inp = document.getElementById(`inp${q.id}`);
+                    user = inp ? inp.value.trim().toLowerCase() : '';
+                }
+                const fb = document.getElementById(`fb${q.id}`);
+                const num = document.getElementById(`n${q.id}`);
+                let isCorrect = false;
+                if (q.type === 'mc' || q.type === 'tfng' || q.type === 'ynng') {
+                    isCorrect = user === q.answer;
+                } else {
+                    isCorrect = user === q.answer.toLowerCase();
+                }
+                if (isCorrect) {
+                    correctCount++;
+                    if (num) num.classList.add('correct');
+                    if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--positive)'; fb.classList.add('vis'); }
+                } else {
+                    if (num) num.classList.add('wrong');
+                    if (fb) { fb.textContent = 'Correct answer: ' + q.answer; fb.style.color = 'var(--danger)'; fb.classList.add('vis'); }
+                }
+            });
+            alert(`Passage ${currentPassage} Score: ${correctCount} / ${totalCount}`);
+        }
+
+        function showAnswers() {
+            const passage = readingData.passages[currentPassage - 1];
+            passage.questions.forEach(q => {
+                if (q.type === 'tfng' || q.type === 'mc' || q.type === 'ynng') {
+                    const correctRadio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+                    if (correctRadio) { correctRadio.checked = true; correctRadio.closest('.opt-label').classList.add('sel'); }
+                } else {
+                    const inp = document.getElementById(`inp${q.id}`);
+                    if (inp) { inp.value = q.answer; inp.classList.add('ok'); }
+                }
+                const num = document.getElementById(`n${q.id}`);
+                if (num) num.classList.add('correct');
+            });
+            alert("Correct answers have been filled in for this passage.");
+        }
+
+                function finishTest() {
+            window.location.href = 'Writing_IELTS_Test2.html';
+        }
+
+        window.onload = function() { switchTab(1); };
+    </script>
+
+<script>
+</body>
+</html>

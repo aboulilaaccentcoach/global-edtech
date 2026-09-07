@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Global EdTech</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Local styles to ensure the Contact page looks perfect without breaking the rest */
+        .contact-hero {
+            margin-top: 70px;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .contact-card h2 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        .contact-info {
+            margin-bottom: 2.5rem;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+        .contact-method:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        .contact-method i {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        .contact-method span {
+            font-weight: 600;
+        }
+        .btn-contact {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Standard Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Global EdTech</h1>
+                <span class="tagline">by Ali Aboulila</span>
+            </div>
+            <div class="nav-links">
+                <button class="btn btn-outline" onclick="window.location.href='/'">Home</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <div class="contact-hero">
+        <h1>Get in Touch</h1>
+        <p>We are here to help you succeed!</p>
+        
+        <!-- Contact Card -->
+        <div class="contact-card">
+            <h2>Contact Information</h2>
+            
+            <!-- Email -->
+            <a href="mailto:aboulila.accentcaoch@gmail.com" class="contact-method">
+                <i class="fas fa-envelope"></i>
+                <span>aboulila.accentcaoch@gmail.com</span>
+            </a>
+            
+            <!-- WhatsApp / Call -->
+            <a href="https://wa.me/971586159928" target="_blank" class="contact-method">
+                <i class="fab fa-whatsapp"></i>
+                <span>+971 58 615 9928</span>
+            </a>
+            
+            <div class="contact-info" style="margin-top: 2rem;">
+                <p style="color: #666; margin-bottom: 1rem;">Prefer to send a message?</p>
+                <!-- Click-to-Act Email Button -->
+                <button class="btn-contact" onclick="window.location.href='mailto:aboulila.accentcaoch@gmail.com?subject=EdTech%20Inquiry'">
+                    Send Us an Email
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

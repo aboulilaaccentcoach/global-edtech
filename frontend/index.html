@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Aboulila - Global EdTech Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>🌍 Global EdTech</h1>
+                <span class="tagline">by Ali Aboulila</span>
+            </div>
+            <div class="nav-links">
+                <div id="auth-buttons">
+                    <button class="btn btn-outline" onclick="showLogin()">Login</button>
+                    <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
+                    <button class="btn btn-outline" onclick="window.location.href='/contact'">Contact Us</button>
+                </div>
+                <div id="user-info" style="display: none;">
+                    <span id="user-email" class="user-email"></span>
+                    <button class="btn btn-danger" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Gateway to Global Success</h1>
+            <p>Master English, Ace Exams, and Speak with Confidence</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">6+</span>
+                    <span class="stat-label">Services</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Students</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Success Rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Dashboard -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">📚 Your Learning Dashboard</h2>
+            <p class="section-subtitle">Click any service to start learning. Login required for full access.</p>
+            
+            <div id="services-grid" class="services-grid">
+    <!-- Service 1: English -->
+    <div class="service-card">
+        <span class="icon">📘</span>
+        <h3>General English</h3>
+        <p>Master grammar, vocabulary, and fluency for daily life.</p>
+        <div class="sub-services">
+            <span class="sub-service-tag">Grammar</span>
+            <span class="sub-service-tag">Speaking</span>
+            <span class="sub-service-tag">Writing</span>
+        </div>
+        <span class="lock-icon">🔒</span>
+    </div>
+
+    <!-- Service 2: IELTS -->
+    <div class="service-card">
+        <span class="icon">🎓</span>
+        <h3>IELTS Preparation</h3>
+        <p>Ace your Academic or General Training IELTS exam.</p>
+        <div class="sub-services">
+            <span class="sub-service-tag">Listening</span>
+            <span class="sub-service-tag">Reading</span>
+            <span class="sub-service-tag">Writing</span>
+            <span class="sub-service-tag">Speaking</span>
+        </div>
+        <span class="badge badge-auth">Requires Login</span>
+    </div>
+
+    <!-- Service 3: SAT -->
+    <div class="service-card">
+        <span class="icon">🧮</span>
+        <h3>SAT Math & English</h3>
+        <p>Get top scores with targeted practice and strategies.</p>
+        <div class="sub-services">
+            <span class="sub-service-tag">Algebra</span>
+            <span class="sub-service-tag">Geometry</span>
+            <span class="sub-service-tag">Reading</span>
+        </div>
+        <span class="badge badge-free">Free Trial</span>
+    </div>
+
+    <!-- Service 4: Accent Coach -->
+    <div class="service-card">
+        <span class="icon">🎙️</span>
+        <h3>Accent Coaching</h3>
+        <p>Perfect your pronunciation and sound like a native speaker.</p>
+        <div class="sub-services">
+            <span class="sub-service-tag">Phonetics</span>
+            <span class="sub-service-tag">Intonation</span>
+        </div>
+        <span class="lock-icon">🔒</span>
+    </div>
+</div>
+    </section>
+
+    <!-- Auth Modals -->
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login-modal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="login-form" onsubmit="login(event)">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+                <p class="form-footer">
+                    Don't have an account? <a href="#" onclick="switchModal('login-modal', 'signup-modal')">Sign Up</a>
+                </p>
+                <p class="form-footer">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </p>
+            </form>
+            <div id="login-error" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signup-modal')">&times;</span>
+            <h2>Create Your Account</h2>
+            <form id="signup-form" onsubmit="signup(event)">
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Your Password Will Be Generated</label>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle"></i>
+                        A secure password will be sent to you after signup
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <p class="form-footer">
+                    Already have an account? <a href="#" onclick="switchModal('signup-modal', 'login-modal')">Login</a>
+                </p>
+            </form>
+            <div id="signup-result" class="result-message"></div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('forgot-modal')">&times;</span>
+            <h2>Reset Password</h2>
+            <form id="forgot-form" onsubmit="forgotPassword(event)">
+                <div class="form-group">
+                    <label for="forgot-email">Email</label>
+                    <input type="email" id="forgot-email" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Reset Password</button>
+                <p class="form-footer">
+                    <a href="#" onclick="switchModal('forgot-modal', 'login-modal')">Back to Login</a>
+                </p>
+            </form>
+            <div id="forgot-result" class="result-message"></div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

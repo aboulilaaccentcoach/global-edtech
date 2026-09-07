@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global EdTech Original SAT Practice Test 2</title>
+    <style>
+        :root {
+            --bg: #f7f7f8; --surface: #ffffff; --surface-muted: #f2f2f3; --border: #e4e4e7;
+            --text-primary: #18181b; --text-secondary: #52525b; --text-tertiary: #a1a1aa;
+            --accent: #2a7de1; --positive: #16a34a; --danger: #dc2626;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --radius: 10px; --radius-sm: 6px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-sans); background: var(--bg); color: var(--text-primary); height: 100vh; display: flex; flex-direction: column; }
+
+        .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .logo { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+        .timer { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+        .home-btn { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 11px; font-weight: bold; margin-left: 15px; line-height: 1.2; }
+        .home-btn span { font-size: 20px; margin-bottom: 2px; }
+
+        .nav-tabs { display: flex; gap: 8px; padding: 12px 24px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .tab-btn { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text-secondary); cursor: pointer; font-size: 14px; font-weight: 600; text-align: center; transition: all 0.2s; }
+        .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .tab-btn:hover:not(.active) { background: var(--surface-muted); }
+
+        .test-container { flex: 1; overflow-y: auto; padding: 30px 40px; }
+
+        .question-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; }
+        .q-number { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+        .q-text { font-size: 16px; line-height: 1.7; margin-bottom: 16px; color: var(--text-primary); }
+
+        .q-image { max-width: 100%; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 16px; }
+
+        .options { display: flex; flex-direction: column; gap: 8px; }
+        .option-label { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: 0.2s; font-size: 15px; color: var(--text-secondary); }
+        .option-label:hover { background: var(--surface-muted); border-color: var(--accent); }
+        .option-label input[type="radio"] { width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
+        .option-label.sel { background: #f0f4fe; border-color: var(--accent); color: var(--text-primary); }
+
+        .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .btn { padding: 10px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-secondary { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+        .btn-secondary:hover { background: #f0f4fe; }
+        .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .btn-primary:hover { background: #1a5fb4; }
+        
+        .results-panel { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .results-panel h1 { text-align: center; color: #333; margin-bottom: 10px; }
+        .results-panel .score-box { text-align: center; margin: 20px 0; padding: 20px; background: #f0f4fe; border-radius: 12px; display: inline-block; width: 100%; }
+        .results-panel .score-box span { font-size: 14px; text-transform: uppercase; color: #555; display: block; }
+        .results-panel .score-box strong { font-size: 42px; color: #2a7de1; display: block; margin-top: 5px; }
+
+        .review-block { background: #fff; border: 2px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .review-block.correct { background: #f0fdf4; border-color: #16a34a; }
+        .review-block.incorrect { background: #fef2f2; border-color: #dc2626; }
+        .review-status { float: right; font-weight: bold; }
+        .review-opt { display: block; margin: 5px 0; color: #555; }
+        .review-opt.correct { color: #16a34a; font-weight: bold; }
+        .review-opt.wrong { color: #dc2626; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .test-container { padding: 16px; }
+            .nav-tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="logo">Global EdTech Original SAT Practice Test 2</div>
+        <div class="timer">64 Minutes</div>
+        <a href="/" class="home-btn"><span>🏠</span>Home</a>
+    </div>
+
+    <div class="nav-tabs" id="navTabs">
+        <button class="tab-btn active" onclick="switchTab(1)">Module 1</button>
+        <button class="tab-btn" onclick="switchTab(2)">Module 2</button>
+    </div>
+
+    <div class="test-container" id="test-container">
+        <div style="text-align: center; margin-top: 100px;">
+            <button onclick="startTimer()" style="padding: 20px 40px; font-size: 24px; background: #2a7de1; color: white; border: none; border-radius: 12px; cursor: pointer;">Start Exam</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="right-controls">
+            <button class="btn btn-secondary" onclick="resetExam()">Reset</button>
+            <button class="btn btn-secondary" onclick="showAnswers()">Show Answers</button>
+            <button class="btn btn-primary" onclick="checkAnswers()">Check Answers</button>
+        </div>
+    </div>
+
+    <!-- Import Data -->
+    <script src="new_sat_data2.js"></script>
+    <script src="sat_feedback_engine.js"></script>
+
+    <!-- Main Logic -->
+    <script>
+        const satData = window.newSatData2;
+        let currentModule = 1;
+        const totalModules = satData.modules.length;
+
+        let module1Score = 0;
+        let module2Score = 0;
+
+        let timeLeft = 64 * 60;
+        let timerInterval = null;
+
+        function startTimer() {
+            document.getElementById('test-container').innerHTML = '';
+            timeLeft = 64 * 60;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Time is up! Your exam has ended.");
+                }
+            }, 1000);
+            switchTab(1);
+        }
+
+        function updateTimerDisplay() {
+            const timerEl = document.querySelector('.timer');
+            if (timerEl) {
+                const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+                const s = (timeLeft % 60).toString().padStart(2, '0');
+                timerEl.textContent = m + ':' + s;
+            }
+        }
+
+        function switchTab(n) {
+            currentModule = n;
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === n - 1));
+            renderModule();
+        }
+
+        function renderModule() {
+            const container = document.getElementById('test-container');
+            const module = satData.modules[currentModule - 1];
+            let html = `<h2 style="margin-bottom: 24px; text-align: center;">${module.title}</h2>`;
+
+            module.questions.forEach(q => {
+                html += `<div class="question-block" data-q="${q.id}">
+                    <div class="q-number">Question ${q.id}</div>
+                    <div class="q-text">${q.q}</div>`;
+                if (q.image) {
+                    html += `<img src="${q.image}" class="q-image" alt="Data Chart">`;
+                }
+                html += `<div class="options">`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label">
+                        <input type="radio" name="q${q.id}" value="${letter}">
+                        <span><strong>${letter})</strong> ${opt}</span>
+                    </label>`;
+                });
+                html += `</div></div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function resetExam() {
+            satData.modules.forEach(module => {
+                module.questions.forEach(q => {
+                    document.querySelectorAll(`input[name="q${q.id}"]`).forEach(radio => {
+                        radio.checked = false;
+                        radio.closest('.option-label').classList.remove('sel');
+                    });
+                });
+            });
+            currentModule = 1;
+            switchTab(1);
+        }
+
+        function showAnswers() {
+            const module = satData.modules[currentModule - 1];
+            module.questions.forEach(q => {
+                const correctRadio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+                if (correctRadio) correctRadio.checked = true;
+            });
+            alert("Correct answers have been filled in for this module.");
+        }
+
+        function checkAnswers() {
+            const module = satData.modules[currentModule - 1];
+            let correctCount = 0;
+            let totalCount = 0;
+
+            let resultsHtml = `<h2 style="text-align: center; margin-bottom: 20px; color: #333;">Module ${currentModule} Review</h2>`;
+
+            module.questions.forEach(q => {
+                totalCount++;
+                const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const userAnswer = selected ? selected.value : ''; 
+                const isCorrect = (userAnswer === q.answer);
+                if (isCorrect) correctCount++;
+
+                let boxStyle = 'background: #fff; border: 2px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 15px;';
+                let statusText = '';
+
+                if (isCorrect) {
+                    boxStyle = 'background: #f0fdf4; border: 2px solid #16a34a; padding: 15px; border-radius: 8px; margin-bottom: 15px;';
+                    statusText = `<span style="color: #16a34a; font-weight: bold;">✅ Correct</span>`;
+                } else {
+                    boxStyle = 'background: #fef2f2; border: 2px solid #dc2626; padding: 15px; border-radius: 8px; margin-bottom: 15px;';
+                    statusText = `<span style="color: #dc2626; font-weight: bold;">❌ Incorrect</span>`;
+                }
+
+                let optionsHtml = '<div style="margin-top: 10px;">';
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    const isUserSel = (userAnswer === letter);
+                    const isCorrectOpt = (q.answer === letter);
+
+                    let optStyle = 'display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: #555;';
+                    
+                    if (isCorrectOpt) {
+                        optStyle = 'display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: #16a34a; font-weight: bold;';
+                    } else if (isUserSel && !isCorrect) {
+                        optStyle = 'display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: #dc2626; font-weight: bold;';
+                    }
+
+                    optionsHtml += `<div style="${optStyle}">
+                        <span style="font-weight: bold;">${letter})</span> <span>${opt}</span>
+                        ${isUserSel ? ' (Your Answer)' : ''}
+                    </div>`;
+                });
+                optionsHtml += '</div>';
+
+                resultsHtml += `<div style="${boxStyle}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong style="color: #333;">Question ${q.id}</strong>
+                        ${statusText}
+                    </div>
+                    <div style="margin-top: 10px; color: #333; font-size: 15px; line-height: 1.6;">${q.q}</div>
+                    ${q.image ? `<img src="${q.image}" style="max-width: 100%; border-radius: 8px; margin-top: 10px;">` : ''}
+                    ${optionsHtml}
+                </div>`;
+            });
+
+            if (currentModule === 1) module1Score = correctCount;
+            if (currentModule === 2) module2Score = correctCount;
+
+            const container = document.getElementById('test-container');
+            container.innerHTML = `
+                <div class="results-panel">
+                    <h1>Your Results</h1>
+                    <p style="text-align: center; color: #666; margin-bottom: 20px;">Module ${currentModule} of 2</p>
+                    <div class="score-box">
+                        <span>Module ${currentModule} Score</span>
+                        <strong>${correctCount} / ${totalCount}</strong>
+                    </div>
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        ${currentModule === 1 ? `<button onclick="switchTab(2)" style="background: #2a7de1; color: #fff; padding: 10px 20px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer;">Go to Module 2</button>` : 
+                        `<div style="background: #f0f4fe; padding: 20px; border-radius: 12px;">
+                            <span style="font-size: 14px; text-transform: uppercase; color: #555;">Total Raw Score (Module 1 + 2)</span>
+                            <strong style="font-size: 36px; color: #2a7de1; display: block;">${module1Score + module2Score} / 54</strong>
+                            <span style="font-size: 14px; text-transform: uppercase; color: #555; margin-top: 10px; display: block;">Scaled Score</span>
+                            <strong style="font-size: 36px; color: #2a7de1; display: block;">${getSATScale(module1Score + module2Score)} / 400</strong>
+                        ${window.getSATFeedback(module1Score + module2Score, 54)}                        
+                    </div>`}
+                    </div>
+                    <h3 style="color: #333; margin-bottom: 20px;">Detailed Review</h3>
+                    ${resultsHtml}
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button onclick="location.reload()" style="background: #2a7de1; color: #fff; padding: 12px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer;">Retake Exam</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getSATScale(raw) {
+            if (raw >= 54) return 400;
+            if (raw >= 50) return 390;
+            if (raw >= 47) return 380;
+            if (raw >= 43) return 360;
+            if (raw >= 38) return 340;
+            if (raw >= 33) return 320;
+            if (raw >= 28) return 300;
+            if (raw >= 23) return 280;
+            if (raw >= 18) return 260;
+            if (raw >= 12) return 240;
+            if (raw >= 6) return 220;
+            return 200;
+        }
+
+        window.onload = function() {};
+    </script>
+
+</body>
+</html>

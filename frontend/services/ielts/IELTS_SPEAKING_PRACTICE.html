@@ -1,0 +1,2703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IELTS Speaking Practice Pro</title>
+
+    <!-- Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           CSS VARIABLES
+           ============================================================ */
+        :root {
+            --bg-primary: #f0f4f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-alt: #f8faff;
+            --bg-input: #f0f4fe;
+            --bg-hover: #eef2f7;
+            --bg-status: #e8f5ed;
+            --bg-progress: #d9e2ef;
+            --bg-nav: #f8faff;
+            --bg-permission: #f0f7fe;
+            --bg-tips: #f0f7fe;
+            --bg-answer: #f6faff;
+            --bg-toggle: #eef2f7;
+            --bg-part-tab: #eef2f7;
+            --bg-part-tab-active: #ffffff;
+            --bg-hero: linear-gradient(135deg, #e8f0fe 0%, #d4e4ff 100%);
+
+            --text-primary: #0b1e33;
+            --text-secondary: #1f3a5f;
+            --text-muted: #5a7a9a;
+            --text-light: #ffffff;
+            --text-link: #2a7de1;
+
+            --border-light: #e6edf8;
+            --border-hover: #b6cef0;
+            --border-part: #d0ddee;
+
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.15);
+
+            --gradient-primary: linear-gradient(135deg, #2a7de1, #6ca6ff);
+            --gradient-success: linear-gradient(135deg, #1d9c73, #34d399);
+            --gradient-danger: linear-gradient(135deg, #d1453b, #f87171);
+            --gradient-warning: linear-gradient(135deg, #f0b429, #fbbf24);
+            --gradient-hero: linear-gradient(135deg, #1a5fb4 0%, #2a7de1 50%, #6ca6ff 100%);
+            --gradient-part1: linear-gradient(135deg, #1d9c73, #34d399);
+            --gradient-part2: linear-gradient(135deg, #f0b429, #fbbf24);
+            --gradient-part3: linear-gradient(135deg, #2a7de1, #6ca6ff);
+
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+            --radius-full: 9999px;
+
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f1420;
+            --bg-secondary: #1a1f2e;
+            --bg-card: #1e2436;
+            --bg-card-alt: #252b3f;
+            --bg-input: #252b3f;
+            --bg-hover: #2d3448;
+            --bg-status: #1a2e2a;
+            --bg-progress: #2d3448;
+            --bg-nav: #1a1f2e;
+            --bg-permission: #1a2e3a;
+            --bg-tips: #1a2e3a;
+            --bg-answer: #1a2a3a;
+            --bg-toggle: #2d3448;
+            --bg-part-tab: #252b3f;
+            --bg-part-tab-active: #1e2436;
+            --bg-hero: linear-gradient(135deg, #0f1420 0%, #1a1f2e 100%);
+
+            --text-primary: #e8edf5;
+            --text-secondary: #b0c4de;
+            --text-muted: #7a8aa8;
+            --text-light: #ffffff;
+
+            --border-light: #2d3448;
+            --border-hover: #4a5578;
+            --border-part: #2d3448;
+
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.7);
+
+            --gradient-hero: linear-gradient(135deg, #0a1628 0%, #1a2a4a 50%, #2a4a7a 100%);
+            --gradient-part1: linear-gradient(135deg, #1a6b4f, #1d9c73);
+            --gradient-part2: linear-gradient(135deg, #b8860b, #f0b429);
+            --gradient-part3: linear-gradient(135deg, #1a4a8a, #2a7de1);
+        }
+
+        /* ============================================================
+           BASE
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* ============================================================
+           HERO SECTION
+           ============================================================ */
+        .hero {
+            max-width: 1020px;
+            margin: 0 auto 20px auto;
+            background: var(--gradient-hero);
+            border-radius: var(--radius-xl);
+            padding: 32px 40px 28px 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .hero-text .badge-top {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: var(--radius-full);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 {
+            font-size: 30px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .hero-text h1 span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0 12px;
+            border-radius: 8px;
+        }
+
+        .hero-text p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .hero-stats .stat i {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .hero-stats .stat strong {
+            font-weight: 700;
+            color: white;
+        }
+
+        .hero-illustration {
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 20px 16px;
+                border-radius: var(--radius-lg);
+            }
+            .hero-text h1 {
+                font-size: 22px;
+            }
+            .hero-illustration {
+                width: 70px;
+                height: 70px;
+                font-size: 30px;
+            }
+            .hero-stats {
+                gap: 14px;
+            }
+            .hero-stats .stat {
+                font-size: 12px;
+            }
+        }
+
+        /* ============================================================
+           CONTAINER
+           ============================================================ */
+        .container {
+            max-width: 1020px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            padding: 28px 36px 32px 36px;
+            transition: background var(--transition), box-shadow var(--transition);
+            position: relative;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 16px 12px;
+                border-radius: var(--radius-md);
+            }
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-badge {
+            background: var(--bg-input);
+            color: var(--text-link);
+            font-weight: 700;
+            font-size: 13px;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.3px;
+            transition: background var(--transition), color var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-toggle);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all var(--transition);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.08);
+            background: var(--bg-hover);
+        }
+
+        /* ============================================================
+           PART NAVIGATION
+           ============================================================ */
+        .part-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+            background: var(--bg-part-tab);
+            padding: 6px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-part);
+            transition: all var(--transition);
+            flex-wrap: wrap;
+        }
+
+        .part-nav .part-tab {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .part-nav .part-tab .tab-icon {
+            font-size: 18px;
+            opacity: 0.6;
+            transition: opacity var(--transition);
+        }
+
+        .part-nav .part-tab .tab-count {
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--bg-input);
+            padding: 1px 10px;
+            border-radius: var(--radius-full);
+            color: var(--text-muted);
+            transition: all var(--transition);
+        }
+
+        .part-nav .part-tab:hover:not(.active) {
+            background: var(--bg-hover);
+            color: var(--text-secondary);
+            transform: translateY(-1px);
+        }
+
+        .part-nav .part-tab.active {
+            background: var(--bg-part-tab-active);
+            box-shadow: var(--shadow-md);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .part-nav .part-tab.active .tab-icon {
+            opacity: 1;
+        }
+
+        .part-nav .part-tab.active .tab-count {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .part-nav .part-tab.part1.active .tab-icon {
+            color: #1d9c73;
+        }
+        .part-nav .part-tab.part2.active .tab-icon {
+            color: #f0b429;
+        }
+        .part-nav .part-tab.part3.active .tab-icon {
+            color: #2a7de1;
+        }
+
+        .part-nav .part-tab .tab-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all var(--transition);
+        }
+
+        .part-nav .part-tab .tab-badge.has-recording {
+            opacity: 1;
+            transform: scale(1);
+            background: var(--gradient-success);
+        }
+
+        @media (max-width: 640px) {
+            .part-nav .part-tab {
+                min-width: 80px;
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            .part-nav .part-tab .tab-icon {
+                font-size: 14px;
+            }
+            .part-nav .part-tab .tab-count {
+                font-size: 10px;
+                padding: 0 8px;
+            }
+        }
+
+        /* ============================================================
+           PERMISSION STATUS
+           ============================================================ */
+        .permission-status {
+            background: var(--bg-permission);
+            border-radius: var(--radius-full);
+            padding: 10px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            transition: background var(--transition), color var(--transition);
+            border: 1px solid var(--border-light);
+        }
+
+        .permission-status .status-icon {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .permission-status .status-icon.granted {
+            background: #1d9c73;
+            box-shadow: 0 0 12px rgba(29, 156, 115, 0.4);
+        }
+        .permission-status .status-icon.pending {
+            background: #f0b429;
+            animation: pulse-dot 1.2s infinite;
+        }
+        .permission-status .status-icon.denied {
+            background: #d1453b;
+        }
+
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.7);
+            }
+        }
+
+        .permission-status .grant-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 4px 18px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+            margin-left: auto;
+        }
+
+        .permission-status .grant-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.35);
+        }
+
+        /* ============================================================
+           QUESTION NAVIGATION
+           ============================================================ */
+        .question-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: var(--bg-nav);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            border: 1px solid var(--border-light);
+            transition: background var(--transition), border var(--transition);
+        }
+
+        .question-nav .nav-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .question-nav .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .question-nav .nav-btn:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25);
+        }
+
+        .question-nav .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .question-nav .question-counter {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: color var(--transition);
+        }
+
+        .question-nav .question-counter span {
+            color: var(--text-link);
+            font-weight: 700;
+        }
+
+        .question-nav .nav-btn.danger {
+            color: #d1453b;
+        }
+
+        .question-nav .nav-btn.danger:hover:not(:disabled) {
+            background: var(--gradient-danger);
+            color: white;
+        }
+
+        /* ============================================================
+           PROGRESS
+           ============================================================ */
+        .progress-section {
+            background: var(--bg-input);
+            border-radius: var(--radius-full);
+            padding: 5px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background var(--transition);
+        }
+
+        .progress-track {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-progress);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            transition: background var(--transition);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-link);
+            padding-right: 8px;
+            min-width: 56px;
+            text-align: right;
+            transition: color var(--transition);
+        }
+
+        /* ============================================================
+           QUESTION CARD
+           ============================================================ */
+        .question-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 24px 26px 20px 26px;
+            margin-bottom: 18px;
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .question-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .question-header-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .question-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .question-icon.part1 {
+            background: var(--gradient-part1);
+        }
+        .question-icon.part2 {
+            background: var(--gradient-part2);
+        }
+        .question-icon.part3 {
+            background: var(--gradient-part3);
+        }
+
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .part-tag {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 14px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .question-number-badge {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: var(--text-primary);
+            transition: color var(--transition);
+            margin-top: 2px;
+        }
+
+        .question-text .highlight {
+            color: var(--text-link);
+            font-weight: 700;
+            background: rgba(42, 125, 225, 0.08);
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        .cue-card {
+            background: var(--bg-card-alt);
+            border: 1px dashed var(--border-hover);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-top: 14px;
+            transition: background var(--transition), border var(--transition);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .cue-card .cue-icon {
+            font-size: 20px;
+            color: var(--text-link);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .cue-card .cue-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .cue-card .cue-content ul {
+            margin-top: 4px;
+            padding-left: 20px;
+            color: var(--text-secondary);
+            line-height: 2;
+            font-size: 14px;
+        }
+
+        .recorded-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-status);
+            color: #1d9c73;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            margin-top: 12px;
+            transition: background var(--transition);
+        }
+
+        .recorded-indicator i {
+            font-size: 14px;
+        }
+
+        /* ============================================================
+           RATING
+           ============================================================ */
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-light);
+            transition: border var(--transition);
+        }
+
+        .rating-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating-stars .star {
+            font-size: 24px;
+            cursor: pointer;
+            color: #d1d5db;
+            transition: all 0.2s;
+            background: none;
+            border: none;
+            padding: 0 2px;
+            line-height: 1;
+        }
+
+        .rating-stars .star:hover,
+        .rating-stars .star.active {
+            color: #f0b429;
+            transform: scale(1.12);
+        }
+
+        .rating-stars .star.active {
+            text-shadow: 0 0 20px rgba(240, 180, 41, 0.3);
+        }
+
+        .rating-score {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            min-width: 36px;
+        }
+
+        .rating-bands {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .rating-band {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+            background: var(--bg-input);
+            color: var(--text-muted);
+            transition: all var(--transition);
+            cursor: default;
+        }
+
+        .rating-band.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* ============================================================
+           TIMER
+           ============================================================ */
+        .timer-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            background: var(--bg-card-alt);
+            padding: 10px 22px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+        }
+
+        .timer-display {
+            font-size: 44px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-primary);
+            background: var(--bg-input);
+            padding: 4px 24px;
+            border-radius: var(--radius-full);
+            letter-spacing: 3px;
+            min-width: 150px;
+            text-align: center;
+            transition: all var(--transition);
+            font-family: 'Inter', monospace;
+        }
+
+        .timer-display.warning {
+            color: #d1453b;
+            background: rgba(209, 69, 59, 0.1);
+            animation: timer-pulse 0.8s infinite;
+        }
+
+        .timer-display.part2-timer {
+            color: #f0b429;
+            background: rgba(240, 180, 41, 0.1);
+            border: 2px solid rgba(240, 180, 41, 0.2);
+        }
+
+        @keyframes timer-pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .timer-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn {
+            border: none;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 18px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25);
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(42, 125, 225, 0.35);
+        }
+
+        .btn-secondary {
+            background: var(--bg-toggle);
+            color: var(--text-secondary);
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--bg-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--gradient-success);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(29, 156, 115, 0.25);
+        }
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(29, 156, 115, 0.35);
+        }
+
+        .btn-danger {
+            background: var(--gradient-danger);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(209, 69, 59, 0.25);
+        }
+        .btn-danger:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(209, 69, 59, 0.35);
+        }
+
+        .btn-warning {
+            background: var(--gradient-warning);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(240, 180, 41, 0.25);
+        }
+        .btn-warning:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(240, 180, 41, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+        .btn-outline:hover:not(:disabled) {
+            border-color: var(--text-link);
+            background: var(--bg-input);
+            transform: translateY(-1px);
+        }
+
+        .btn-export {
+            background: var(--gradient-primary);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(42, 125, 225, 0.25);
+        }
+        .btn-export:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(42, 125, 225, 0.35);
+        }
+
+        .btn:disabled {
+            opacity: 0.45;
+            pointer-events: none;
+            transform: none !important;
+        }
+
+        /* ============================================================
+           RECORDING STATUS
+           ============================================================ */
+        .recording-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 10px 20px;
+            background: var(--bg-card-alt);
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            transition: all var(--transition);
+        }
+
+        .recording-status .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg-progress);
+            transition: all var(--transition);
+        }
+
+        .recording-status .dot.active {
+            background: #d1453b;
+            animation: pulse-dot 0.8s infinite;
+            box-shadow: 0 0 20px rgba(209, 69, 59, 0.4);
+        }
+
+        .recording-status .status-text {
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color var(--transition);
+        }
+
+        /* ============================================================
+           ACTION ROW
+           ============================================================ */
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================
+           ANSWER & TIPS
+           ============================================================ */
+        .answer-section {
+            margin-top: 20px;
+            border-top: 2px solid var(--border-light);
+            padding-top: 20px;
+            transition: border var(--transition);
+        }
+
+        .answer-toggle {
+            background: none;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-link);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            transition: color var(--transition);
+        }
+        .answer-toggle:hover {
+            color: var(--text-primary);
+        }
+
+        .answer-content {
+            display: none;
+            background: var(--bg-answer);
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            margin-top: 10px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            border-left: 4px solid var(--text-link);
+            transition: all var(--transition);
+            font-size: 15px;
+        }
+
+        .answer-content.open {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .answer-content strong {
+            color: var(--text-primary);
+        }
+
+        .tips-box {
+            background: var(--bg-tips);
+            border-radius: var(--radius-md);
+            padding: 14px 20px;
+            margin-top: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+        }
+
+        .tips-box .tips-icon {
+            font-size: 20px;
+            color: var(--text-link);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .tips-box ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            transition: color var(--transition);
+        }
+
+        .tips-box ul li::before {
+            content: "• ";
+            color: var(--text-link);
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           EXPORT MODAL
+           ============================================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            max-width: 580px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color var(--transition);
+            padding: 0 4px;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-light);
+            gap: 12px;
+        }
+
+        .modal-item:last-child {
+            border-bottom: none;
+        }
+
+        .modal-item .q-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .modal-item .q-info .q-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .modal-item .q-info .q-preview {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 280px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-item .q-status {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: var(--radius-full);
+        }
+
+        .modal-item .q-status.saved {
+            background: var(--bg-status);
+            color: #1d9c73;
+        }
+
+        .modal-item .q-status.empty {
+            background: var(--bg-input);
+            color: var(--text-muted);
+        }
+
+        .modal-footer {
+            margin-top: 18px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .question-text {
+                font-size: 18px;
+            }
+            .timer-display {
+                font-size: 36px;
+                min-width: 120px;
+                padding: 4px 16px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 8px 14px;
+            }
+            .container {
+                padding: 14px 10px;
+            }
+            .question-nav {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                border-radius: var(--radius-md);
+            }
+            .question-nav .nav-buttons {
+                justify-content: center;
+            }
+            .question-nav .question-counter {
+                text-align: center;
+            }
+            .modal {
+                padding: 18px 16px;
+            }
+            .rating-stars .star {
+                font-size: 20px;
+            }
+            .question-card {
+                padding: 16px 14px;
+            }
+            .timer-section {
+                padding: 10px 14px;
+                border-radius: var(--radius-md);
+            }
+            .part-nav .part-tab {
+                min-width: 60px;
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+            .part-nav .part-tab .tab-count {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .action-row .btn {
+                flex: 1;
+                justify-content: center;
+                min-width: 70px;
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+            .timer-controls .btn {
+                flex: 1;
+                justify-content: center;
+            }
+            .hero-stats .stat {
+                font-size: 11px;
+            }
+            .hero-text h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-input);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-muted);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-link);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    HERO SECTION
+    ============================================================ -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge-top">
+                    <i class="fas fa-graduation-cap"></i> IELTS Preparation
+                </div>
+                <h1>Speaking Practice <span>Pro</span></h1>
+                <p>Master the IELTS speaking test with 60+ real questions, voice recording, and instant feedback.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i class="fas fa-question-circle"></i>
+                        <strong>60</strong> Questions
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-microphone"></i>
+                        <strong>Record</strong> & Playback
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-star"></i>
+                        <strong>Rate</strong> Yourself
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-layer-group"></i>
+                        <strong>3</strong> Parts
+                    </div>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MAIN CONTAINER
+    ============================================================ -->
+    <div class="container" id="app">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-left">
+                <span class="header-badge">
+                    <i class="far fa-clock"></i> <span id="currentPartDisplay">Part 1</span>
+                </span>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- PART NAVIGATION -->
+        <div class="part-nav" id="partNav">
+            <button class="part-tab part1 active" data-part="1">
+                <span class="tab-icon"><i class="fas fa-comment"></i></span>
+                Part 1
+                <span class="tab-count" id="part1Count">20</span>
+                <span class="tab-badge" id="part1Badge"></span>
+            </button>
+            <button class="part-tab part2" data-part="2">
+                <span class="tab-icon"><i class="fas fa-tasks"></i></span>
+                Part 2
+                <span class="tab-count" id="part2Count">20</span>
+                <span class="tab-badge" id="part2Badge"></span>
+            </button>
+            <button class="part-tab part3" data-part="3">
+                <span class="tab-icon"><i class="fas fa-comments"></i></span>
+                Part 3
+                <span class="tab-count" id="part3Count">20</span>
+                <span class="tab-badge" id="part3Badge"></span>
+            </button>
+        </div>
+
+        <!-- PERMISSION STATUS -->
+        <div class="permission-status" id="permissionStatus">
+            <span class="status-icon pending" id="permissionIcon"></span>
+            <span id="permissionText">⏳ Checking microphone...</span>
+            <button class="grant-btn" id="grantPermissionBtn" style="display:none;">
+                <i class="fas fa-microphone"></i> Grant Access
+            </button>
+        </div>
+
+        <!-- QUESTION NAVIGATION -->
+        <div class="question-nav">
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i> Prev
+                </button>
+                <button class="nav-btn" id="nextBtn">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="question-counter">
+                Question <span id="currentQNum">1</span> of <span id="totalQNum">20</span>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn danger" id="resetAllBtn">
+                    <i class="fas fa-trash-alt"></i> Reset All
+                </button>
+            </div>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="progress-section">
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <span class="progress-label" id="progressLabel">0%</span>
+        </div>
+
+        <!-- QUESTION CARD -->
+        <div class="question-card" id="questionCard">
+            <div class="question-header-icons">
+                <div class="question-icon part1" id="questionIcon">
+                    <i class="fas fa-comment"></i>
+                </div>
+                <div class="question-meta">
+                    <span class="part-tag" id="partTag">PART 1</span>
+                    <span class="question-number-badge" id="questionNumberBadge">Q1</span>
+                </div>
+            </div>
+
+            <div class="question-text" id="questionText">
+                Loading question...
+            </div>
+
+            <div class="cue-card" id="cueCard" style="display:none;">
+                <div class="cue-icon"><i class="fas fa-list-ul"></i></div>
+                <div class="cue-content">
+                    <p><strong>You should say:</strong></p>
+                    <ul id="cuePoints">
+                        <li>what the place is</li>
+                        <li>how long you have lived there</li>
+                        <li>what you like about it</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="recordedIndicator" style="display:none;" class="recorded-indicator">
+                <i class="fas fa-check-circle"></i> Recording saved
+            </div>
+
+            <!-- RATING -->
+            <div class="rating-section">
+                <span class="rating-label">
+                    <i class="fas fa-star" style="color:#f0b429;"></i> Rate yourself:
+                </span>
+                <div class="rating-stars" id="ratingStars">
+                    <button class="star" data-value="1" aria-label="1 star">★</button>
+                    <button class="star" data-value="2" aria-label="2 stars">★</button>
+                    <button class="star" data-value="3" aria-label="3 stars">★</button>
+                    <button class="star" data-value="4" aria-label="4 stars">★</button>
+                    <button class="star" data-value="5" aria-label="5 stars">★</button>
+                    <button class="star" data-value="6" aria-label="6 stars">★</button>
+                    <button class="star" data-value="7" aria-label="7 stars">★</button>
+                    <button class="star" data-value="8" aria-label="8 stars">★</button>
+                    <button class="star" data-value="9" aria-label="9 stars">★</button>
+                </div>
+                <span class="rating-score" id="ratingScore">—</span>
+                <div class="rating-bands" id="ratingBands">
+                    <span class="rating-band">1-3</span>
+                    <span class="rating-band">4-6</span>
+                    <span class="rating-band">7-9</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMER -->
+        <div class="timer-section">
+            <div>
+                <div class="timer-display" id="timerDisplay">01:00</div>
+                <div class="timer-label" id="timerLabel">Speaking Time</div>
+            </div>
+            <div class="timer-controls">
+                <button class="btn btn-primary" id="startTimerBtn">
+                    <i class="fas fa-play"></i> Start
+                </button>
+                <button class="btn btn-secondary" id="resetTimerBtn">
+                    <i class="fas fa-redo-alt"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- RECORDING STATUS -->
+        <div class="recording-status">
+            <span class="dot" id="recordingDot"></span>
+            <span class="status-text" id="recordingStatusText">🎙️ Ready to record</span>
+        </div>
+
+        <!-- ACTION ROW -->
+        <div class="action-row">
+            <button class="btn btn-success" id="recordBtn" disabled>
+                <i class="fas fa-circle"></i> Record
+            </button>
+            <button class="btn btn-danger" id="stopRecordBtn" disabled>
+                <i class="fas fa-stop"></i> Stop
+            </button>
+            <button class="btn btn-secondary" id="playbackBtn" disabled>
+                <i class="fas fa-play"></i> Playback
+            </button>
+            <button class="btn btn-warning" id="clearRecordingBtn" disabled>
+                <i class="fas fa-trash-alt"></i> Clear
+            </button>
+            <button class="btn btn-export" id="exportBtn">
+                <i class="fas fa-download"></i> Export All
+            </button>
+        </div>
+
+        <!-- ANSWER & TIPS -->
+        <div class="answer-section">
+            <button class="answer-toggle" id="answerToggle">
+                <i class="fas fa-chevron-down"></i> Show Sample Answer
+            </button>
+            <div class="answer-content" id="answerContent">
+                <strong>📝 Sample Answer:</strong>
+                <p id="sampleAnswerText">
+                    Loading sample answer...
+                </p>
+            </div>
+
+            <div class="tips-box">
+                <div class="tips-icon"><i class="fas fa-lightbulb"></i></div>
+                <ul>
+                    <li><strong>Tip:</strong> Speak naturally – don't memorise answers.</li>
+                    <li><strong>Tip:</strong> Use a range of vocabulary and tenses.</li>
+                    <li><strong>Tip:</strong> Record yourself and listen back to improve.</li>
+                    <li><strong>Tip:</strong> Rate yourself honestly to track progress.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- EXPORT MODAL -->
+        <div class="modal-overlay" id="exportModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2><i class="fas fa-download" style="color:var(--text-link);"></i> Export Recordings</h2>
+                    <button class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <div id="modalContent">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="modalCancel">Cancel</button>
+                    <button class="btn btn-primary" id="modalExportAll">
+                        <i class="fas fa-download"></i> Download All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA — 60 QUESTIONS (20 per Part)
+        // ================================================================
+
+        // PART 1 — 20 Questions
+        var PART1_QUESTIONS = [
+            { icon: 'fa-home', text: 'Let\'s talk about <span class="highlight">your home</span>.<br /><span style="font-size:18px; font-weight:400;">Where do you live and who do you live with?</span>',
+                sample: 'I currently live in a flat in the city center with my family. We\'ve been there for about five years now, and I really enjoy the convenience – everything from shops to parks is just a short walk away. The flat is cozy, and we have a small balcony where I like to sit and read in the evenings.' },
+            { icon: 'fa-briefcase', text: 'Let\'s talk about <span class="highlight">your work or studies</span>.<br /><span style="font-size:18px; font-weight:400;">What do you do?</span>',
+                sample: 'I\'m currently a university student majoring in computer science. I\'m in my third year, and I really enjoy the problem-solving aspect of coding. I also work part-time as a teaching assistant, which helps me deepen my understanding of the subjects.' },
+            { icon: 'fa-paint-brush', text: 'Let\'s talk about <span class="highlight">free time</span>.<br /><span style="font-size:18px; font-weight:400;">What do you enjoy doing in your free time?</span>',
+                sample: 'In my free time, I love reading novels and going for long walks in the park. I also enjoy cooking – trying out new recipes is a great way for me to relax and be creative.' },
+            { icon: 'fa-utensils', text: 'Let\'s talk about <span class="highlight">food</span>.<br /><span style="font-size:18px; font-weight:400;">What is your favorite meal?</span>',
+                sample: 'My favorite meal is definitely a traditional Sunday roast. I love the combination of roasted meat, crispy potatoes, and fresh vegetables. It reminds me of family gatherings and cozy afternoons.' },
+            { icon: 'fa-music', text: 'Let\'s talk about <span class="highlight">music</span>.<br /><span style="font-size:18px; font-weight:400;">What kind of music do you like?</span>',
+                sample: 'I enjoy a wide range of music, but my favorite is indie folk. I love the acoustic sounds and meaningful lyrics. Artists like Bon Iver and Fleet Foxes really resonate with me.' },
+            { icon: 'fa-film', text: 'Let\'s talk about <span class="highlight">movies</span>.<br /><span style="font-size:18px; font-weight:400;">Do you prefer watching movies at home or in the cinema?</span>',
+                sample: 'I prefer watching movies at home because I can pause when I need to and enjoy the comfort of my own space. However, I do love the cinema experience for blockbuster films – the big screen and surround sound are unbeatable.' },
+            { icon: 'fa-book', text: 'Let\'s talk about <span class="highlight">reading</span>.<br /><span style="font-size:18px; font-weight:400;">Do you enjoy reading books?</span>',
+                sample: 'Yes, I\'m an avid reader. I particularly enjoy fiction and historical novels. Reading helps me relax and also broadens my perspective on different cultures and time periods.' },
+            { icon: 'fa-bicycle', text: 'Let\'s talk about <span class="highlight">transport</span>.<br /><span style="font-size:18px; font-weight:400;">How do you usually get around?</span>',
+                sample: 'I usually use public transport, especially the metro and buses. It\'s convenient, affordable, and I can read during my commute. Occasionally, I cycle if the weather is nice.' },
+            { icon: 'fa-shopping-bag', text: 'Let\'s talk about <span class="highlight">shopping</span>.<br /><span style="font-size:18px; font-weight:400;">Do you enjoy shopping?</span>',
+                sample: 'I have mixed feelings about shopping. I enjoy shopping for books or gadgets, but I\'m not a fan of clothes shopping. I prefer to shop online where I can compare prices easily.' },
+            { icon: 'fa-futbol', text: 'Let\'s talk about <span class="highlight">sports</span>.<br /><span style="font-size:18px; font-weight:400;">Do you play any sports?</span>',
+                sample: 'I play basketball regularly with friends. I find it a great way to stay fit and socialize at the same time. I also enjoy watching tennis, especially the Grand Slam tournaments.' },
+            { icon: 'fa-tree', text: 'Let\'s talk about <span class="highlight">nature</span>.<br /><span style="font-size:18px; font-weight:400;">Do you like spending time in nature?</span>',
+                sample: 'Absolutely. I find nature incredibly calming. I try to go hiking at least once a month, and I love visiting parks and gardens. It helps me disconnect from technology and recharge.' },
+            { icon: 'fa-clock', text: 'Let\'s talk about <span class="highlight">daily routine</span>.<br /><span style="font-size:18px; font-weight:400;">What does a typical day look like for you?</span>',
+                sample: 'My day usually starts at 7 am. I have breakfast, then study until lunch. In the afternoon, I attend classes or work on projects. Evenings are for relaxation, reading, or meeting friends.' },
+            { icon: 'fa-phone', text: 'Let\'s talk about <span class="highlight">technology</span>.<br /><span style="font-size:18px; font-weight:400;">How often do you use your phone?</span>',
+                sample: 'I use my phone quite frequently, mainly for communication, checking news, and listening to music. I try to limit screen time before bed, though, as it affects my sleep quality.' },
+            { icon: 'fa-handshake', text: 'Let\'s talk about <span class="highlight">friendship</span>.<br /><span style="font-size:18px; font-weight:400;">What qualities do you value in a friend?</span>',
+                sample: 'I value honesty, loyalty, and a good sense of humor in friends. A true friend should be someone you can rely on during tough times and celebrate with during good ones.' },
+            { icon: 'fa-plane', text: 'Let\'s talk about <span class="highlight">travel</span>.<br /><span style="font-size:18px; font-weight:400;">Do you enjoy traveling?</span>',
+                sample: 'Yes, I love traveling. It\'s one of my greatest passions. I love experiencing new cultures, trying local foods, and meeting people from around the world.' },
+            { icon: 'fa-language', text: 'Let\'s talk about <span class="highlight">languages</span>.<br /><span style="font-size:18px; font-weight:400;">Do you speak any other languages?</span>',
+                sample: 'I speak English fluently and I\'m currently learning Spanish. I find languages fascinating because they open doors to different cultures and ways of thinking.' },
+            { icon: 'fa-gift', text: 'Let\'s talk about <span class="highlight">gifts</span>.<br /><span style="font-size:18px; font-weight:400;">What was the best gift you\'ve ever received?</span>',
+                sample: 'The best gift I ever received was a vintage camera from my grandfather. It\'s not just a camera – it\'s a family heirloom that connects me to my family\'s history and love for photography.' },
+            { icon: 'fa-bed', text: 'Let\'s talk about <span class="highlight">sleep</span>.<br /><span style="font-size:18px; font-weight:400;">How many hours of sleep do you get?</span>',
+                sample: 'I usually get around 7 to 8 hours of sleep. I believe good sleep is essential for concentration and overall health. I try to maintain a consistent sleep schedule.' },
+            { icon: 'fa-smile', text: 'Let\'s talk about <span class="highlight">happiness</span>.<br /><span style="font-size:18px; font-weight:400;">What makes you happy?</span>',
+                sample: 'Simple things make me happy: spending time with loved ones, reading a good book, or enjoying a beautiful sunset. I believe happiness comes from appreciating the little moments.' },
+            { icon: 'fa-future', text: 'Let\'s talk about <span class="highlight">the future</span>.<br /><span style="font-size:18px; font-weight:400;">What are your future plans?</span>',
+                sample: 'In the future, I plan to pursue a career in technology, possibly as a software engineer. I also hope to travel more and maybe live abroad for a few years to gain international experience.' }
+        ];
+
+        // PART 2 — 20 Questions (with cue cards)
+        var PART2_QUESTIONS = [
+            { icon: 'fa-plane', text: 'Describe <span class="highlight">a memorable trip</span> you have taken.',
+                cue: ['where you went', 'who you went with', 'what you did there', 'and explain why it was memorable'],
+                sample: 'A memorable trip I took was to the mountains in the north of my country. I went with my college friends for a week-long trek. We stayed in small wooden cabins and hiked through pine forests every day. The highlight was reaching the summit at sunrise – the view was breathtaking. It was memorable because it was the first time I truly disconnected from technology and bonded with nature and my friends.' },
+            { icon: 'fa-user-graduate', text: 'Describe <span class="highlight">a person who inspires you</span>.',
+                cue: ['who the person is', 'how you know them', 'what they have done', 'and explain why they inspire you'],
+                sample: 'My mother is the person who inspires me most. She\'s a teacher, and I\'ve seen her work tirelessly to help students who struggle. Despite a busy schedule, she always makes time for our family. Her patience and dedication remind me that success is not just about personal achievements but about lifting others up too.' },
+            { icon: 'fa-guitar', text: 'Describe <span class="highlight">a skill you would like to learn</span>.',
+                cue: ['what the skill is', 'why you want to learn it', 'how you would go about learning it',
+                    'and explain how it could benefit you'
+                ],
+                sample: 'I would love to learn how to play the guitar. I\'ve always admired musicians who can express emotions through music. I plan to take online lessons and practice daily. Learning guitar would give me a creative outlet and also help me relax after a long day of studying.' },
+            { icon: 'fa-book', text: 'Describe <span class="highlight">a book that had a big impact on you</span>.',
+                cue: ['what the book is', 'what it is about', 'why you read it', 'and explain why it had such an impact'],
+                sample: 'One book that had a huge impact on me is "1984" by George Orwell. It\'s a dystopian novel about a totalitarian society. I read it during high school and it completely changed how I think about freedom, truth, and the power of language. It made me appreciate the importance of critical thinking.' },
+            { icon: 'fa-film', text: 'Describe <span class="highlight">a movie you would recommend to others</span>.',
+                cue: ['what the movie is', 'what it is about', 'why you recommend it', 'and who would enjoy it'],
+                sample: 'I would highly recommend "The Pursuit of Happyness" starring Will Smith. It\'s a true story about a man who overcomes homelessness to become a successful stockbroker. The film is inspiring and shows that with determination, you can overcome any obstacle.' },
+            { icon: 'fa-utensils', text: 'Describe <span class="highlight">your favorite restaurant</span>.',
+                cue: ['where it is', 'what kind of food it serves', 'how often you go there',
+                    'and explain why you like it so much'
+                ],
+                sample: 'My favorite restaurant is a small Italian place called "La Cucina" in the city center. They serve traditional pasta dishes and wood-fired pizza. I go there at least once a month because the food is authentic and the atmosphere is warm and inviting. The staff always make you feel welcome.' },
+            { icon: 'fa-tree', text: 'Describe <span class="highlight">a beautiful place in nature</span> you have visited.',
+                cue: ['where it is', 'what it looks like', 'what you did there', 'and explain why it was beautiful'],
+                sample: 'One of the most beautiful places I\'ve visited is the Lake District in the UK. The landscape is stunning – rolling hills, crystal-clear lakes, and dramatic mountains. I spent a week hiking and taking photos. The tranquility and natural beauty made it an unforgettable experience.' },
+            { icon: 'fa-users', text: 'Describe <span class="highlight">a family member you are close to</span>.',
+                cue: ['who they are', 'what they are like', 'what you do together',
+                    'and explain why you are close to them'
+                ],
+                sample: 'I\'m very close to my older sister. She\'s kind, supportive, and always gives great advice. We enjoy cooking together and watching movies on weekends. She\'s been my role model since childhood, and I\'m grateful to have her in my life.' },
+            { icon: 'fa-graduation-cap', text: 'Describe <span class="highlight">a teacher who influenced you</span>.',
+                cue: ['who they were', 'what subject they taught', 'what they did that was special',
+                    'and explain how they influenced you'
+                ],
+                sample: 'My high school English teacher, Mrs. Anderson, had a profound influence on me. She introduced me to literature and encouraged me to express myself through writing. Her passion for teaching was contagious, and she made every lesson engaging. She inspired me to pursue a career involving language and communication.' },
+            { icon: 'fa-home', text: 'Describe <span class="highlight">your childhood home</span>.',
+                cue: ['where it was', 'what it looked like', 'what you did there',
+                    'and explain why it was special to you'
+                ],
+                sample: 'My childhood home was a small house with a large garden in the suburbs. I have fond memories of playing in the garden and climbing trees. The house felt safe and welcoming. Even though we moved away, I still think of it with great fondness.' },
+            { icon: 'fa-bicycle', text: 'Describe <span class="highlight">a journey you took by public transport</span>.',
+                cue: ['where you went', 'what form of transport you used', 'what happened during the journey',
+                    'and explain how you felt about it'
+                ],
+                sample: 'I once took an overnight train journey across the country. It was a long but exciting experience. I met interesting people, watched the landscape change, and even had a meal in the dining car. The journey was tiring but incredibly memorable.' },
+            { icon: 'fa-music', text: 'Describe <span class="highlight">a concert or live performance</span> you enjoyed.',
+                cue: ['what it was', 'where it took place', 'who performed',
+                    'and explain why you enjoyed it so much'
+                ],
+                sample: 'I attended a live performance by my favorite band last year. The energy in the venue was electric. The band played all their hits, and the crowd was singing along. It was an incredible experience that made me feel alive and connected to the music.' },
+            { icon: 'fa-heart', text: 'Describe <span class="highlight">a meaningful gift you received</span>.',
+                cue: ['what it was', 'who gave it to you', 'what it looked like',
+                    'and explain why it was meaningful'
+                ],
+                sample: 'My grandmother gave me a handmade quilt for my 18th birthday. She had spent months stitching it. It\'s not just a blanket – it\'s a symbol of her love and effort. Every time I use it, I feel warm and cherished.' },
+            { icon: 'fa-sun', text: 'Describe <span class="highlight">a perfect day you have experienced</span>.',
+                cue: ['where you were', 'what you did', 'who you were with',
+                    'and explain why it was a perfect day'
+                ],
+                sample: 'One perfect day was when my friends and I went to the beach. We swam, played volleyball, and had a barbecue. The weather was beautiful, and everyone was in a great mood. It was simple, but it felt perfect because we were all together.' },
+            { icon: 'fa-building', text: 'Describe <span class="highlight">a building you find interesting</span>.',
+                cue: ['what it is', 'where it is', 'what it looks like',
+                    'and explain why you find it interesting'
+                ],
+                sample: 'I find the Sagrada Familia in Barcelona fascinating. Its unique architecture and intricate details are mesmerizing. The way light filters through the stained glass creates a magical atmosphere. It\'s a masterpiece that combines art and spirituality.' },
+            { icon: 'fa-paw', text: 'Describe <span class="highlight">a pet you have or would like to have</span>.',
+                cue: ['what it is', 'what it looks like', 'what it does',
+                    'and explain why you like it'
+                ],
+                sample: 'I would love to have a golden retriever. They are friendly, intelligent, and great companions. I imagine taking it for walks, playing fetch, and having a loyal friend who would always be happy to see me.' },
+            { icon: 'fa-flag', text: 'Describe <span class="highlight">a festival or celebration</span> in your culture.',
+                cue: ['what it is', 'when it takes place', 'what people do',
+                    'and explain why it is important'
+                ],
+                sample: 'Diwali is one of the most important festivals in my culture. It\'s the festival of lights, celebrated with fireworks, sweets, and family gatherings. It symbolizes the victory of light over darkness and brings people together.' },
+            { icon: 'fa-hiking', text: 'Describe <span class="highlight">an outdoor activity</span> you enjoy.',
+                cue: ['what it is', 'where you do it', 'how often you do it',
+                    'and explain why you enjoy it'
+                ],
+                sample: 'I enjoy hiking. I usually go to national parks or mountain trails. I try to hike every couple of weeks. I love the feeling of fresh air, the challenge of climbing, and the beautiful views from the top.' },
+            { icon: 'fa-robot', text: 'Describe <span class="highlight">a piece of technology</span> you use daily.',
+                cue: ['what it is', 'how you use it', 'how it has changed your life',
+                    'and explain why it is important'
+                ],
+                sample: 'My smartphone is a piece of technology I use constantly. It helps me stay connected, organize my schedule, and access information instantly. It has made my life more efficient, though I sometimes feel it can be a distraction.' },
+            { icon: 'fa-star', text: 'Describe <span class="highlight">a goal you have set for yourself</span>.',
+                cue: ['what the goal is', 'how you plan to achieve it', 'why you set it',
+                    'and explain how you will feel when you achieve it'
+                ],
+                sample: 'My current goal is to become fluent in Spanish. I\'m taking classes and practicing daily. I want to achieve this because it will allow me to connect with more people and explore new opportunities. I\'ll feel incredibly proud and accomplished when I reach this goal.' }
+        ];
+
+        // PART 3 — 20 Questions
+        var PART3_QUESTIONS = [
+            { icon: 'fa-globe', text: 'Let\'s discuss <span class="highlight">globalization</span>.<br /><span style="font-size:18px; font-weight:400;">What are the benefits and challenges of a globalized world?</span>',
+                sample: 'Globalization has brought many benefits, such as easier access to goods, cultural exchange, and economic growth. However, it also poses challenges like inequality, loss of local traditions, and environmental concerns. It\'s a complex topic that requires balance and thoughtful policies.' },
+            { icon: 'fa-graduation-cap', text: 'Let\'s discuss <span class="highlight">education systems</span>.<br /><span style="font-size:18px; font-weight:400;">How should education evolve in the next 20 years?</span>',
+                sample: 'In the next 20 years, education should become more personalized and flexible. Technology will play a key role, with more online learning and virtual classrooms. Schools should also teach practical skills like financial literacy and emotional intelligence alongside traditional subjects.' },
+            { icon: 'fa-tree', text: 'Let\'s discuss <span class="highlight">climate change</span>.<br /><span style="font-size:18px; font-weight:400;">What can individuals do to protect the environment?</span>',
+                sample: 'Individuals can make a significant impact by adopting simple habits – using reusable bags, reducing water waste, and choosing public transport. Small actions like planting trees or participating in community clean-ups also add up. The most important step is to stay informed and encourage others to do the same.' },
+            { icon: 'fa-users', text: 'Let\'s discuss <span class="highlight">urbanization</span>.<br /><span style="font-size:18px; font-weight:400;">What are the effects of people moving to cities?</span>',
+                sample: 'Urbanization brings economic opportunities and better infrastructure. However, it also leads to overcrowding, housing shortages, and increased pollution. Cities need to plan carefully to create sustainable living environments for their growing populations.' },
+            { icon: 'fa-robot', text: 'Let\'s discuss <span class="highlight">artificial intelligence</span>.<br /><span style="font-size:18px; font-weight:400;">How will AI change the workplace?</span>',
+                sample: 'AI will transform the workplace by automating routine tasks and creating new roles in data analysis and machine learning. However, it will also require workers to adapt and learn new skills. The key will be to balance efficiency with human-centered decision-making.' },
+            { icon: 'fa-heart', text: 'Let\'s discuss <span class="highlight">health and wellness</span>.<br /><span style="font-size:18px; font-weight:400;">What is the secret to a healthy lifestyle?</span>',
+                sample: 'A healthy lifestyle is a balance of good nutrition, regular exercise, and mental well-being. It\'s important to listen to your body, reduce stress, and maintain meaningful social connections. Small, consistent changes are often more sustainable than drastic measures.' },
+            { icon: 'fa-shield-virus', text: 'Let\'s discuss <span class="highlight">public health</span>.<br /><span style="font-size:18px; font-weight:400;">What lessons did we learn from the pandemic?</span>',
+                sample: 'The pandemic taught us the importance of public health systems, community cooperation, and scientific research. It also showed how vulnerable we are and the need for global collaboration. We learned that preparation and empathy are crucial in times of crisis.' },
+            { icon: 'fa-paint-brush', text: 'Let\'s discuss <span class="highlight">art and culture</span>.<br /><span style="font-size:18px; font-weight:400;">Why is art important in society?</span>',
+                sample: 'Art is essential because it expresses human experience and emotions. It preserves cultural heritage, challenges perspectives, and brings people together. Art can inspire change, promote understanding, and make life more beautiful and meaningful.' },
+            { icon: 'fa-newspaper', text: 'Let\'s discuss <span class="highlight">media and truth</span>.<br /><span style="font-size:18px; font-weight:400;">How can people identify reliable news sources?</span>',
+                sample: 'People should read news from multiple sources, check for citations, and be skeptical of sensational headlines. Reliable news sources are transparent about their methodology and corrections. Media literacy is becoming an essential skill in today\'s digital age.' },
+            { icon: 'fa-hand-holding-usd', text: 'Let\'s discuss <span class="highlight">economic inequality</span>.<br /><span style="font-size:18px; font-weight:400;">What can be done to reduce the wealth gap?</span>',
+                sample: 'Reducing the wealth gap requires a combination of fair wages, progressive taxation, and access to quality education and healthcare. Governments should invest in social programs and create opportunities for upward mobility. It\'s a long-term commitment that requires political will.' },
+            { icon: 'fa-phone', text: 'Let\'s discuss <span class="highlight">digital addiction</span>.<br /><span style="font-size:18px; font-weight:400;">How can we reduce screen time?</span>',
+                sample: 'Reducing screen time starts with awareness. Setting boundaries, such as phone-free meal times or no devices before bed, can help. Engaging in offline activities like reading, sports, or hobbies also reduces reliance on screens. It\'s about finding a healthy balance.' },
+            { icon: 'fa-utensils', text: 'Let\'s discuss <span class="highlight">sustainable food</span>.<br /><span style="font-size:18px; font-weight:400;">How can we create a more sustainable food system?</span>',
+                sample: 'A sustainable food system involves reducing food waste, supporting local farmers, and choosing plant-based options when possible. Governments should subsidize sustainable farming and consumers should be educated about the environmental impact of their choices.' },
+            { icon: 'fa-bed', text: 'Let\'s discuss <span class="highlight">mental health</span>.<br /><span style="font-size:18px; font-weight:400;">Why is mental health awareness important?</span>',
+                sample: 'Mental health awareness is crucial because it reduces stigma and encourages people to seek help. Mental well-being is just as important as physical health, and supporting each other through difficult times creates a more compassionate society.' },
+            { icon: 'fa-globe-asia', text: 'Let\'s discuss <span class="highlight">overpopulation</span>.<br /><span style="font-size:18px; font-weight:400;">What are the challenges of a growing population?</span>',
+                sample: 'A growing population strains resources like food, water, and housing. It leads to deforestation, pollution, and increased waste. Solutions include family planning, sustainable development, and improving resource efficiency.' },
+            { icon: 'fa-home', text: 'Let\'s discuss <span class="highlight">housing affordability</span>.<br /><span style="font-size:18px; font-weight:400;">How can cities solve the housing crisis?</span>',
+                sample: 'Cities can address housing affordability by building more social housing, implementing rent controls, and encouraging sustainable urban planning. Partnerships between governments and the private sector can help create affordable housing solutions.' },
+            { icon: 'fa-language', text: 'Let\'s discuss <span class="highlight">language and identity</span>.<br /><span style="font-size:18px; font-weight:400;">How does language shape our identity?</span>',
+                sample: 'Language is a core part of identity. It reflects where we come from, our culture, and our values. Learning new languages can broaden our identity, while losing a language can feel like losing a part of ourselves.' },
+            { icon: 'fa-future', text: 'Let\'s discuss <span class="highlight">the future of work</span>.<br /><span style="font-size:18px; font-weight:400;">Will remote work become the norm?</span>',
+                sample: 'Remote work is likely to remain popular, but it won\'t fully replace in-person work. A hybrid model offers the best of both worlds. Remote work provides flexibility, but physical interaction is still important for collaboration and team culture.' },
+            { icon: 'fa-shield-alt', text: 'Let\'s discuss <span class="highlight">cybersecurity</span>.<br /><span style="font-size:18px; font-weight:400;">How can people protect their online privacy?</span>',
+                sample: 'People can protect their online privacy by using strong passwords, enabling two-factor authentication, and being cautious about what they share. Avoiding suspicious links and using VPNs also adds an extra layer of security.' },
+            { icon: 'fa-smile', text: 'Let\'s discuss <span class="highlight">happiness and productivity</span>.<br /><span style="font-size:18px; font-weight:400;">Is happiness connected to success?</span>',
+                sample: 'I believe happiness and success are closely connected, but success doesn\'t guarantee happiness. True happiness comes from purpose, relationships, and personal growth. Often, people who are happy are more motivated and therefore more successful.' },
+            { icon: 'fa-tree', text: 'Let\'s discuss <span class="highlight">biodiversity loss</span>.<br /><span style="font-size:18px; font-weight:400;">Why should we protect endangered species?</span>',
+                sample: 'Protecting endangered species is important for biodiversity and ecosystem balance. Each species plays a unique role in the environment. Losing them could have cascading effects. It\'s also our ethical responsibility to protect the natural world for future generations.' }
+        ];
+
+        // ================================================================
+        //  BUILD MASTER QUESTION LIST
+        // ================================================================
+        var QUESTIONS = [];
+
+        for (var i = 0; i < PART1_QUESTIONS.length; i++) {
+            var q = PART1_QUESTIONS[i];
+            QUESTIONS.push({
+                part: 1,
+                tag: 'PART 1',
+                icon: q.icon,
+                text: q.text,
+                cue: null,
+                sample: q.sample,
+                index: i
+            });
+        }
+
+        for (var i = 0; i < PART2_QUESTIONS.length; i++) {
+            var q = PART2_QUESTIONS[i];
+            QUESTIONS.push({
+                part: 2,
+                tag: 'PART 2',
+                icon: q.icon,
+                text: q.text,
+                cue: q.cue,
+                sample: q.sample,
+                index: i
+            });
+        }
+
+        for (var i = 0; i < PART3_QUESTIONS.length; i++) {
+            var q = PART3_QUESTIONS[i];
+            QUESTIONS.push({
+                part: 3,
+                tag: 'PART 3',
+                icon: q.icon,
+                text: q.text,
+                cue: null,
+                sample: q.sample,
+                index: i
+            });
+        }
+
+        // ================================================================
+        //  STATE
+        // ================================================================
+        var currentIndex = 0;
+        var currentPart = 1;
+        var timerInterval = null;
+        var timeSeconds = 60;
+        var isTimerRunning = false;
+
+        var mediaRecorder = null;
+        var audioChunks = [];
+        var isRecording = false;
+        var recordedBlob = null;
+        var microphoneStream = null;
+        var hasMicrophonePermission = false;
+
+        var questionRecordings = new Array(QUESTIONS.length).fill(null);
+        var questionRatings = new Array(QUESTIONS.length).fill(0);
+        var STORAGE_KEY = 'ielts_speaking_data_60';
+
+        // ================================================================
+        //  DOM REFERENCES
+        // ================================================================
+        var partNav = document.getElementById('partNav');
+        var partTabs = partNav.querySelectorAll('.part-tab');
+        var part1Badge = document.getElementById('part1Badge');
+        var part2Badge = document.getElementById('part2Badge');
+        var part3Badge = document.getElementById('part3Badge');
+        var currentPartDisplay = document.getElementById('currentPartDisplay');
+
+        var progressFill = document.getElementById('progressFill');
+        var progressLabel = document.getElementById('progressLabel');
+        var partTag = document.getElementById('partTag');
+        var questionText = document.getElementById('questionText');
+        var questionIcon = document.getElementById('questionIcon');
+        var questionNumberBadge = document.getElementById('questionNumberBadge');
+        var cueCard = document.getElementById('cueCard');
+        var cuePoints = document.getElementById('cuePoints');
+        var sampleAnswerText = document.getElementById('sampleAnswerText');
+        var timerDisplay = document.getElementById('timerDisplay');
+        var timerLabel = document.getElementById('timerLabel');
+        var startTimerBtn = document.getElementById('startTimerBtn');
+        var resetTimerBtn = document.getElementById('resetTimerBtn');
+        var recordBtn = document.getElementById('recordBtn');
+        var stopRecordBtn = document.getElementById('stopRecordBtn');
+        var playbackBtn = document.getElementById('playbackBtn');
+        var clearRecordingBtn = document.getElementById('clearRecordingBtn');
+        var prevBtn = document.getElementById('prevBtn');
+        var nextBtn = document.getElementById('nextBtn');
+        var resetAllBtn = document.getElementById('resetAllBtn');
+        var currentQNum = document.getElementById('currentQNum');
+        var totalQNum = document.getElementById('totalQNum');
+        var recordedIndicator = document.getElementById('recordedIndicator');
+        var recordingDot = document.getElementById('recordingDot');
+        var recordingStatusText = document.getElementById('recordingStatusText');
+        var answerToggle = document.getElementById('answerToggle');
+        var answerContent = document.getElementById('answerContent');
+        var permissionIcon = document.getElementById('permissionIcon');
+        var permissionText = document.getElementById('permissionText');
+        var grantPermissionBtn = document.getElementById('grantPermissionBtn');
+        var themeToggle = document.getElementById('themeToggle');
+        var themeIcon = document.getElementById('themeIcon');
+        var ratingStars = document.getElementById('ratingStars');
+        var ratingScore = document.getElementById('ratingScore');
+        var ratingBands = document.getElementById('ratingBands');
+        var exportBtn = document.getElementById('exportBtn');
+        var exportModal = document.getElementById('exportModal');
+        var modalClose = document.getElementById('modalClose');
+        var modalCancel = document.getElementById('modalCancel');
+        var modalContent = document.getElementById('modalContent');
+        var modalExportAll = document.getElementById('modalExportAll');
+
+        // ================================================================
+        //  HELPER FUNCTIONS
+        // ================================================================
+        function getPartRange(part) {
+            var start = (part - 1) * 20;
+            var end = part * 20;
+            return { start: start, end: end, count: 20 };
+        }
+
+        function getLocalIndex(globalIndex) {
+            return globalIndex % 20;
+        }
+
+        function countRecordingsForPart(part) {
+            var range = getPartRange(part);
+            var count = 0;
+            for (var i = range.start; i < range.end; i++) {
+                if (questionRecordings[i]) count++;
+            }
+            return count;
+        }
+
+        // ================================================================
+        //  THEME
+        // ================================================================
+        function getPreferredTheme() {
+            var saved = localStorage.getItem('ielts_theme');
+            if (saved) return saved;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('ielts_theme', theme);
+        }
+
+        themeToggle.addEventListener('click', function() {
+            var current = document.documentElement.getAttribute('data-theme') || 'light';
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+        setTheme(getPreferredTheme());
+
+        // ================================================================
+        //  STORAGE
+        // ================================================================
+        function saveData() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    ratings: questionRatings,
+                    hasRecordings: questionRecordings.map(function(b) { return b !== null; })
+                }));
+            } catch (e) {}
+        }
+
+        function loadData() {
+            try {
+                var raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                var data = JSON.parse(raw);
+                if (data.ratings) questionRatings = data.ratings;
+            } catch (e) {}
+        }
+
+        function updateStorage() { saveData(); }
+
+        // ================================================================
+        //  PERMISSION
+        // ================================================================
+        async function requestMicrophonePermission() {
+            try {
+                var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                microphoneStream = stream;
+                hasMicrophonePermission = true;
+                permissionIcon.className = 'status-icon granted';
+                permissionText.textContent = '✅ Microphone ready';
+                grantPermissionBtn.style.display = 'none';
+                recordBtn.disabled = false;
+                return true;
+            } catch (err) {
+                permissionIcon.className = 'status-icon denied';
+                permissionText.textContent = '❌ Microphone access needed';
+                grantPermissionBtn.style.display = 'inline-flex';
+                recordBtn.disabled = true;
+                return false;
+            }
+        }
+
+        grantPermissionBtn.addEventListener('click', requestMicrophonePermission);
+
+        async function initPermission() {
+            try {
+                var status = await navigator.permissions.query({ name: 'microphone' });
+                if (status.state === 'granted') {
+                    var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    microphoneStream = stream;
+                    hasMicrophonePermission = true;
+                    permissionIcon.className = 'status-icon granted';
+                    permissionText.textContent = '✅ Microphone ready';
+                    grantPermissionBtn.style.display = 'none';
+                    recordBtn.disabled = false;
+                } else if (status.state === 'prompt') {
+                    await requestMicrophonePermission();
+                } else {
+                    permissionIcon.className = 'status-icon denied';
+                    permissionText.textContent = '❌ Microphone access needed';
+                    grantPermissionBtn.style.display = 'inline-flex';
+                    recordBtn.disabled = true;
+                }
+            } catch {
+                await requestMicrophonePermission();
+            }
+        }
+
+        // ================================================================
+        //  UPDATE PART BADGES
+        // ================================================================
+        function updatePartBadges() {
+            var p1 = countRecordingsForPart(1);
+            var p2 = countRecordingsForPart(2);
+            var p3 = countRecordingsForPart(3);
+
+            part1Badge.textContent = p1 > 0 ? p1 : '';
+            part1Badge.className = 'tab-badge' + (p1 > 0 ? ' has-recording' : '');
+            part2Badge.textContent = p2 > 0 ? p2 : '';
+            part2Badge.className = 'tab-badge' + (p2 > 0 ? ' has-recording' : '');
+            part3Badge.textContent = p3 > 0 ? p3 : '';
+            part3Badge.className = 'tab-badge' + (p3 > 0 ? ' has-recording' : '');
+        }
+
+        // ================================================================
+        //  GET TIMER DURATION BASED ON PART
+        // ================================================================
+        function getTimerDuration(part) {
+            if (part === 2) {
+                return 120; // 2 minutes for Part 2
+            } else {
+                return 45; // 45 seconds for Part 1 and Part 3
+            }
+        }
+
+        function getTimerLabel(part) {
+            if (part === 2) {
+                return '⏱️ Speaking Time (2 min)';
+            } else {
+                return '⏱️ Speaking Time';
+            }
+        }
+
+        // ================================================================
+        //  RENDER QUESTION
+        // ================================================================
+        function renderQuestion(globalIndex) {
+            if (!QUESTIONS || QUESTIONS.length === 0) {
+                questionText.innerHTML = '⚠️ Error: No questions loaded. Please refresh.';
+                return;
+            }
+
+            var q = QUESTIONS[globalIndex];
+            if (!q) {
+                questionText.innerHTML = '⚠️ Question not found. Please try another.';
+                return;
+            }
+
+            var part = q.part;
+            var localIndex = getLocalIndex(globalIndex);
+            var totalInPart = 20;
+
+            currentPart = part;
+            currentIndex = globalIndex;
+
+            // Update part tabs
+            for (var i = 0; i < partTabs.length; i++) {
+                var tab = partTabs[i];
+                var tabPart = parseInt(tab.dataset.part);
+                if (tabPart === part) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            }
+
+            currentPartDisplay.textContent = 'Part ' + part;
+            partTag.textContent = q.tag;
+
+            // Question text
+            questionText.innerHTML = q.text;
+
+            // Icon
+            questionIcon.className = 'question-icon part' + part;
+            questionIcon.innerHTML = '<i class="fas ' + q.icon + '"></i>';
+
+            // Question number
+            questionNumberBadge.textContent = 'Q' + (localIndex + 1);
+
+            // Cue card
+            if (q.cue && q.cue.length > 0) {
+                cueCard.style.display = 'flex';
+                var cueHTML = '';
+                for (var j = 0; j < q.cue.length; j++) {
+                    cueHTML += '<li>' + q.cue[j] + '</li>';
+                }
+                cuePoints.innerHTML = cueHTML;
+            } else {
+                cueCard.style.display = 'none';
+            }
+
+            // Sample answer
+            sampleAnswerText.textContent = q.sample;
+
+            // Progress within part
+            var progress = ((localIndex + 1) / totalInPart) * 100;
+            progressFill.style.width = progress + '%';
+            progressLabel.textContent = Math.round(progress) + '%';
+
+            // Navigation counters
+            currentQNum.textContent = localIndex + 1;
+            totalQNum.textContent = totalInPart;
+
+            // Prev/Next within part
+            prevBtn.disabled = (localIndex === 0);
+            nextBtn.disabled = (localIndex === totalInPart - 1);
+
+            // Close answer
+            answerContent.classList.remove('open');
+            answerToggle.innerHTML = '<i class="fas fa-chevron-down"></i> Show Sample Answer';
+
+            // Timer - SET CORRECT DURATION BASED ON PART
+            var duration = getTimerDuration(part);
+            timeSeconds = duration;
+            updateTimerDisplay();
+
+            // Update timer label
+            timerLabel.textContent = getTimerLabel(part);
+
+            // Add special styling for Part 2 timer
+            if (part === 2) {
+                timerDisplay.classList.add('part2-timer');
+            } else {
+                timerDisplay.classList.remove('part2-timer');
+            }
+
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                isTimerRunning = false;
+                startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Start';
+            }
+
+            // Recording
+            var savedBlob = questionRecordings[globalIndex];
+            if (savedBlob) {
+                recordedBlob = savedBlob;
+                playbackBtn.disabled = false;
+                clearRecordingBtn.disabled = false;
+                recordedIndicator.style.display = 'inline-flex';
+                recordingStatusText.textContent = '✅ Recording loaded';
+            } else {
+                recordedBlob = null;
+                playbackBtn.disabled = true;
+                clearRecordingBtn.disabled = true;
+                recordedIndicator.style.display = 'none';
+                recordingStatusText.textContent = '🎙️ Ready to record';
+            }
+
+            recordBtn.disabled = !hasMicrophonePermission;
+            stopRecordBtn.disabled = true;
+            recordingDot.classList.remove('active');
+            audioChunks = [];
+            isRecording = false;
+
+            // Rating
+            var rating = questionRatings[globalIndex] || 0;
+            updateRatingUI(rating);
+
+            // Update part badges
+            updatePartBadges();
+        }
+
+        // ================================================================
+        //  RATING
+        // ================================================================
+        function updateRatingUI(rating) {
+            var stars = ratingStars.querySelectorAll('.star');
+            for (var i = 0; i < stars.length; i++) {
+                var star = stars[i];
+                if (i < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            }
+            ratingScore.textContent = rating > 0 ? rating : '—';
+
+            var bands = ratingBands.querySelectorAll('.rating-band');
+            for (var i = 0; i < bands.length; i++) {
+                var band = bands[i];
+                band.classList.remove('active');
+                if (rating > 0) {
+                    if (i === 0 && rating <= 3) band.classList.add('active');
+                    else if (i === 1 && rating >= 4 && rating <= 6) band.classList.add('active');
+                    else if (i === 2 && rating >= 7) band.classList.add('active');
+                }
+            }
+        }
+
+        ratingStars.addEventListener('click', function(e) {
+            var star = e.target.closest('.star');
+            if (!star) return;
+            var value = parseInt(star.dataset.value);
+            questionRatings[currentIndex] = value;
+            updateRatingUI(value);
+            updateStorage();
+        });
+
+        ratingStars.addEventListener('mouseover', function(e) {
+            var star = e.target.closest('.star');
+            if (!star) return;
+            var value = parseInt(star.dataset.value);
+            var allStars = ratingStars.querySelectorAll('.star');
+            for (var i = 0; i < allStars.length; i++) {
+                allStars[i].style.color = i < value ? '#f0b429' : '';
+            }
+        });
+
+        ratingStars.addEventListener('mouseleave', function() {
+            var allStars = ratingStars.querySelectorAll('.star');
+            for (var i = 0; i < allStars.length; i++) {
+                allStars[i].style.color = '';
+            }
+        });
+
+        // ================================================================
+        //  TIMER
+        // ================================================================
+        function updateTimerDisplay() {
+            var mins = Math.floor(timeSeconds / 60);
+            var secs = timeSeconds % 60;
+            timerDisplay.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+
+            // Warning when less than 10 seconds
+            if (timeSeconds <= 10) {
+                timerDisplay.classList.add('warning');
+            } else {
+                timerDisplay.classList.remove('warning');
+            }
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            if (timeSeconds <= 0) {
+                var q = QUESTIONS[currentIndex];
+                timeSeconds = getTimerDuration(q.part);
+                updateTimerDisplay();
+            }
+            isTimerRunning = true;
+            startTimerBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+
+            timerInterval = setInterval(function() {
+                timeSeconds--;
+                updateTimerDisplay();
+                if (timeSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    isTimerRunning = false;
+                    startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Start';
+                    if (isRecording) stopRecording();
+                    // Play a subtle notification sound effect
+                    alert('⏰ Time is up!');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                isTimerRunning = false;
+                startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Start';
+            }
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            var q = QUESTIONS[currentIndex];
+            timeSeconds = getTimerDuration(q.part);
+            updateTimerDisplay();
+            startTimerBtn.innerHTML = '<i class="fas fa-play"></i> Start';
+            timerDisplay.classList.remove('warning');
+        }
+
+        // ================================================================
+        //  RECORDING
+        // ================================================================
+        async function startRecording() {
+            if (!hasMicrophonePermission) {
+                alert('Please grant microphone access first.');
+                return;
+            }
+
+            try {
+                if (!microphoneStream || microphoneStream.active === false) {
+                    var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    microphoneStream = stream;
+                    hasMicrophonePermission = true;
+                }
+
+                mediaRecorder = new MediaRecorder(microphoneStream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = function(event) {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = function() {
+                    var blob = new Blob(audioChunks, { type: 'audio/wav' });
+                    questionRecordings[currentIndex] = blob;
+                    recordedBlob = blob;
+                    playbackBtn.disabled = false;
+                    clearRecordingBtn.disabled = false;
+                    recordedIndicator.style.display = 'inline-flex';
+                    recordingDot.classList.remove('active');
+                    recordingStatusText.textContent = '✅ Recording saved!';
+                    updateStorage();
+                    updatePartBadges();
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                recordBtn.disabled = true;
+                stopRecordBtn.disabled = false;
+                playbackBtn.disabled = true;
+                recordingDot.classList.add('active');
+                recordingStatusText.textContent = '🔴 Recording...';
+
+                // Auto-stop based on part duration (Part 2 gets 2 minutes, others get 45 seconds)
+                var q = QUESTIONS[currentIndex];
+                var maxDuration = q.part === 2 ? 120000 : 45000;
+                setTimeout(function() {
+                    if (isRecording) stopRecording();
+                }, maxDuration);
+
+            } catch (err) {
+                console.error('Recording error:', err);
+                alert('Error accessing microphone.');
+                hasMicrophonePermission = false;
+                permissionIcon.className = 'status-icon denied';
+                permissionText.textContent = '❌ Microphone access lost';
+                grantPermissionBtn.style.display = 'inline-flex';
+                recordBtn.disabled = true;
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                recordBtn.disabled = false;
+                stopRecordBtn.disabled = true;
+            }
+        }
+
+        function playRecording() {
+            if (!recordedBlob) return;
+            var url = URL.createObjectURL(recordedBlob);
+            var audio = new Audio(url);
+            audio.play();
+            playbackBtn.innerHTML = '<i class="fas fa-play"></i> Playing...';
+            playbackBtn.disabled = true;
+            audio.onended = function() {
+                playbackBtn.innerHTML = '<i class="fas fa-play"></i> Playback';
+                playbackBtn.disabled = false;
+                URL.revokeObjectURL(url);
+            };
+        }
+
+        function clearRecording() {
+            if (confirm('Delete the recording for this question?')) {
+                questionRecordings[currentIndex] = null;
+                recordedBlob = null;
+                playbackBtn.disabled = true;
+                clearRecordingBtn.disabled = true;
+                recordedIndicator.style.display = 'none';
+                recordingStatusText.textContent = '🎙️ Recording cleared';
+                audioChunks = [];
+                updateStorage();
+                updatePartBadges();
+            }
+        }
+
+        function resetAllRecordings() {
+            if (confirm('Delete ALL recordings and ratings for every question?')) {
+                for (var i = 0; i < questionRecordings.length; i++) {
+                    questionRecordings[i] = null;
+                }
+                for (var i = 0; i < questionRatings.length; i++) {
+                    questionRatings[i] = 0;
+                }
+                recordedBlob = null;
+                playbackBtn.disabled = true;
+                clearRecordingBtn.disabled = true;
+                recordedIndicator.style.display = 'none';
+                recordingStatusText.textContent = '🎙️ All data cleared';
+                renderQuestion(currentIndex);
+                updateStorage();
+                updatePartBadges();
+            }
+        }
+
+        // ================================================================
+        //  EXPORT
+        // ================================================================
+        function openExportModal() {
+            var html = '';
+            var hasAny = false;
+
+            for (var i = 0; i < QUESTIONS.length; i++) {
+                var q = QUESTIONS[i];
+                var hasRecording = questionRecordings[i] !== null;
+                if (hasRecording) hasAny = true;
+                var preview = q.text.replace(/<[^>]*>/g, '').substring(0, 40) + '...';
+                html += `
+                    <div class="modal-item">
+                        <div class="q-info">
+                            <span class="q-label">Q${i+1} · Part ${q.part} <i class="fas ${q.icon}" style="color:var(--text-muted);font-size:12px;"></i></span>
+                            <span class="q-preview">${preview}</span>
+                        </div>
+                        <span class="q-status ${hasRecording ? 'saved' : 'empty'}">
+                            ${hasRecording ? '✅ Saved' : '⭕ Empty'}
+                        </span>
+                    </div>
+                `;
+            }
+
+            modalContent.innerHTML = html;
+
+            if (!hasAny) {
+                modalExportAll.disabled = true;
+                modalExportAll.innerHTML = '<i class="fas fa-exclamation-circle"></i> No recordings';
+            } else {
+                modalExportAll.disabled = false;
+                modalExportAll.innerHTML = '<i class="fas fa-download"></i> Download All';
+            }
+
+            exportModal.classList.add('active');
+        }
+
+        function closeExportModal() {
+            exportModal.classList.remove('active');
+        }
+
+        async function exportAllRecordings() {
+            var hasAny = false;
+            for (var i = 0; i < questionRecordings.length; i++) {
+                if (questionRecordings[i]) { hasAny = true; break; }
+            }
+            if (!hasAny) {
+                alert('No recordings to export.');
+                return;
+            }
+
+            var count = 0;
+            for (var i = 0; i < questionRecordings.length; i++) {
+                var blob = questionRecordings[i];
+                if (blob) {
+                    var url = URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    var q = QUESTIONS[i];
+                    a.download = 'IELTS_Q' + (i + 1) + '_Part' + q.part + '_Recording.wav';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(function(url) { URL.revokeObjectURL(url); }, 5000);
+                    count++;
+                }
+            }
+
+            alert('✅ ' + count + ' recording(s) downloaded!');
+            closeExportModal();
+        }
+
+        exportBtn.addEventListener('click', openExportModal);
+        modalClose.addEventListener('click', closeExportModal);
+        modalCancel.addEventListener('click', closeExportModal);
+        exportModal.addEventListener('click', function(e) {
+            if (e.target === exportModal) closeExportModal();
+        });
+        modalExportAll.addEventListener('click', exportAllRecordings);
+
+        // ================================================================
+        //  NAVIGATION
+        // ================================================================
+        function goToQuestion(globalIndex) {
+            if (globalIndex < 0 || globalIndex >= QUESTIONS.length) return;
+            if (isRecording) stopRecording();
+            pauseTimer();
+            renderQuestion(globalIndex);
+        }
+
+        function goToPart(part) {
+            var range = getPartRange(part);
+            goToQuestion(range.start);
+        }
+
+        // ================================================================
+        //  PART TAB CLICKS
+        // ================================================================
+        for (var i = 0; i < partTabs.length; i++) {
+            var tab = partTabs[i];
+            tab.addEventListener('click', function() {
+                var part = parseInt(this.dataset.part);
+                var range = getPartRange(part);
+                goToQuestion(range.start);
+            });
+        }
+
+        // ================================================================
+        //  ANSWER TOGGLE
+        // ================================================================
+        answerToggle.addEventListener('click', function() {
+            var isOpen = answerContent.classList.toggle('open');
+            answerToggle.innerHTML = isOpen ?
+                '<i class="fas fa-chevron-up"></i> Hide Sample Answer' :
+                '<i class="fas fa-chevron-down"></i> Show Sample Answer';
+        });
+
+        // ================================================================
+        //  EVENT BINDING
+        // ================================================================
+        startTimerBtn.addEventListener('click', function() {
+            if (isTimerRunning) pauseTimer();
+            else startTimer();
+        });
+
+        resetTimerBtn.addEventListener('click', resetTimer);
+        recordBtn.addEventListener('click', startRecording);
+        stopRecordBtn.addEventListener('click', stopRecording);
+        playbackBtn.addEventListener('click', playRecording);
+        clearRecordingBtn.addEventListener('click', clearRecording);
+
+        prevBtn.addEventListener('click', function() {
+            var localIndex = getLocalIndex(currentIndex);
+            if (localIndex > 0) {
+                goToQuestion(currentIndex - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', function() {
+            var localIndex = getLocalIndex(currentIndex);
+            if (localIndex < 19) {
+                goToQuestion(currentIndex + 1);
+            }
+        });
+
+        resetAllBtn.addEventListener('click', resetAllRecordings);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                var localIndex = getLocalIndex(currentIndex);
+                if (localIndex > 0) {
+                    e.preventDefault();
+                    goToQuestion(currentIndex - 1);
+                }
+            } else if (e.key === 'ArrowRight') {
+                var localIndex = getLocalIndex(currentIndex);
+                if (localIndex < 19) {
+                    e.preventDefault();
+                    goToQuestion(currentIndex + 1);
+                }
+            } else if (e.key === ' ' || e.key === 'Space') {
+                if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    if (isRecording) stopRecording();
+                    else if (!recordBtn.disabled) startRecording();
+                }
+            } else if (e.key === 'r' || e.key === 'R') {
+                if (!e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    resetTimer();
+                }
+            }
+        });
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        loadData();
+        initPermission();
+
+        console.log('Questions loaded:', QUESTIONS.length);
+        if (QUESTIONS.length > 0) {
+            console.log('First question:', QUESTIONS[0].text);
+            renderQuestion(0);
+        } else {
+            console.error('No questions loaded!');
+            questionText.innerHTML = '⚠️ Error: No questions available. Please refresh.';
+        }
+
+        console.log('🎙️ IELTS Speaking Practice Pro loaded!');
+        console.log('📚 ' + QUESTIONS.length + ' questions loaded (20 per part)');
+        console.log('⏱️ Part 1 & 3: 45 seconds | Part 2: 2 minutes');
+        console.log('⌨️ Shortcuts: ← → (nav), Space (record/stop), R (reset timer)');
+    </script>
+
+<script>
+  // Universal Floating Home Button (Hacker's Hack)
+  (function() {
+    var backBtn = document.createElement('a');
+    backBtn.href = '/';
+    backBtn.innerHTML = '<span style="font-size: 20px; margin-bottom: 2px;">🏠</span>Home';
+    backBtn.style.cssText = 'position:fixed; top:20px; right:20px; display:flex; flex-direction:column; align-items:center; text-decoration:none; color:#555; font-size:11px; font-weight:bold; z-index:9999; background:rgba(255,255,255,0.9); padding:8px 12px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.1); line-height:1.2;';
+    document.body.appendChild(backBtn);
+  })();
+</script>
+</body>
+</html>

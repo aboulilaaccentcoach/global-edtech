@@ -10,15 +10,18 @@ import sys
 from datetime import datetime, timedelta
 from functools import wraps
 
+# Root directory setup for Render
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 app = Flask(__name__, 
-            static_folder='../frontend',
-            template_folder='../frontend')
+            static_folder=os.path.join(BASE_DIR, '../frontend'),
+            template_folder=os.path.join(BASE_DIR, '../frontend'))
 app.secret_key = secrets.token_hex(32)
 CORS(app)
 
 # File paths
-CLIENTS_FILE = 'clients.json'
-SAT_ENGINE_PATH = 'sat_engine'
+CLIENTS_FILE = os.path.join(BASE_DIR, 'clients.json')
+SAT_ENGINE_PATH = os.path.join(BASE_DIR, 'sat_engine')
 
 # Ensure clients.json exists
 if not os.path.exists(CLIENTS_FILE):
@@ -44,7 +47,6 @@ def verify_password(password, stored_hash):
     return hashlib.sha256((password + salt).encode()).hexdigest() == hashed
 
 def generate_password():
-    """Generate a secure random password"""
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*'
     return ''.join(secrets.choice(alphabet) for _ in range(12))
 
@@ -67,15 +69,12 @@ def signup():
     
     clients = load_clients()
     
-    # Check if email exists
     if any(c['email'] == email for c in clients):
         return jsonify({'error': 'Email already registered'}), 400
     
-    # Generate password
     password = generate_password()
     hashed_password = password
     
-    # Create client
     client = {
         'id': str(uuid.uuid4()),
         'email': email,
@@ -92,7 +91,7 @@ def signup():
         'success': True,
         'message': 'Account created successfully',
         'email': email,
-        'password': password  # Send generated password to user
+        'password': password
     })
 
 @app.route('/api/login', methods=['POST'])
@@ -113,7 +112,6 @@ def login():
     if user['password'] != password:
         return jsonify({'error': 'Invalid credentials'}), 401
     
-    # Update last login
     user['last_login'] = datetime.now().isoformat()
     save_clients(clients)
     
@@ -163,9 +161,8 @@ def forgot_password():
     if not user:
         return jsonify({'error': 'Email not found'}), 404
     
-    # Generate new password
     new_password = generate_password()
-    user['password'] = hash_password(new_password)
+    user['password'] = new_password
     save_clients(clients)
     
     return jsonify({
@@ -178,18 +175,21 @@ def forgot_password():
 # ---------- SERVICE ROUTES ----------
 @app.route('/')
 def serve_homepage():
-    """Serve the main homepage"""
-    return send_from_directory('frontend', 'index.html')
+    return send_from_directory(os.path.join(BASE_DIR, '../frontend'), 'index.html')
 
 @app.route('/contact')
 def contact():
-    return send_from_directory('../frontend', 'Contact-Us.html')
+    return send_from_directory(os.path.join(BASE_DIR, '../frontend'), 'Contact-Us.html')
 
 @app.route('/services/<path:filename>')
 def serve_service(filename):
-    """Serve service HTML files"""
-    return send_from_directory('../frontend/services', filename)
+    return send_from_directory(os.path.join(BASE_DIR, '../frontend/services'), filename)
 
+@app.route('/<path:path>')
+def static_files(path):
+    return send_from_directory(os.path.join(BASE_DIR, '../frontend'), path)
+
+# ---------- SERVICES API ----------
 @app.route('/api/services', methods=['GET'])
 def get_services():
     services = [
@@ -251,29 +251,6 @@ def get_services():
         }
     ]
     return jsonify(services)
-    return jsonify(services)
-
-# ---------- SAT ENGINE PROXY ----------
-@app.route('/api/sat/<path:endpoint>', methods=['GET', 'POST'])
-@login_required
-def sat_proxy(endpoint):
-    """Proxy requests to SAT engine"""
-    try:
-        # Import SAT engine dynamically
-        sys.path.insert(0, os.path.join(os.path.dirname(__file__), SAT_ENGINE_PATH))
-        from sat_engine.main import app as sat_app
-        
-        # Forward request to SAT app
-        with sat_app.test_request_context(
-            path=f'/{endpoint}',
-            method=request.method,
-            data=request.get_data(),
-            headers=dict(request.headers)
-        ):
-            response = sat_app.full_dispatch_request()
-            return response.get_data(), response.status_code, response.headers.items()
-    except Exception as e:
-        return jsonify({'error': f'SAT engine error: {str(e)}'}), 500
 
 # ---------- HEALTH CHECK ----------
 @app.route('/api/health', methods=['GET'])
@@ -284,18 +261,5 @@ def health_check():
         'services': ['auth', 'sat', 'ielts', 'accent', 'speaker']
     })
 
-# ---------- SERVE FRONTEND (Static Files) ----------
-from flask import send_from_directory
-
-@app.route('/')
-def home():
-    return send_from_directory('../frontend', 'index.html')
-
-@app.route('/<path:path>')
-def static_files(path):
-    return send_from_directory('../frontend', path)
-
-# ---------- SERVICES API ----------
-    return jsonify(services)
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -179,7 +179,7 @@ def forgot_password():
 @app.route('/')
 def serve_homepage():
     """Serve the main homepage"""
-    return send_from_directory('../frontend', 'index.html')
+    return send_from_directory('frontend', 'index.html')
 
 @app.route('/contact')
 def contact():

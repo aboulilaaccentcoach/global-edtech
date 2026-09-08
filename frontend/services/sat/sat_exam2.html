@@ -262,7 +262,7 @@
                             <span style="font-size: 14px; text-transform: uppercase; color: #555;">Total Raw Score (Module 1 + 2)</span>
                             <strong style="font-size: 36px; color: #2a7de1; display: block;">${module1Score + module2Score} / 54</strong>
                             <span style="font-size: 14px; text-transform: uppercase; color: #555; margin-top: 10px; display: block;">Scaled Score</span>
-                            <strong style="font-size: 36px; color: #2a7de1; display: block;">${getSATScale(module1Score + module2Score)} / 400</strong>
+                            <strong style="font-size: 36px; color: #2a7de1; display: block;">${getSATScale(module1Score + module2Score)} / 800</strong>
                         ${window.getSATFeedback(module1Score + module2Score, 54)}                        
                     </div>`}
                     </div>
@@ -276,18 +276,18 @@
         }
 
         function getSATScale(raw) {
-            if (raw >= 54) return 400;
-            if (raw >= 50) return 390;
-            if (raw >= 47) return 380;
-            if (raw >= 43) return 360;
-            if (raw >= 38) return 340;
-            if (raw >= 33) return 320;
-            if (raw >= 28) return 300;
-            if (raw >= 23) return 280;
-            if (raw >= 18) return 260;
-            if (raw >= 12) return 240;
-            if (raw >= 6) return 220;
-            return 200;
+            if (raw >= 54) return 800;
+            if (raw >= 50) return 780;
+            if (raw >= 47) return 760;
+            if (raw >= 43) return 720;
+            if (raw >= 38) return 680;
+            if (raw >= 33) return 640;
+            if (raw >= 28) return 600;
+            if (raw >= 23) return 560;
+            if (raw >= 18) return 520;
+            if (raw >= 12) return 480;
+            if (raw >= 6) return 440;
+            return 400;
         }
 
         window.onload = function() {};

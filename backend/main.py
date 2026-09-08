@@ -195,7 +195,7 @@ def get_services():
     services = [
         {
             'id': 'sat',
-            'name': 'SAT Adaptive Exam',
+            'name': 'SAT Adaptive Exams 1 & 2',
             'icon': '📘',
             'description': 'Full-length Digital SAT with adaptive scoring',
             'requires_auth': False,
@@ -203,7 +203,7 @@ def get_services():
         },
         {
             'id': 'sat_exam_2',
-            'name': 'SAT Practice Test 2',
+            'name': 'SAT Adaptive Exams 3 & 4',
             'icon': '📚',
             'description': 'Second original SAT practice exam with advanced reading and writing questions.',
             'requires_auth': False,

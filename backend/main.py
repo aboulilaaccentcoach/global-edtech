@@ -195,19 +195,11 @@ def get_services():
     services = [
         {
             'id': 'sat',
-            'name': 'SAT Adaptive Exams 1 & 2',
+            'name': 'SAT Adaptive 4 Exams',
             'icon': '📘',
             'description': 'Full-length Digital SAT with adaptive scoring',
             'requires_auth': False,
             'path': '/services/sat/sat_hub.html'
-        },
-        {
-            'id': 'sat_exam_2',
-            'name': 'SAT Adaptive Exams 3 & 4',
-            'icon': '📚',
-            'description': 'Second original SAT practice exam with advanced reading and writing questions.',
-            'requires_auth': False,
-            'path': '/services/sat/sat_exam2.html'
         },
         {
             'id': 'ielts_exam1',

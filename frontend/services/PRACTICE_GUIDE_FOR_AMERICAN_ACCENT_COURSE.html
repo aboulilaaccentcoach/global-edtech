@@ -1,1804 +1,836 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🗽 American Accent Mastery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root {
-            --primary: #6C3CE1; --primary-light: #8B5CF6; --primary-dark: #4F29A8; --secondary: #F59E0B;
-            --bg-dark: #0F0A1A; --bg-card: #1A142F; --bg-card-hover: #241D3F; --text-primary: #FFFFFF;
-            --text-secondary: #B8B0D0; --text-muted: #7A7199; --success: #10B981; --danger: #EF4444;
-            --warning: #F59E0B; --border: #2D2448; --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            --radius: 16px; --radius-sm: 10px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --bg-body: #0F0A1A; --border-color: #2D2448;
-        }
-        [data-theme="light"] {
-            --bg-body: #F5F0FF; --bg-card: #FFFFFF; --text-primary: #1A142F; --text-secondary: #4A3A6B;
-            --border-color: #E0D6F0; --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-        }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-primary);
-            min-height: 100vh; line-height: 1.6; padding: 16px; transition: background 0.4s, color 0.4s;
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-body); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 12px; }
-
-        /* ===== HEADER ===== */
-        .header { text-align: center; padding: 24px 0 16px; }
-        .header-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
-        .header-badge { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 4px 16px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
-        .header h1 { font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 900; background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-light) 50%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
-        .header p { font-size: 0.9rem; color: var(--text-secondary); max-width: 500px; margin: 6px auto 0; }
-        .theme-toggle { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50px; padding: 6px 14px; color: var(--text-primary); font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: var(--transition); font-family: inherit; }
-        .theme-toggle:hover { border-color: var(--primary); transform: scale(1.02); }
-
-        /* ===== DASHBOARD ===== */
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; transition: background 0.4s, border-color 0.4s; }
-        .dash-item { text-align: center; }
-        .dash-item .value { font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .dash-item .label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-top: 2px; }
-        .dash-item .badge-icon { font-size: 1.4rem; display: block; }
-
-        /* ===== PROGRESS ===== */
-        .progress-wrapper { position: sticky; top: 0; z-index: 100; background: var(--bg-body); padding: 8px 0; border-bottom: 1px solid var(--border-color); margin-bottom: 18px; transition: background 0.4s; }
-        .progress-bar-track { width: 100%; height: 5px; background: var(--border-color); border-radius: 10px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 10px; transition: width 0.5s ease; }
-        .progress-stats { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; }
-
-        /* ===== NAVIGATION ===== */
-        .nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 18px; background: var(--bg-card); padding: 4px; border-radius: var(--radius); border: 1px solid var(--border-color); transition: background 0.4s, border-color 0.4s; }
-        .nav-tab { flex: 1; min-width: 70px; padding: 8px 12px; border: none; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); font-family: inherit; font-size: 0.7rem; font-weight: 600; cursor: pointer; transition: var(--transition); text-align: center; }
-        .nav-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        .nav-tab.active { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(108, 60, 225, 0.3); }
-        .nav-tab .icon { margin-right: 4px; }
-
-        /* ===== SECTIONS & CARDS ===== */
-        .section { display: none; animation: fadeSlideIn 0.3s ease; }
-        .section.active { display: block; }
-        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px; transition: background 0.4s, border-color 0.4s; }
-        .card:hover { border-color: var(--primary); }
-        .card-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-        .card-title { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-        .card-title .emoji { font-size: 1.2rem; }
-        .card-subtitle { color: var(--text-secondary); font-size: 0.8rem; margin-top: 2px; }
-        .badge-level { background: var(--primary-dark); color: var(--text-secondary); padding: 2px 10px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        /* ===== AUDIO PLAYER ===== */
-        .audio-player { display: flex; align-items: center; gap: 12px; background: var(--bg-body); padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin: 10px 0; flex-wrap: wrap; transition: background 0.4s, border-color 0.4s; }
-        .audio-player .play-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.8rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .audio-player .play-btn:hover { transform: scale(1.05); background: var(--primary-light); }
-        .audio-player .play-btn.playing { background: var(--secondary); }
-        .audio-player .progress { flex: 1; min-width: 60px; height: 4px; background: var(--border-color); border-radius: 10px; cursor: pointer; position: relative; }
-        .audio-player .progress .fill { height: 100%; width: 0%; background: var(--primary-light); border-radius: 10px; transition: width 0.1s linear; }
-        .audio-player .time { font-size: 0.65rem; color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 60px; text-align: center; }
-
-        /* ===== RECORDING & WAVEFORM ===== */
-        .recording-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
-        .record-btn { padding: 6px 14px; border: none; border-radius: var(--radius-sm); font-family: inherit; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 5px; }
-        .record-btn.start { background: var(--danger); color: #fff; }
-        .record-btn.start:hover { background: #DC2626; transform: scale(1.02); }
-        .record-btn.start.recording { animation: pulse 1.2s infinite; }
-        .record-btn.stop { background: var(--text-muted); color: #fff; }
-        .record-btn.stop:hover { background: var(--text-secondary); }
-        .record-btn.stop.active { background: var(--danger); }
-        .record-btn.playback { background: var(--success); color: #fff; }
-        .record-btn.playback:hover { background: #059669; }
-        .record-btn.playback.playing { background: var(--secondary); }
-        .record-btn.download { background: var(--secondary); color: #1A142F; }
-        .record-btn.download:hover { background: #D97706; }
-        .record-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); } 50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } }
-        .recording-status { font-size: 0.7rem; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
-        .recording-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); display: inline-block; }
-        .recording-status .dot.active { background: var(--danger); animation: pulse-dot 1s infinite; }
-        .recording-status .dot.saved { background: var(--success); }
-        .recording-status .timer { font-variant-numeric: tabular-nums; font-size: 0.7rem; color: var(--text-muted); }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .waveform-container { height: 32px; background: var(--bg-body); border-radius: var(--radius-sm); margin: 6px 0; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border-color); transition: background 0.4s, border-color 0.4s; }
-        .waveform-container canvas { width: 100%; height: 100%; }
-
-        /* ===== FEEDBACK CARD ===== */
-        .feedback-card { background: var(--bg-body); border: 2px solid var(--success); border-radius: var(--radius-sm); padding: 14px 16px; margin: 10px 0; display: none; animation: fadeSlideIn 0.4s ease; transition: border-color 0.4s, background 0.4s; }
-        .feedback-card.visible { display: block; }
-        .feedback-card .fb-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-        .feedback-card .fb-title { font-weight: 700; font-size: 0.95rem; color: var(--success); }
-        .feedback-card .fb-stars { font-size: 1.2rem; letter-spacing: 2px; }
-        .feedback-card .fb-target { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; }
-        .feedback-card .fb-target .romaji { color: var(--secondary); font-weight: 600; }
-        .feedback-card .fb-meter { margin: 8px 0; }
-        .feedback-card .fb-meter .bar-track { width: 100%; height: 8px; background: var(--border-color); border-radius: 10px; overflow: hidden; }
-        .feedback-card .fb-meter .bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: width 1s ease; background: linear-gradient(90deg, var(--danger), var(--warning), var(--success)); }
-        .feedback-card .fb-meter .bar-label { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
-        .feedback-card .fb-message { font-size: 0.95rem; font-weight: 600; margin: 8px 0 4px; color: var(--text-primary); }
-        .feedback-card .fb-tip { font-size: 0.8rem; color: var(--text-secondary); padding: 6px 10px; background: rgba(108, 60, 225, 0.08); border-radius: var(--radius-sm); border-left: 3px solid var(--primary); margin: 6px 0; }
-        .feedback-card .fb-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-        .feedback-card .fb-actions button { padding: 6px 16px; border: none; border-radius: var(--radius-sm); font-family: inherit; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 5px; }
-        .feedback-card .fb-actions .fb-retry { background: var(--secondary); color: #1A142F; }
-        .feedback-card .fb-actions .fb-retry:hover { background: #D97706; transform: scale(1.02); }
-        .feedback-card .fb-actions .fb-listen { background: var(--success); color: #fff; }
-        .feedback-card .fb-actions .fb-listen:hover { background: #059669; transform: scale(1.02); }
-        .feedback-card .fb-actions .fb-listen.playing { background: var(--secondary); }
-        .feedback-card .fb-actions .fb-download-fb { background: var(--primary); color: #fff; }
-        .feedback-card .fb-actions .fb-download-fb:hover { background: var(--primary-light); transform: scale(1.02); }
-
-        /* ===== FLOATING RECORD & SCROLL ===== */
-        .floating-record { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .floating-record .fab-btn { width: 52px; height: 52px; border: none; border-radius: 50%; background: var(--danger); color: #fff; font-size: 1.2rem; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4); display: flex; align-items: center; justify-content: center; position: relative; }
-        .floating-record .fab-btn:hover { transform: scale(1.05); }
-        .floating-record .fab-btn.recording { animation: pulse-fab 1.2s infinite; box-shadow: 0 0 30px rgba(239, 68, 68, 0.6); }
-        .floating-record .fab-btn.idle { background: var(--bg-card); color: var(--text-secondary); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); }
-        .floating-record .fab-btn.idle:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        @keyframes pulse-fab { 0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); } 50% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); } }
-        .floating-record .fab-timer { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 2px 10px; font-size: 0.65rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; display: none; opacity: 0; transition: var(--transition); }
-        .floating-record .fab-timer.visible { display: block; opacity: 1; }
-        .floating-record .fab-status { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 2px 10px; font-size: 0.65rem; color: var(--text-secondary); display: none; opacity: 0; transition: var(--transition); }
-        .floating-record .fab-status.visible { display: block; opacity: 1; }
-        .floating-record .fab-status.saved { color: var(--success); border-color: var(--success); }
-        .scroll-top { position: fixed; bottom: 90px; right: 24px; width: 38px; height: 38px; border: none; border-radius: 50%; background: var(--bg-card); color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; transition: var(--transition); border: 1px solid var(--border-color); opacity: 0; visibility: hidden; transform: translateY(12px); z-index: 200; }
-        .scroll-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-        .scroll-top:hover { transform: scale(1.05); background: var(--bg-card-hover); color: var(--text-primary); }
-
-        /* ===== PRACTICE ITEMS & TABLES ===== */
-        .practice-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 10px; border-radius: var(--radius-sm); background: var(--bg-body); margin-bottom: 4px; transition: var(--transition); border-left: 3px solid transparent; }
-        .practice-item:hover { border-left-color: var(--primary); background: rgba(108, 60, 225, 0.04); }
-        .practice-item .number { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); min-width: 22px; text-align: right; }
-        .practice-item .text { flex: 1; font-size: 0.85rem; }
-        .practice-item .text .romaji { color: var(--secondary); font-weight: 600; background: rgba(245, 158, 11, 0.08); padding: 0 4px; border-radius: 4px; }
-        .practice-item .checkbox, .checklist-item .check-box { width: 16px; height: 16px; border: 2px solid var(--border-color); border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); flex-shrink: 0; background: transparent; color: transparent; font-size: 0.6rem; }
-        .practice-item .checkbox.checked, .checklist-item .check-box.checked { background: var(--success); border-color: var(--success); color: #fff; }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 8px 0; }
-        .data-table th { text-align: left; padding: 6px 8px; background: var(--bg-body); color: var(--text-secondary); font-weight: 600; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border-color); }
-        .data-table td { padding: 6px 8px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
-        .data-table .romaji-highlight { color: var(--secondary); font-weight: 600; }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .card { padding: 12px 14px; }
-            .nav-tabs { flex-wrap: nowrap; overflow-x: auto; gap: 3px; padding: 3px; }
-            .nav-tab { min-width: 60px; font-size: 0.65rem; padding: 6px 8px; white-space: nowrap; }
-            .audio-player { gap: 8px; padding: 6px 10px; }
-            .audio-player .progress { min-width: 50px; order: 3; flex-basis: 100%; }
-            .recording-controls { gap: 5px; }
-            .record-btn { padding: 5px 10px; font-size: 0.65rem; }
-            .dashboard { grid-template-columns: repeat(2, 1fr); padding: 10px 12px; gap: 8px; }
-            .floating-record { bottom: 14px; right: 14px; }
-            .floating-record .fab-btn { width: 44px; height: 44px; font-size: 1rem; }
-            .scroll-top { bottom: 72px; right: 14px; width: 32px; height: 32px; font-size: 0.7rem; }
-            .feedback-card { padding: 10px 12px; }
-        }
-        @media (max-width: 480px) {
-            .header h1 { font-size: 1.4rem; }
-            .card-title { font-size: 0.9rem; }
-            .practice-item .text { font-size: 0.75rem; }
-            .container { padding: 0 4px; }
-            body { padding: 8px; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🗽 American Accent Mastery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== all styles (same as before) ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #6C3CE1; --primary-light: #8B5CF6; --primary-dark: #4F29A8;
+      --secondary: #F59E0B; --success: #10B981; --danger: #EF4444;
+      --bg-body: #0F0A1A; --bg-card: #1A142F; --bg-card-hover: #241D3F;
+      --text-primary: #FFFFFF; --text-secondary: #B8B0D0; --text-muted: #7A7199;
+      --border: #2D2448; --radius: 16px; --radius-sm: 10px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.6); --transition: all 0.3s ease;
+    }
+    [data-theme="light"] {
+      --bg-body: #F5F0FF; --bg-card: #FFFFFF; --text-primary: #1A142F;
+      --text-secondary: #4A3A6B; --border: #E0D6F0; --shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    body {
+      font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-primary);
+      min-height: 100vh; padding: 16px; transition: background 0.4s, color 0.4s;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 12px; }
+    .header { text-align: center; padding: 24px 0 16px; }
+    .header h1 { font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 900; background: linear-gradient(135deg, var(--text-primary), var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .header p { color: var(--text-secondary); font-size: 0.95rem; }
+    .dashboard { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; }
+    .dash-item { text-align: center; }
+    .dash-item .value { font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dash-item .label { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
+    .progress-wrapper { position: sticky; top: 0; z-index: 100; background: var(--bg-body); padding: 8px 0; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+    .progress-bar-track { width: 100%; height: 5px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.5s; }
+    .nav-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 18px; background: var(--bg-card); padding: 4px; border-radius: var(--radius); border: 1px solid var(--border); }
+    .nav-tab { flex: 1; min-width: 70px; padding: 8px 12px; border: none; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); font-family: inherit; font-size: 0.7rem; font-weight: 600; cursor: pointer; transition: var(--transition); text-align: center; }
+    .nav-tab.active { background: var(--primary); color: #fff; }
+    .section { display: none; animation: fade 0.3s; }
+    .section.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px; transition: background 0.4s, border-color 0.4s; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+    .card-title { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .badge-level { background: var(--primary-dark); color: var(--text-secondary); padding: 2px 10px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; }
+    .audio-player { display: flex; align-items: center; gap: 12px; background: var(--bg-body); padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin: 10px 0; flex-wrap: wrap; }
+    .audio-player .play-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: var(--primary); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .audio-player .play-btn.playing { background: var(--secondary); }
+    .audio-player .progress { flex: 1; height: 4px; background: var(--border); border-radius: 10px; cursor: pointer; position: relative; min-width: 60px; }
+    .audio-player .progress .fill { height: 100%; width: 0%; background: var(--primary-light); border-radius: 10px; }
+    .audio-player .time { font-size: 0.65rem; color: var(--text-muted); min-width: 60px; text-align: center; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 8px 0; }
+    .data-table th { text-align: left; padding: 6px 8px; background: var(--bg-body); color: var(--text-secondary); font-weight: 600; font-size: 0.65rem; border-bottom: 2px solid var(--border); }
+    .data-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .romaji { color: var(--secondary); font-weight: 600; }
+    .checkbox { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 5px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: transparent; color: transparent; font-size: 0.6rem; transition: var(--transition); flex-shrink: 0; }
+    .checkbox.checked { background: var(--success); border-color: var(--success); color: #fff; }
+    .recording-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+    .record-btn { padding: 6px 14px; border: none; border-radius: var(--radius-sm); font-family: inherit; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 5px; }
+    .record-btn.start { background: var(--danger); color: #fff; }
+    .record-btn.start.recording { animation: pulse 1.2s infinite; }
+    .record-btn.stop { background: var(--text-muted); color: #fff; }
+    .record-btn.stop.active { background: var(--danger); }
+    .record-btn.playback { background: var(--success); color: #fff; }
+    .record-btn.playback.playing { background: var(--secondary); }
+    .record-btn.download { background: var(--secondary); color: #1A142F; }
+    .record-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); } 50% { box-shadow: 0 0 0 10px rgba(239,68,68,0); } }
+    .recording-status { font-size: 0.7rem; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
+    .recording-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); display: inline-block; }
+    .recording-status .dot.active { background: var(--danger); animation: pulse-dot 1s infinite; }
+    .recording-status .dot.saved { background: var(--success); }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .waveform-container { height: 32px; background: var(--bg-body); border-radius: var(--radius-sm); margin: 6px 0; overflow: hidden; border: 1px solid var(--border); }
+    .waveform-container canvas { width: 100%; height: 100%; display: block; }
+    .feedback-card { background: var(--bg-body); border: 2px solid var(--success); border-radius: var(--radius-sm); padding: 14px 16px; margin: 10px 0; display: none; }
+    .feedback-card.visible { display: block; }
+    .fb-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .fb-title { font-weight: 700; color: var(--success); }
+    .fb-meter .bar-track { width: 100%; height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .fb-meter .bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--danger), var(--secondary), var(--success)); transition: width 1s; }
+    .fb-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .fb-actions button { padding: 6px 16px; border: none; border-radius: var(--radius-sm); font-family: inherit; font-weight: 600; font-size: 0.75rem; cursor: pointer; }
+    .fb-retry { background: var(--secondary); color: #1A142F; }
+    .fb-listen { background: var(--success); color: #fff; }
+    .fb-download-fb { background: var(--primary); color: #fff; }
+    .floating-record { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .floating-record .fab-btn { width: 52px; height: 52px; border: none; border-radius: 50%; background: var(--danger); color: #fff; font-size: 1.2rem; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 20px rgba(239,68,68,0.4); display: flex; align-items: center; justify-content: center; }
+    .floating-record .fab-btn.idle { background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); }
+    .floating-record .fab-btn.recording { animation: pulse-fab 1.2s infinite; }
+    @keyframes pulse-fab { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); } 50% { box-shadow: 0 0 0 14px rgba(239,68,68,0); } }
+    .floating-record .fab-timer { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 2px 10px; font-size: 0.65rem; color: var(--text-secondary); display: none; }
+    .floating-record .fab-timer.visible { display: block; }
+    .scroll-top { position: fixed; bottom: 90px; right: 24px; width: 38px; height: 38px; border: none; border-radius: 50%; background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); cursor: pointer; opacity: 0; visibility: hidden; transition: var(--transition); z-index: 200; }
+    .scroll-top.visible { opacity: 1; visibility: visible; }
+    .practice-item { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-radius: var(--radius-sm); background: var(--bg-body); margin-bottom: 4px; }
+    .practice-item .text { flex: 1; font-size: 0.85rem; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+    @media (max-width: 640px) { .dashboard { grid-template-columns: repeat(2,1fr); } .nav-tabs { flex-wrap: nowrap; overflow-x: auto; } .nav-tab { min-width: 60px; font-size: 0.65rem; } }
+  </style>
 </head>
 <body>
+<div class="container">
 
-    <!-- ===== SCROLL TO TOP ===== -->
-    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+  <header class="header">
+    <h1>🗽 American Accent Mastery</h1>
+    <p>Practice with audio, record your voice, and sound like a native speaker.</p>
+  </header>
 
-    <!-- ===== FLOATING RECORD ===== -->
-    <div class="floating-record" id="floatingRecord">
-        <div class="fab-timer" id="fabTimer">0:00</div>
-        <div class="fab-status" id="fabStatus">Ready</div>
-        <button class="fab-btn idle" id="fabBtn"><i class="fas fa-microphone"></i></button>
+  <div class="dashboard">
+    <div class="dash-item"><div class="value" id="dashProgress">0%</div><div class="label">Completed</div></div>
+    <div class="dash-item"><div class="value" id="dashPoints">0</div><div class="label">Points</div></div>
+    <div class="dash-item"><div class="badge-icon" id="dashBadge">⭐</div><div class="label">Badges</div></div>
+    <div class="dash-item"><div class="value" id="dashStreak">0</div><div class="label">Streak</div></div>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-muted);margin-top:3px;">
+      <span id="completedCount">0</span><span>of <span id="totalCount">0</span> items</span>
+    </div>
+  </div>
+
+  <nav class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-section="section1">🎪 WOW Tricks</button>
+    <button class="nav-tab" data-section="section2">🧱 Patterns</button>
+    <button class="nav-tab" data-section="section3">✨ Refinements</button>
+    <button class="nav-tab" data-section="final">🎯 Final</button>
+  </nav>
+
+  <!-- ===== SECTION 1 ===== -->
+  <section class="section active" id="section1">
+    <!-- Trick 1: Flap T -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🔥 Trick 1: The "American D" (Flap /ɾ/)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">"water" → "wa[r]er"</div></div><span class="badge-level">Level 1</span></div>
+      <div class="audio-player" data-audio="/services/section1/trick1_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Standard</th><th>American Flap</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>water</td><td><span class="romaji">wa[r]er</span></td><td><button class="checkbox" data-item="t1_l1_water"></button></td></tr>
+          <tr><td>better</td><td><span class="romaji">be[r]er</span></td><td><button class="checkbox" data-item="t1_l1_better"></button></td></tr>
+          <tr><td>city</td><td><span class="romaji">si[r]y</span></td><td><button class="checkbox" data-item="t1_l1_city"></button></td></tr>
+          <tr><td>matter</td><td><span class="romaji">ma[r]er</span></td><td><button class="checkbox" data-item="t1_l1_matter"></button></td></tr>
+          <tr><td>daughter</td><td><span class="romaji">daw[r]er</span></td><td><button class="checkbox" data-item="t1_l1_daughter"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="t1_l1" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="t1_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t1_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-t1_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t1_l1">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji" id="fb-target-t1_l1">wa[r]er</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t1_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t1_l1">0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message" id="fb-msg-t1_l1">Great job!</div>
+        <div class="fb-tip" id="fb-tip-t1_l1">💡 Tip: tap the 'r' sound quickly.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t1_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
     </div>
 
-    <!-- ===== CONTAINER ===== -->
-    <div class="container">
-
-        <!-- ===== HEADER ===== -->
-        <header class="header">
-            <div class="header-top">
-                <div class="header-badge"><i class="fas fa-microphone-alt" style="margin-right:4px;"></i> Interactive Practice</div>
-                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> <span>Dark</span></button>
-            </div>
-            <h1>🗽 American Accent Mastery</h1>
-            <p>Practice with audio, record your voice, and sound like a native speaker.</p>
-        </header>
-
-        <!-- ===== DASHBOARD ===== -->
-        <div class="dashboard">
-            <div class="dash-item">
-                <div class="value" id="dashProgress">0%</div>
-                <div class="label">Completed</div>
-            </div>
-            <div class="dash-item">
-                <div class="value" id="dashPoints">0</div>
-                <div class="label">Points Earned</div>
-            </div>
-            <div class="dash-item">
-                <div class="badge-icon" id="dashBadge">⭐</div>
-                <div class="label">Badges</div>
-            </div>
-            <div class="dash-item">
-                <div class="value" id="dashStreak">0</div>
-                <div class="label">Day Streak</div>
-            </div>
-        </div>
-
-        <!-- ===== PROGRESS ===== -->
-        <div class="progress-wrapper">
-            <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
-            <div class="progress-stats">
-                <span id="completedCount">0</span>
-                <span>of <span id="totalCount">0</span> items completed</span>
-            </div>
-        </div>
-
-        <!-- ===== NAVIGATION ===== -->
-        <nav class="nav-tabs" id="navTabs">
-            <button class="nav-tab active" data-section="section1"><span class="icon">🎪</span> WOW Tricks</button>
-            <button class="nav-tab" data-section="section2"><span class="icon">🧱</span> Patterns</button>
-            <button class="nav-tab" data-section="section3"><span class="icon">✨</span> Refinements</button>
-            <button class="nav-tab" data-section="final"><span class="icon">🎯</span> Final Challenge</button>
-        </nav>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 1: WOW TRICKS -->
-        <!-- ============================================================ -->
-        <section class="section active" id="section1">
-
-            <!-- ===== TRICK 1: The American "D" Trick ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🔥</span> Trick 1: The "American D" Trick (Flap /ɾ/)</div>
-                        <div class="card-subtitle">"Say 'water' like a native in 2 seconds!"</div>
-                    </div>
-                    <span class="badge-level">Level 1</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick1_level1_isolated.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Standard "t"</th><th>American Flap</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>water</td><td><span class="romaji-highlight">wa[r]er</span></td><td><button class="checkbox" data-item="t1_l1_water"></button></td></tr>
-                        <tr><td>better</td><td><span class="romaji-highlight">be[r]er</span></td><td><button class="checkbox" data-item="t1_l1_better"></button></td></tr>
-                        <tr><td>city</td><td><span class="romaji-highlight">si[r]y</span></td><td><button class="checkbox" data-item="t1_l1_city"></button></td></tr>
-                        <tr><td>matter</td><td><span class="romaji-highlight">ma[r]er</span></td><td><button class="checkbox" data-item="t1_l1_matter"></button></td></tr>
-                        <tr><td>daughter</td><td><span class="romaji-highlight">daw[r]er</span></td><td><button class="checkbox" data-item="t1_l1_daughter"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="t1_l1" data-exercise-type="flap">
-                    <button class="record-btn start" data-recording="t1_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t1_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-t1_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t1_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t1_l1">wa[r]er</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t1_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t1_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t1_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t1_l1">💡 Tip: Remember to tap the 'r' sound quickly.</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t1_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t1_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t1_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 1A: Sentences ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🎯</span> Flap T in Action</div>
-                        <div class="card-subtitle">Repeat each sentence 3 times. Focus on the quick "r" tap!</div>
-                    </div>
-                    <span class="badge-level">Level 1A</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick1_level1a_sentences.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <div>
-                    <div class="practice-item"><span class="number">1</span><span class="text">I need some <span class="romaji">wa[r]er</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_1"></button></div></div>
-                    <div class="practice-item"><span class="number">2</span><span class="text">She <span class="romaji">iz</span> my <span class="romaji">daw[r]er</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_2"></button></div></div>
-                    <div class="practice-item"><span class="number">3</span><span class="text">The <span class="romaji">si[r]y iz</span> big.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_3"></button></div></div>
-                    <div class="practice-item"><span class="number">4</span><span class="text">This <span class="romaji">ma[r]er iz im-por-int</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_4"></button></div></div>
-                    <div class="practice-item"><span class="number">5</span><span class="text">I feel much <span class="romaji">be[r]er</span> now.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_5"></button></div></div>
-                    <div class="practice-item"><span class="number">6</span><span class="text">The <span class="romaji">wa[r]er iz</span> cold.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_6"></button></div></div>
-                    <div class="practice-item"><span class="number">7</span><span class="text">My <span class="romaji">daw[r]er livz</span> in the <span class="romaji">si[r]y</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_7"></button></div></div>
-                    <div class="practice-item"><span class="number">8</span><span class="text">Nothing <span class="romaji">ma[r]ers</span> more.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_8"></button></div></div>
-                    <div class="practice-item"><span class="number">9</span><span class="text">I want a <span class="romaji">be[r]er leye f</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_9"></button></div></div>
-                    <div class="practice-item"><span class="number">10</span><span class="text">The <span class="romaji">si[r]y wa[r]er iz kleen</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1a_10"></button></div></div>
-                </div>
-                <div class="recording-controls" data-recording-group="t1_l1a" data-exercise-type="flap">
-                    <button class="record-btn start" data-recording="t1_l1a"><i class="fas fa-microphone"></i> Record All</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l1a">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t1_l1a"></canvas></div>
-                <div class="feedback-card" id="feedback-t1_l1a">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t1_l1a">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t1_l1a">wa[r]er</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t1_l1a" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t1_l1a">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t1_l1a">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t1_l1a">💡 Tip: Remember to tap the 'r' sound quickly.</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t1_l1a"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t1_l1a"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t1_l1a"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 1B: Phrases ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🚀</span> Flap T Phrases</div>
-                        <div class="card-subtitle">Speak naturally! Don't pronounce the 't' as a hard 't'.</div>
-                    </div>
-                    <span class="badge-level">Level 1B</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick1_level1b_phrases.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <div>
-                    <div class="practice-item"><span class="number">1</span><span class="text">A little <span class="romaji">bi[r]er</span> of <span class="romaji">wa[r]er</span>.</span><div class="controls"><button class="checkbox" data-item="t1_l1b_1"></button></div></div>
-                    <div class="practice-item"><span class="number">2</span><span class="text">Get <span class="romaji">be[r]er</span> every day.</span><div class="controls"><button class="checkbox" data-item="t1_l1b_2"></button></div></div>
-                    <div class="practice-item"><span class="number">3</span><span class="text">It's a <span class="romaji">ma[r]er</span> of time.</span><div class="controls"><button class="checkbox" data-item="t1_l1b_3"></button></div></div>
-                    <div class="practice-item"><span class="number">4</span><span class="text">The <span class="romaji">si[r]y</span> is beautiful.</span><div class="controls"><button class="checkbox" data-item="t1_l1b_4"></button></div></div>
-                    <div class="practice-item"><span class="number">5</span><span class="text">I met my <span class="romaji">daw[r]er</span> downtown.</span><div class="controls"><button class="checkbox" data-item="t1_l1b_5"></button></div></div>
-                </div>
-                <div class="recording-controls" data-recording-group="t1_l1b" data-exercise-type="flap">
-                    <button class="record-btn start" data-recording="t1_l1b"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l1b">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t1_l1b"></canvas></div>
-                <div class="feedback-card" id="feedback-t1_l1b">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t1_l1b">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t1_l1b">bi[r]er</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t1_l1b" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t1_l1b">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t1_l1b">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t1_l1b">💡 Tip: Remember to tap the 'r' sound quickly.</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t1_l1b"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t1_l1b"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t1_l1b"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 2: The American "T" Trick (Glottal Stop) ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🔥</span> Trick 2: The "Glottal Stop" (Drop the T!)</div>
-                        <div class="card-subtitle">The secret to sounding like a native: "button" → "bu-in"</div>
-                    </div>
-                    <span class="badge-level">Level 2</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick2_level1_isolated.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Standard "t"</th><th>Glottal Stop</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>button</td><td><span class="romaji-highlight">bu-in</span></td><td><button class="checkbox" data-item="t2_l1_button"></button></td></tr>
-                        <tr><td>cotton</td><td><span class="romaji-highlight">ca-in</span></td><td><button class="checkbox" data-item="t2_l1_cotton"></button></td></tr>
-                        <tr><td>mountain</td><td><span class="romaji-highlight">moun-in</span></td><td><button class="checkbox" data-item="t2_l1_mountain"></button></td></tr>
-                        <tr><td>kitten</td><td><span class="romaji-highlight">ki-in</span></td><td><button class="checkbox" data-item="t2_l1_kitten"></button></td></tr>
-                        <tr><td>certain</td><td><span class="romaji-highlight">cer-in</span></td><td><button class="checkbox" data-item="t2_l1_certain"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="t2_l1" data-exercise-type="glottal">
-                    <button class="record-btn start" data-recording="t2_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t2_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t2_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-t2_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t2_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t2_l1">bu-in</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t2_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t2_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t2_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t2_l1">💡 Tip: Feel the catch in your throat. Drop the 't' completely!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t2_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t2_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t2_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 2A: Glottal Sentences ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🎯</span> Glottal in Sentences</div>
-                        <div class="card-subtitle">Drop the 't' completely! You'll sound 10x more natural.</div>
-                    </div>
-                    <span class="badge-level">Level 2A</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick2_level1a_sentences.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <div>
-                    <div class="practice-item"><span class="number">1</span><span class="text">Press the <span class="romaji">bu-in</span>.</span><div class="controls"><button class="checkbox" data-item="t2_l1a_1"></button></div></div>
-                    <div class="practice-item"><span class="number">2</span><span class="text">I love my <span class="romaji">ca-in</span> shirt.</span><div class="controls"><button class="checkbox" data-item="t2_l1a_2"></button></div></div>
-                    <div class="practice-item"><span class="number">3</span><span class="text">The <span class="romaji">moun-in</span> is high.</span><div class="controls"><button class="checkbox" data-item="t2_l1a_3"></button></div></div>
-                    <div class="practice-item"><span class="number">4</span><span class="text">My <span class="romaji">ki-in</span> is cute.</span><div class="controls"><button class="checkbox" data-item="t2_l1a_4"></button></div></div>
-                    <div class="practice-item"><span class="number">5</span><span class="text">I'm <span class="romaji">cer-in</span> about it.</span><div class="controls"><button class="checkbox" data-item="t2_l1a_5"></button></div></div>
-                    <div class="practice-item"><span class="number">6</span><span class="text">It's <span class="romaji">im-por-int</span>.</span><div class="controls"><button class="checkbox" data-item="t2_l1a_6"></button></div></div>
-                </div>
-                <div class="recording-controls" data-recording-group="t2_l1a" data-exercise-type="glottal">
-                    <button class="record-btn start" data-recording="t2_l1a"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t2_l1a">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t2_l1a"></canvas></div>
-                <div class="feedback-card" id="feedback-t2_l1a">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t2_l1a">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t2_l1a">bu-in</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t2_l1a" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t2_l1a">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t2_l1a">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t2_l1a">💡 Tip: Feel the catch in your throat. Drop the 't' completely!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t2_l1a"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t2_l1a"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t2_l1a"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 3: The "TH" Trick ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🔥</span> Trick 3: The "TH" Trick (Both Sounds!)</div>
-                        <div class="card-subtitle">Voiced (ذ) vs. Unvoiced (ث) - Master the sound!</div>
-                    </div>
-                    <span class="badge-level">Level 3</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick3_level1_isolated.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>Type</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>think</td><td><span class="romaji-highlight">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_think"></button></td></tr>
-                        <tr><td>this</td><td><span class="romaji-highlight">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_this"></button></td></tr>
-                        <tr><td>three</td><td><span class="romaji-highlight">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_three"></button></td></tr>
-                        <tr><td>that</td><td><span class="romaji-highlight">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_that"></button></td></tr>
-                        <tr><td>mouth</td><td><span class="romaji-highlight">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_mouth"></button></td></tr>
-                        <tr><td>mother</td><td><span class="romaji-highlight">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_mother"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="t3_l1" data-exercise-type="th">
-                    <button class="record-btn start" data-recording="t3_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t3_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-t3_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t3_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t3_l1">think</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t3_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t3_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t3_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t3_l1">💡 Tip: Use air for unvoiced TH (ث), buzz for voiced TH (ذ).</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t3_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t3_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t3_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 3A: TH Sentences ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🎯</span> TH in Action</div>
-                        <div class="card-subtitle">Perfect your 'th' in natural sentences!</div>
-                    </div>
-                    <span class="badge-level">Level 3A</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick3_level1a_sentences.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <div>
-                    <div class="practice-item"><span class="number">1</span><span class="text">I <span class="romaji">think</span> <span class="romaji">this</span> is good.</span><div class="controls"><button class="checkbox" data-item="t3_l1a_1"></button></div></div>
-                    <div class="practice-item"><span class="number">2</span><span class="text"><span class="romaji">That</span> is my <span class="romaji">mother</span>.</span><div class="controls"><button class="checkbox" data-item="t3_l1a_2"></button></div></div>
-                    <div class="practice-item"><span class="number">3</span><span class="text">Count to <span class="romaji">three</span>.</span><div class="controls"><button class="checkbox" data-item="t3_l1a_3"></button></div></div>
-                    <div class="practice-item"><span class="number">4</span><span class="text">Open your <span class="romaji">mouth</span>.</span><div class="controls"><button class="checkbox" data-item="t3_l1a_4"></button></div></div>
-                    <div class="practice-item"><span class="number">5</span><span class="text">I love <span class="romaji">this</span> and <span class="romaji">that</span>.</span><div class="controls"><button class="checkbox" data-item="t3_l1a_5"></button></div></div>
-                </div>
-                <div class="recording-controls" data-recording-group="t3_l1a" data-exercise-type="th">
-                    <button class="record-btn start" data-recording="t3_l1a"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l1a">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t3_l1a"></canvas></div>
-                <div class="feedback-card" id="feedback-t3_l1a">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t3_l1a">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t3_l1a">think this</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t3_l1a" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t3_l1a">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t3_l1a">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t3_l1a">💡 Tip: Use air for unvoiced TH (ث), buzz for voiced TH (ذ).</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t3_l1a"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t3_l1a"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t3_l1a"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 4: The "Dark L" Trick ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🔥</span> Trick 4: The "Dark L" (Velar L)</div>
-                        <div class="card-subtitle">The secret 'L' at the end of words!</div>
-                    </div>
-                    <span class="badge-level">Level 4</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick4_level1_isolated.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>Dark L Sound</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>feel</td><td><span class="romaji-highlight">fee-uhl</span></td><td><button class="checkbox" data-item="t4_l1_feel"></button></td></tr>
-                        <tr><td>call</td><td><span class="romaji-highlight">caw-uhl</span></td><td><button class="checkbox" data-item="t4_l1_call"></button></td></tr>
-                        <tr><td>ball</td><td><span class="romaji-highlight">baw-uhl</span></td><td><button class="checkbox" data-item="t4_l1_ball"></button></td></tr>
-                        <tr><td>will</td><td><span class="romaji-highlight">wi-uhl</span></td><td><button class="checkbox" data-item="t4_l1_will"></button></td></tr>
-                        <tr><td>school</td><td><span class="romaji-highlight">skoo-uhl</span></td><td><button class="checkbox" data-item="t4_l1_school"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="t4_l1" data-exercise-type="flap">
-                    <button class="record-btn start" data-recording="t4_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t4_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t4_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-t4_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t4_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t4_l1">fee-uhl</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t4_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t4_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t4_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t4_l1">💡 Tip: Raise the back of your tongue when saying the 'L' at the end!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t4_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t4_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t4_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== TRICK 5: The "Nasal N" ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🔥</span> Trick 5: The "Nasal N"</div>
-                        <div class="card-subtitle">Sound like a native when saying 'n' before 't'!</div>
-                    </div>
-                    <span class="badge-level">Level 5</span>
-                </div>
-                <div class="audio-player" data-audio="section1/trick5_level1_isolated.mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>Nasal N</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>interview</td><td><span class="romaji-highlight">in-er-view</span></td><td><button class="checkbox" data-item="t5_l1_interview"></button></td></tr>
-                        <tr><td>international</td><td><span class="romaji-highlight">in-er-national</span></td><td><button class="checkbox" data-item="t5_l1_international"></button></td></tr>
-                        <tr><td>internet</td><td><span class="romaji-highlight">in-er-net</span></td><td><button class="checkbox" data-item="t5_l1_internet"></button></td></tr>
-                        <tr><td>winter</td><td><span class="romaji-highlight">win-er</span></td><td><button class="checkbox" data-item="t5_l1_winter"></button></td></tr>
-                        <tr><td>center</td><td><span class="romaji-highlight">cen-er</span></td><td><button class="checkbox" data-item="t5_l1_center"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="t5_l1" data-exercise-type="flap">
-                    <button class="record-btn start" data-recording="t5_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t5_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-t5_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-t5_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t5_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-t5_l1">in-er-view</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t5_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t5_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-t5_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-t5_l1">💡 Tip: Don't pronounce the 't' in 'interview', just say 'in-er-view'!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="t5_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="t5_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="t5_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- End of Section 1 (WOW Tricks) -->
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 2: PATTERNS -->
-        <!-- ============================================================ -->
-        <section class="section" id="section2">
-
-            <!-- ===== PATTERN 1: SHUN / SHUR ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🧱</span> Pattern 1: The "SHUN" Sound</div>
-                        <div class="card-subtitle">Master words ending in -tion, -sion, -ssion!</div>
-                    </div>
-                    <span class="badge-level">Pattern</span>
-                </div>
-                <div class="audio-player" data-audio="section2/pattern1_level1_patt...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>SHUN Sound</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>action</td><td><span class="romaji-highlight">ac-shun</span></td><td><button class="checkbox" data-item="p1_l1_action"></button></td></tr>
-                        <tr><td>nation</td><td><span class="romaji-highlight">na-shun</span></td><td><button class="checkbox" data-item="p1_l1_nation"></button></td></tr>
-                        <tr><td>station</td><td><span class="romaji-highlight">sta-shun</span></td><td><button class="checkbox" data-item="p1_l1_station"></button></td></tr>
-                        <tr><td>vision</td><td><span class="romaji-highlight">vi-zhun</span></td><td><button class="checkbox" data-item="p1_l1_vision"></button></td></tr>
-                        <tr><td>mission</td><td><span class="romaji-highlight">mi-shun</span></td><td><button class="checkbox" data-item="p1_l1_mission"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="p1_l1" data-exercise-type="shun">
-                    <button class="record-btn start" data-recording="p1_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p1_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-p1_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-p1_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-p1_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-p1_l1">ac-shun</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-p1_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-p1_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-p1_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-p1_l1">💡 Tip: The 'shun' sound is everywhere! Practice it in everyday words.</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="p1_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="p1_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="p1_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== PATTERN 2: The "C Code" (Soft C) ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🧱</span> Pattern 2: The "C Code"</div>
-                        <div class="card-subtitle">When 'c' sounds like 's'!</div>
-                    </div>
-                    <span class="badge-level">Pattern</span>
-                </div>
-                <div class="audio-player" data-audio="section2/pattern2_level1a_se...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>Soft C</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>center</td><td><span class="romaji-highlight">sen-ter</span></td><td><button class="checkbox" data-item="p2_l1_center"></button></td></tr>
-                        <tr><td>city</td><td><span class="romaji-highlight">si-ty</span></td><td><button class="checkbox" data-item="p2_l1_city"></button></td></tr>
-                        <tr><td>ceiling</td><td><span class="romaji-highlight">see-ling</span></td><td><button class="checkbox" data-item="p2_l1_ceiling"></button></td></tr>
-                        <tr><td>cycle</td><td><span class="romaji-highlight">si-cle</span></td><td><button class="checkbox" data-item="p2_l1_cycle"></button></td></tr>
-                        <tr><td>certain</td><td><span class="romaji-highlight">ser-tain</span></td><td><button class="checkbox" data-item="p2_l1_certain"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="p2_l1" data-exercise-type="shun">
-                    <button class="record-btn start" data-recording="p2_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p2_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-p2_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-p2_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-p2_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-p2_l1">sen-ter</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-p2_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-p2_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-p2_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-p2_l1">💡 Tip: Remember, C says 's' before E, I, and Y!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="p2_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="p2_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="p2_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ===== PATTERN 3: SHUR Endings ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🧱</span> Pattern 3: The "SHUR" Sound</div>
-                        <div class="card-subtitle">Words ending in -ture! (You say "cher", not "chur")</div>
-                    </div>
-                    <span class="badge-level">Pattern</span>
-                </div>
-                <div class="audio-player" data-audio="section2/pattern3_level1a_se...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>SHUR Sound</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>picture</td><td><span class="romaji-highlight">pic-cher</span></td><td><button class="checkbox" data-item="p3_l1_picture"></button></td></tr>
-                        <tr><td>nature</td><td><span class="romaji-highlight">na-cher</span></td><td><button class="checkbox" data-item="p3_l1_nature"></button></td></tr>
-                        <tr><td>future</td><td><span class="romaji-highlight">fu-cher</span></td><td><button class="checkbox" data-item="p3_l1_future"></button></td></tr>
-                        <tr><td>culture</td><td><span class="romaji-highlight">cul-cher</span></td><td><button class="checkbox" data-item="p3_l1_culture"></button></td></tr>
-                        <tr><td>adventure</td><td><span class="romaji-highlight">ad-ven-cher</span></td><td><button class="checkbox" data-item="p3_l1_adventure"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="p3_l1" data-exercise-type="shun">
-                    <button class="record-btn start" data-recording="p3_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p3_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-p3_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-p3_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-p3_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-p3_l1">pic-cher</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-p3_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-p3_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-p3_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-p3_l1">💡 Tip: Always say 'cher' for -ture words, not 'chur'!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="p3_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="p3_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="p3_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== PATTERN 4: The "YEW-US" Endings ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🧱</span> Pattern 4: The "YEW-US" Endings</div>
-                        <div class="card-subtitle">Master the "-ous" suffix!</div>
-                    </div>
-                    <span class="badge-level">Pattern</span>
-                </div>
-                <div class="audio-player" data-audio="section2/pattern4_level1a_se...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>YEW-US Sound</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>famous</td><td><span class="romaji-highlight">fay-mus</span></td><td><button class="checkbox" data-item="p4_l1_famous"></button></td></tr>
-                        <tr><td>delicious</td><td><span class="romaji-highlight">de-li-shus</span></td><td><button class="checkbox" data-item="p4_l1_delicious"></button></td></tr>
-                        <tr><td>dangerous</td><td><span class="romaji-highlight">dane-jer-us</span></td><td><button class="checkbox" data-item="p4_l1_dangerous"></button></td></tr>
-                        <tr><td>nervous</td><td><span class="romaji-highlight">ner-vus</span></td><td><button class="checkbox" data-item="p4_l1_nervous"></button></td></tr>
-                        <tr><td>various</td><td><span class="romaji-highlight">vair-ee-us</span></td><td><button class="checkbox" data-item="p4_l1_various"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="p4_l1" data-exercise-type="shun">
-                    <button class="record-btn start" data-recording="p4_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p4_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-p4_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-p4_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-p4_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-p4_l1">fay-mus</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-p4_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-p4_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-p4_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-p4_l1">💡 Tip: The 'ous' sound is a quick 'us'! Don't say 'o-u-s'.</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="p4_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="p4_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="p4_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 3: REFINEMENTS -->
-        <!-- ============================================================ -->
-        <section class="section" id="section3">
-
-            <!-- ===== REFINEMENT 1: The "OUGH" Rules ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">✨</span> Refinement 1: The "OUGH" Rules</div>
-                        <div class="card-subtitle">The hardest sound in English! Let's master it.</div>
-                    </div>
-                    <span class="badge-level">Refinement</span>
-                </div>
-                <div class="audio-player" data-audio="section3/refinement1_level1_ou...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>Sound</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>thought</td><td><span class="romaji-highlight">thawt</span></td><td><button class="checkbox" data-item="r1_l1_thought"></button></td></tr>
-                        <tr><td>through</td><td><span class="romaji-highlight">threw</span></td><td><button class="checkbox" data-item="r1_l1_through"></button></td></tr>
-                        <tr><td>though</td><td><span class="romaji-highlight">tho</span></td><td><button class="checkbox" data-item="r1_l1_though"></button></td></tr>
-                        <tr><td>tough</td><td><span class="romaji-highlight">tuff</span></td><td><button class="checkbox" data-item="r1_l1_tough"></button></td></tr>
-                        <tr><td>rough</td><td><span class="romaji-highlight">ruff</span></td><td><button class="checkbox" data-item="r1_l1_rough"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="r1_l1" data-exercise-type="ough">
-                    <button class="record-btn start" data-recording="r1_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-r1_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-r1_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-r1_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-r1_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-r1_l1">thawt</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-r1_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-r1_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-r1_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-r1_l1">💡 Tip: OUGH has 8 different pronunciations. Practice each one separately!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="r1_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="r1_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="r1_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== REFINEMENT 2: The "Magic E" Rule ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">✨</span> Refinement 2: The "Magic E"</div>
-                        <div class="card-subtitle">The silent 'e' that changes the vowel sound!</div>
-                    </div>
-                    <span class="badge-level">Refinement</span>
-                </div>
-                <div class="audio-player" data-audio="section3/refinement2_level1_ma...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <table class="data-table">
-                    <thead><tr><th>Word</th><th>Magic E</th><th style="width:36px;">Done</th></tr></thead>
-                    <tbody>
-                        <tr><td>hope</td><td><span class="romaji-highlight">hoap</span></td><td><button class="checkbox" data-item="r2_l1_hope"></button></td></tr>
-                        <tr><td>like</td><td><span class="romaji-highlight">laik</span></td><td><button class="checkbox" data-item="r2_l1_like"></button></td></tr>
-                        <tr><td>make</td><td><span class="romaji-highlight">maik</span></td><td><button class="checkbox" data-item="r2_l1_make"></button></td></tr>
-                        <tr><td>note</td><td><span class="romaji-highlight">noat</span></td><td><button class="checkbox" data-item="r2_l1_note"></button></td></tr>
-                        <tr><td>cute</td><td><span class="romaji-highlight">cyoot</span></td><td><button class="checkbox" data-item="r2_l1_cute"></button></td></tr>
-                    </tbody>
-                </table>
-                <div class="recording-controls" data-recording-group="r2_l1" data-exercise-type="flap">
-                    <button class="record-btn start" data-recording="r2_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-r2_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-r2_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-r2_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-r2_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-r2_l1">hoap</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-r2_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-r2_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-r2_l1">Great job! Keep practicing!</div>
-                    <div class="fb-tip" id="fb-tip-r2_l1">💡 Tip: The 'e' is silent, but it makes the other vowel say its own name!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="r2_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="r2_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="r2_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ============================================================ -->
-        <!-- SECTION 4: FINAL CHALLENGE -->
-        <!-- ============================================================ -->
-        <section class="section" id="final">
-
-            <!-- ===== FINAL 1: Mission Briefing ===== -->
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title"><span class="emoji">🎯</span> Final Challenge: Mission Briefing</div>
-                        <div class="card-subtitle">Read this aloud perfectly to pass the test!</div>
-                    </div>
-                    <span class="badge-level">Final</span>
-                </div>
-                <div class="audio-player" data-audio="final/american_challenge...mp3">
-                    <button class="play-btn"><i class="fas fa-play"></i></button>
-                    <div class="progress"><div class="fill"></div></div>
-                    <span class="time">0:00 / 0:00</span>
-                </div>
-                <div>
-                    <div class="practice-item"><span class="number">1</span><span class="text">I thought about the <span class="romaji">daw[r]er</span> in the <span class="romaji">si[r]y</span>.</span><div class="controls"><button class="checkbox" data-item="f1_l1_1"></button></div></div>
-                    <div class="practice-item"><span class="number">2</span><span class="text">It's <span class="romaji">im-por-int</span> to <span class="romaji">think</span> clearly.</span><div class="controls"><button class="checkbox" data-item="f1_l1_2"></button></div></div>
-                    <div class="practice-item"><span class="number">3</span><span class="text">The <span class="romaji">pic-cher</span> is <span class="romaji">beau-ti-ful</span>.</span><div class="controls"><button class="checkbox" data-item="f1_l1_3"></button></div></div>
-                </div>
-                <div class="recording-controls" data-recording-group="f1_l1" data-exercise-type="final">
-                    <button class="record-btn start" data-recording="f1_l1"><i class="fas fa-microphone"></i> Record</button>
-                    <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
-                    <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
-                    <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-                    <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-f1_l1">0:00</span></span>
-                </div>
-                <div class="waveform-container"><canvas id="waveform-f1_l1"></canvas></div>
-                <div class="feedback-card" id="feedback-f1_l1">
-                    <div class="fb-header"><span class="fb-title">✅ Challenge Passed!</span><span class="fb-stars" id="fb-stars-f1_l1">★★★★★</span></div>
-                    <div class="fb-target">Target: <span class="romaji" id="fb-target-f1_l1">daw[r]er</span></div>
-                    <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-f1_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-f1_l1">0%</span><span>Excellent!</span></div></div>
-                    <div class="fb-message" id="fb-msg-f1_l1">Outstanding! You sound like a true American!</div>
-                    <div class="fb-tip" id="fb-tip-f1_l1">💡 Tip: You've mastered all the sounds. Now focus on fluency!</div>
-                    <div class="fb-actions">
-                        <button class="fb-retry" data-fb="f1_l1"><i class="fas fa-redo"></i> Try Again</button>
-                        <button class="fb-listen" data-fb="f1_l1"><i class="fas fa-play"></i> Listen</button>
-                        <button class="fb-download-fb" data-fb="f1_l1"><i class="fas fa-download"></i> Download</button>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
+    <!-- Trick 1A: Sentences -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Flap T in Action</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat each sentence 3 times</div></div><span class="badge-level">Level 1A</span></div>
+      <div class="audio-player" data-audio="/services/section1/trick1_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I need some <span class="romaji">wa[r]er</span>.</span><button class="checkbox" data-item="t1_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">She <span class="romaji">iz</span> my <span class="romaji">daw[r]er</span>.</span><button class="checkbox" data-item="t1_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">The <span class="romaji">si[r]y iz</span> big.</span><button class="checkbox" data-item="t1_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">This <span class="romaji">ma[r]er iz im-por-int</span>.</span><button class="checkbox" data-item="t1_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">I feel much <span class="romaji">be[r]er</span> now.</span><button class="checkbox" data-item="t1_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">The <span class="romaji">wa[r]er iz</span> cold.</span><button class="checkbox" data-item="t1_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">My <span class="romaji">daw[r]er livz</span> in the <span class="romaji">si[r]y</span>.</span><button class="checkbox" data-item="t1_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">Nothing <span class="romaji">ma[r]ers</span> more.</span><button class="checkbox" data-item="t1_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">I want a <span class="romaji">be[r]er leye f</span>.</span><button class="checkbox" data-item="t1_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">The <span class="romaji">si[r]y wa[r]er iz kleen</span>.</span><button class="checkbox" data-item="t1_l1a_10"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t1_l1a" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="t1_l1a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l1a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t1_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-t1_l1a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">wa[r]er</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: tap the 'r' quickly.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t1_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t1_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t1_l1a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
     </div>
-    <!-- END CONTAINER -->
 
-    <!-- ===== JAVASCRIPT ===== -->
-    <script>
-    (function() {
-        'use strict';
+    <!-- Trick 2: Glottal Stop -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🔥 Trick 2: Glottal Stop (Drop the T)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">"button" → "bu-in"</div></div><span class="badge-level">Level 2</span></div>
+      <div class="audio-player" data-audio="/services/section1/trick2_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Standard</th><th>Glottal</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>button</td><td><span class="romaji">bu-in</span></td><td><button class="checkbox" data-item="t2_l1_button"></button></td></tr>
+          <tr><td>cotton</td><td><span class="romaji">ca-in</span></td><td><button class="checkbox" data-item="t2_l1_cotton"></button></td></tr>
+          <tr><td>mountain</td><td><span class="romaji">moun-in</span></td><td><button class="checkbox" data-item="t2_l1_mountain"></button></td></tr>
+          <tr><td>kitten</td><td><span class="romaji">ki-in</span></td><td><button class="checkbox" data-item="t2_l1_kitten"></button></td></tr>
+          <tr><td>certain</td><td><span class="romaji">cer-in</span></td><td><button class="checkbox" data-item="t2_l1_certain"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="t2_l1" data-exercise-type="glottal">
+        <button class="record-btn start" data-recording="t2_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t2_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t2_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-t2_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">bu-in</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Feel the catch in your throat.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t2_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
 
-        // ===== STATE =====
-        const state = {
-            completed: new Set(),
-            totalItems: 0,
-            recordings: {},
-            audioPlayers: {},
-            playbackInstances: {},
-            isRecording: false,
-            recordingTimer: null,
-            recordingSeconds: 0,
-            currentRecordingId: null,
-            points: 0,
-            badges: [],
-            streak: 0,
-            theme: 'dark',
-            audioChunks: [],
-            activeCanvas: null,
-            animationId: null,
-            isWaveformActive: false,
+    <!-- Trick 3: TH -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🔥 Trick 3: The "TH" (Voiced/Unvoiced)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">think (ث) vs this (ذ)</div></div><span class="badge-level">Level 3</span></div>
+      <div class="audio-player" data-audio="/services/section1/trick3_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Type</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>think</td><td><span class="romaji">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_think"></button></td></tr>
+          <tr><td>this</td><td><span class="romaji">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_this"></button></td></tr>
+          <tr><td>three</td><td><span class="romaji">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_three"></button></td></tr>
+          <tr><td>that</td><td><span class="romaji">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_that"></button></td></tr>
+          <tr><td>mouth</td><td><span class="romaji">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_mouth"></button></td></tr>
+          <tr><td>mother</td><td><span class="romaji">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_mother"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="t3_l1" data-exercise-type="th">
+        <button class="record-btn start" data-recording="t3_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t3_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-t3_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">think</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Air for unvoiced, buzz for voiced.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t3_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t3_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t3_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: PATTERNS ===== -->
+  <section class="section" id="section2">
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 Pattern 1: "SHUN" (-tion, -sion)</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="/services/section2/pattern1_level1_patt...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Sound</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>action</td><td><span class="romaji">ac-shun</span></td><td><button class="checkbox" data-item="p1_l1_action"></button></td></tr>
+          <tr><td>nation</td><td><span class="romaji">na-shun</span></td><td><button class="checkbox" data-item="p1_l1_nation"></button></td></tr>
+          <tr><td>station</td><td><span class="romaji">sta-shun</span></td><td><button class="checkbox" data-item="p1_l1_station"></button></td></tr>
+          <tr><td>vision</td><td><span class="romaji">vi-zhun</span></td><td><button class="checkbox" data-item="p1_l1_vision"></button></td></tr>
+          <tr><td>mission</td><td><span class="romaji">mi-shun</span></td><td><button class="checkbox" data-item="p1_l1_mission"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="p1_l1" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="p1_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p1_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-p1_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-p1_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">ac-shun</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: "shun" is everywhere.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="p1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="p1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="p1_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 Pattern 2: "C" Code (Soft C)</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="/services/section2/pattern2_level1a_se...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Soft C</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>center</td><td><span class="romaji">sen-ter</span></td><td><button class="checkbox" data-item="p2_l1_center"></button></td></tr>
+          <tr><td>city</td><td><span class="romaji">si-ty</span></td><td><button class="checkbox" data-item="p2_l1_city"></button></td></tr>
+          <tr><td>ceiling</td><td><span class="romaji">see-ling</span></td><td><button class="checkbox" data-item="p2_l1_ceiling"></button></td></tr>
+          <tr><td>cycle</td><td><span class="romaji">si-cle</span></td><td><button class="checkbox" data-item="p2_l1_cycle"></button></td></tr>
+          <tr><td>certain</td><td><span class="romaji">ser-tain</span></td><td><button class="checkbox" data-item="p2_l1_certain"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="p2_l1" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="p2_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p2_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-p2_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-p2_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">sen-ter</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: C says 's' before E, I, Y.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="p2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="p2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="p2_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: REFINEMENTS ===== -->
+  <section class="section" id="section3">
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">✨ Refinement 1: The "OUGH" Rules</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="/services/section3/refinement1_level1_ou...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Sound</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>thought</td><td><span class="romaji">thawt</span></td><td><button class="checkbox" data-item="r1_l1_thought"></button></td></tr>
+          <tr><td>through</td><td><span class="romaji">threw</span></td><td><button class="checkbox" data-item="r1_l1_through"></button></td></tr>
+          <tr><td>though</td><td><span class="romaji">tho</span></td><td><button class="checkbox" data-item="r1_l1_though"></button></td></tr>
+          <tr><td>tough</td><td><span class="romaji">tuff</span></td><td><button class="checkbox" data-item="r1_l1_tough"></button></td></tr>
+          <tr><td>rough</td><td><span class="romaji">ruff</span></td><td><button class="checkbox" data-item="r1_l1_rough"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="r1_l1" data-exercise-type="ough">
+        <button class="record-btn start" data-recording="r1_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-r1_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-r1_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-r1_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">thawt</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: OUGH has 8 pronunciations.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="r1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="r1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="r1_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">✨ Refinement 2: Magic E</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="/services/section3/refinement2_level1_ma...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Magic E</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>hope</td><td><span class="romaji">hoap</span></td><td><button class="checkbox" data-item="r2_l1_hope"></button></td></tr>
+          <tr><td>like</td><td><span class="romaji">laik</span></td><td><button class="checkbox" data-item="r2_l1_like"></button></td></tr>
+          <tr><td>make</td><td><span class="romaji">maik</span></td><td><button class="checkbox" data-item="r2_l1_make"></button></td></tr>
+          <tr><td>note</td><td><span class="romaji">noat</span></td><td><button class="checkbox" data-item="r2_l1_note"></button></td></tr>
+          <tr><td>cute</td><td><span class="romaji">cyoot</span></td><td><button class="checkbox" data-item="r2_l1_cute"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="r2_l1" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="r2_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-r2_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-r2_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-r2_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">hoap</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: silent 'e' makes vowel say its name.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="r2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="r2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="r2_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CHALLENGE ===== -->
+  <section class="section" id="final">
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Final Challenge: Mission Briefing</div></div><span class="badge-level">Final</span></div>
+      <div class="audio-player" data-audio="/services/final/american_challenge...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I thought about the <span class="romaji">daw[r]er</span> in the <span class="romaji">si[r]y</span>.</span><button class="checkbox" data-item="f1_l1_1"></button></div>
+        <div class="practice-item"><span class="text">It's <span class="romaji">im-por-int</span> to <span class="romaji">think</span> clearly.</span><button class="checkbox" data-item="f1_l1_2"></button></div>
+        <div class="practice-item"><span class="text">The <span class="romaji">pic-cher</span> is <span class="romaji">beau-ti-ful</span>.</span><button class="checkbox" data-item="f1_l1_3"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="f1_l1" data-exercise-type="final">
+        <button class="record-btn start" data-recording="f1_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-f1_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-f1_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-f1_l1">
+        <div class="fb-header"><span class="fb-title">✅ Challenge Passed!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: <span class="romaji">daw[r]er</span></div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Outstanding! You sound like a true American!</div>
+        <div class="fb-tip">💡 Tip: Focus on fluency.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="f1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="f1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="f1_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Floating record -->
+<div class="floating-record">
+  <div class="fab-timer" id="fabTimer">0:00</div>
+  <button class="fab-btn idle" id="fabBtn"><i class="fas fa-microphone"></i></button>
+</div>
+<button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+// ===== The JavaScript is exactly the same as before =====
+(function() {
+  'use strict';
+
+  const state = { completed: new Set(), totalItems: 0, recordings: {}, audioPlayers: {}, playbackInstances: {}, points: 0, streak: 0 };
+  let globalMediaRecorder = null, globalStream = null, globalAudioChunks = [], globalIsRecording = false, globalRecordingId = null;
+  let globalTimerInterval = null, globalSeconds = 0, globalStartTime = 0;
+  let micPermissionGranted = false, micPermissionChecked = false, sharedStream = null;
+  const waveInstances = [];
+
+  const progressFill = document.getElementById('progressFill');
+  const completedCount = document.getElementById('completedCount');
+  const totalCount = document.getElementById('totalCount');
+  const fabBtn = document.getElementById('fabBtn');
+  const fabTimer = document.getElementById('fabTimer');
+  const dashProgress = document.getElementById('dashProgress');
+  const dashPoints = document.getElementById('dashPoints');
+  const dashBadge = document.getElementById('dashBadge');
+  const dashStreak = document.getElementById('dashStreak');
+  const scrollBtn = document.getElementById('scrollTop');
+
+  async function getMic() {
+    if (micPermissionGranted) return true;
+    if (micPermissionChecked) return false;
+    try {
+      if (navigator.permissions && navigator.permissions.query) {
+        const result = await navigator.permissions.query({ name: 'microphone' });
+        if (result.state === 'granted') { micPermissionGranted = true; micPermissionChecked = true; return true; }
+        if (result.state === 'denied') { micPermissionChecked = true; alert('Microphone access is blocked. Please enable it in your browser settings and refresh.'); return false; }
+      }
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      sharedStream = stream; micPermissionGranted = true; micPermissionChecked = true; return true;
+    } catch (e) { micPermissionChecked = true; alert('Microphone access required. Please allow it in your browser.'); return false; }
+  }
+
+  function countTotal() {
+    const cbs = document.querySelectorAll('.checkbox');
+    state.totalItems = cbs.length;
+    totalCount.textContent = state.totalItems;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const done = state.completed.size;
+    const total = state.totalItems || 1;
+    const pct = Math.round((done / total) * 100);
+    progressFill.style.width = pct + '%';
+    completedCount.textContent = done;
+    dashProgress.textContent = pct + '%';
+    state.points = done * 10;
+    dashPoints.textContent = state.points;
+    let b = [];
+    if (done >= 5) b.push('🌱');
+    if (done >= 15) b.push('🔥');
+    if (done >= 30) b.push('⭐');
+    if (done >= 50) b.push('🏆');
+    if (done >= 80) b.push('👑');
+    if (done >= 100) b.push('🗽');
+    dashBadge.textContent = b.length ? b.join(' ') : '⭐';
+    const today = new Date().toDateString();
+    const last = localStorage.getItem('accent_last_active');
+    if (last === today) state.streak = parseInt(localStorage.getItem('accent_streak')) || 1;
+    else if (done > 0) {
+      state.streak = (last && new Date(last).getTime() > Date.now() - 86400000) ? (parseInt(localStorage.getItem('accent_streak')) || 0) + 1 : 1;
+      localStorage.setItem('accent_streak', state.streak);
+    }
+    localStorage.setItem('accent_last_active', today);
+    dashStreak.textContent = state.streak || 0;
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const key = el.dataset.item;
+    if (!key) return;
+    if (el.classList.contains('checked')) {
+      state.completed.add(key);
+      el.innerHTML = '✓'; el.style.color = '#fff';
+    } else {
+      state.completed.delete(key);
+      el.innerHTML = ''; el.style.color = 'transparent';
+    }
+    updateProgress();
+    try { localStorage.setItem('accent_practice_progress', JSON.stringify([...state.completed])); } catch(e) {}
+  }
+
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(this.dataset.section).classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.audio-player').forEach(container => {
+    const playBtn = container.querySelector('.play-btn');
+    const progress = container.querySelector('.progress .fill');
+    const timeDisplay = container.querySelector('.time');
+    const src = container.dataset.audio;
+    if (!src) return;
+    const audio = new Audio(src);
+    state.audioPlayers[src] = audio;
+    function fmt(sec) { if (!sec || isNaN(sec)) return '0:00'; const m=Math.floor(sec/60), s=Math.floor(sec%60); return m+':'+(s<10?'0':'')+s; }
+    audio.addEventListener('timeupdate', function() {
+      const pct = (this.currentTime / this.duration) * 100;
+      progress.style.width = pct + '%';
+      timeDisplay.textContent = fmt(this.currentTime) + ' / ' + fmt(this.duration);
+    });
+    audio.addEventListener('ended', function() { playBtn.innerHTML='<i class="fas fa-play"></i>'; playBtn.classList.remove('playing'); progress.style.width='0%'; timeDisplay.textContent = '0:00 / ' + fmt(this.duration); });
+    playBtn.addEventListener('click', function() {
+      if (this.classList.contains('playing')) { audio.pause(); this.innerHTML='<i class="fas fa-play"></i>'; this.classList.remove('playing'); }
+      else { audio.play().catch(()=>{}); this.innerHTML='<i class="fas fa-pause"></i>'; this.classList.add('playing'); }
+    });
+    container.querySelector('.progress').addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pct * audio.duration;
+    });
+  });
+
+  document.querySelectorAll('.waveform-container canvas').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const parent = canvas.parentElement;
+    let width = parent.clientWidth || 300, height = 32;
+    canvas.width = width; canvas.height = height;
+    const bars = 45; let active = false, anim = null;
+    function drawStatic() {
+      ctx.clearRect(0,0,width,height);
+      const bw = Math.max(2, (width/bars)-2);
+      for (let i=0; i<bars; i++) {
+        const bh = 3, x = i*(bw+2), y=(height-bh)/2;
+        ctx.fillStyle = '#6C3CE1';
+        ctx.fillRect(x,y,bw,Math.max(bh,2));
+      }
+    }
+    function animate() {
+      if (!active) { drawStatic(); return; }
+      ctx.clearRect(0,0,width,height);
+      const bw = Math.max(2, (width/bars)-2);
+      for (let i=0; i<bars; i++) {
+        const bh = (Math.random() * height * 0.7 + 4);
+        const x = i*(bw+2), y=(height-bh)/2;
+        const grad = ctx.createLinearGradient(0,0,0,height);
+        grad.addColorStop(0,'#EF4444'); grad.addColorStop(0.5,'#F59E0B'); grad.addColorStop(1,'#EF4444');
+        ctx.fillStyle = grad;
+        ctx.fillRect(x,y,bw,Math.max(bh,2));
+      }
+      if (active) anim = requestAnimationFrame(animate);
+    }
+    const inst = { draw: function(a) { active = a; if (active) { if (anim) cancelAnimationFrame(anim); animate(); } else { if (anim) cancelAnimationFrame(anim); drawStatic(); } }, resize: function() { width = parent.clientWidth || 300; canvas.width = width; }, isActive: function() { return active; } };
+    waveInstances.push(inst);
+    inst.draw(false);
+  });
+
+  function showFeedback(id, type, dur, url) {
+    const card = document.getElementById('feedback-'+id);
+    if (!card) return;
+    let score = Math.min(75 + Math.floor(Math.random() * 25), 100);
+    if (dur > 10) score = Math.min(score+5, 100);
+    if (dur < 3) score = Math.max(score-20, 30);
+    const level = score >= 85 ? 'excellent' : score >= 65 ? 'great' : 'good';
+    const stars = level==='excellent'?'★★★★★':level==='great'?'★★★★☆':'★★★☆☆';
+    const msgs = { flap: { good: 'Good! Keep practicing!', great: 'Great! Sounds natural!', excellent: 'Excellent! Native level!' },
+      glottal: { good: 'Good! Drop the T!', great: 'Great glottal stop!', excellent: 'Perfect glottal stop!' },
+      th: { good: 'Good! More air for TH!', great: 'Great TH distinction!', excellent: 'Perfect TH!' },
+      ough: { good: 'Good! Tough sound!', great: 'Great OUGH!', excellent: 'Mastered OUGH!' },
+      shun: { good: 'Good SHUN!', great: 'Great SHUN!', excellent: 'Perfect SHUN!' },
+      final: { good: 'Good! Review sounds.', great: 'Great! Almost there!', excellent: 'Outstanding! American pro!' }
+    };
+    const tips = { flap: '💡 Tap the "r" quickly.', glottal: '💡 Feel the catch in your throat.', th: '💡 Air vs buzz.', ough: '💡 8 pronunciations!', shun: '💡 "shun" everywhere.', final: '💡 Focus on fluency.' };
+    const m = msgs[type] || msgs.flap;
+    const starEl = card.querySelector('.fb-stars');
+    if (starEl) starEl.textContent = stars;
+    const meter = card.querySelector('.bar-fill');
+    if (meter) meter.style.width = score + '%';
+    const labels = card.querySelectorAll('.bar-label span');
+    if (labels.length >= 2) labels[1].textContent = score + '%';
+    const msgEl = card.querySelector('.fb-message');
+    if (msgEl) msgEl.textContent = m[level];
+    const tipEl = card.querySelector('.fb-tip');
+    if (tipEl) tipEl.textContent = tips[type] || tips.flap;
+    const listenBtn = card.querySelector('.fb-listen');
+    if (listenBtn) listenBtn.dataset.url = url;
+    card.classList.add('visible');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+  }
+
+  document.querySelectorAll('.record-btn.start').forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      const id = this.dataset.recording;
+      if (!id) return;
+      if (!await getMic()) return;
+      if (globalIsRecording) { if (globalMediaRecorder) globalMediaRecorder.stop(); return; }
+
+      const container = this.closest('.recording-controls');
+      const stopBtn = container.querySelector('.record-btn.stop');
+      const playbackBtn = container.querySelector('.record-btn.playback');
+      const downloadBtn = container.querySelector('.record-btn.download');
+      const statusDot = container.querySelector('.recording-status .dot');
+      const timerEl = container.querySelector('.timer');
+      const card = container.closest('.card');
+      const canvas = card ? card.querySelector('.waveform-container canvas') : null;
+      const canvasId = canvas ? canvas.id : null;
+
+      if (globalMediaRecorder) try { globalMediaRecorder.stop(); } catch(e) {}
+      globalAudioChunks = [];
+      globalRecordingId = id;
+      globalIsRecording = true;
+      globalSeconds = 0;
+      globalStartTime = Date.now();
+
+      this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
+      this.classList.add('recording');
+      stopBtn.disabled = false; stopBtn.classList.add('active');
+      playbackBtn.disabled = true; downloadBtn.disabled = true;
+      if (statusDot) statusDot.classList.add('active');
+      fabBtn.classList.remove('idle'); fabBtn.classList.add('recording');
+      fabBtn.innerHTML = '<i class="fas fa-stop"></i>';
+      fabTimer.classList.add('visible'); fabTimer.textContent = '0:00';
+
+      if (canvasId) {
+        const inst = waveInstances.find(w => w.canvas && w.canvas.id === canvasId);
+        if (inst) inst.draw(true);
+      }
+
+      if (globalTimerInterval) clearInterval(globalTimerInterval);
+      globalTimerInterval = setInterval(() => {
+        globalSeconds++;
+        const m = Math.floor(globalSeconds/60), s = globalSeconds%60;
+        const t = m+':'+(s<10?'0':'')+s;
+        fabTimer.textContent = t;
+        if (timerEl) timerEl.textContent = t;
+      }, 1000);
+
+      try {
+        let stream;
+        if (sharedStream) stream = sharedStream;
+        else { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); sharedStream = stream; micPermissionGranted = true; }
+        globalStream = stream;
+        const recorder = new MediaRecorder(stream);
+        globalMediaRecorder = recorder;
+        recorder.ondataavailable = e => { if (e.data && e.data.size > 0) globalAudioChunks.push(e.data); };
+        recorder.onstop = function() {
+          const duration = Math.round((Date.now() - globalStartTime) / 1000);
+          const blob = new Blob(globalAudioChunks, { type: 'audio/wav' });
+          const url = URL.createObjectURL(blob);
+          state.recordings[id] = { blob, url, timestamp: Date.now() };
+
+          playbackBtn.disabled = false; downloadBtn.disabled = false;
+          btn.disabled = false; btn.innerHTML = '<i class="fas fa-microphone"></i> Record';
+          btn.classList.remove('recording');
+          stopBtn.disabled = true; stopBtn.classList.remove('active');
+          if (statusDot) statusDot.classList.remove('active');
+          globalIsRecording = false;
+          if (globalTimerInterval) { clearInterval(globalTimerInterval); globalTimerInterval = null; }
+          fabBtn.classList.remove('recording'); fabBtn.classList.add('idle');
+          fabBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+          fabTimer.classList.remove('visible');
+          waveInstances.forEach(w => w.draw(false));
+          if (globalStream && globalStream !== sharedStream) { globalStream.getTracks().forEach(t => t.stop()); globalStream = null; }
+          const type = container.dataset.exerciseType || 'flap';
+          showFeedback(id, type, duration, url);
         };
+        recorder.start();
+        this.innerHTML = '<i class="fas fa-circle" style="color:#ff6b6b;font-size:0.6rem;"></i> Recording...';
+      } catch(err) {
+        alert('Microphone error: ' + err.message);
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-microphone"></i> Record';
+        btn.classList.remove('recording');
+        stopBtn.disabled = true; stopBtn.classList.remove('active');
+        globalIsRecording = false;
+        fabBtn.classList.remove('recording'); fabBtn.classList.add('idle');
+        fabBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+        fabTimer.classList.remove('visible');
+        waveInstances.forEach(w => w.draw(false));
+        if (globalStream && globalStream !== sharedStream) { globalStream.getTracks().forEach(t => t.stop()); globalStream = null; }
+      }
+    });
+  });
 
-        // ===== MICROPHONE PERMISSION - ONE TIME ONLY =====
-        let micPermissionGranted = false;
-        let micPermissionChecked = false;
-        let sharedStream = null;
+  document.querySelectorAll('.record-btn.stop').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (globalMediaRecorder && globalMediaRecorder.state === 'recording') globalMediaRecorder.stop();
+    });
+  });
 
-        async function getMicrophonePermission() {
-            if (micPermissionGranted) return true;
-            if (micPermissionChecked) return false;
+  document.querySelectorAll('.record-btn.playback').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const container = this.closest('.recording-controls');
+      const startBtn = container.querySelector('.record-btn.start');
+      const id = startBtn ? startBtn.dataset.recording : null;
+      if (!id) return;
+      const rec = state.recordings[id];
+      if (!rec) return;
+      if (state.playbackInstances[id]) {
+        const a = state.playbackInstances[id]; a.pause(); a.currentTime = 0;
+        delete state.playbackInstances[id];
+        this.innerHTML = '<i class="fas fa-play"></i> Playback'; this.classList.remove('playing');
+        return;
+      }
+      const audio = new Audio(rec.url);
+      state.playbackInstances[id] = audio;
+      this.innerHTML = '<i class="fas fa-pause"></i> Playing...'; this.classList.add('playing');
+      audio.play().catch(()=>{});
+      audio.onended = () => { delete state.playbackInstances[id]; this.innerHTML='<i class="fas fa-play"></i> Playback'; this.classList.remove('playing'); };
+    });
+  });
 
-            try {
-                if (navigator.permissions && navigator.permissions.query) {
-                    const result = await navigator.permissions.query({ name: 'microphone' });
-                    if (result.state === 'granted') {
-                        micPermissionGranted = true;
-                        micPermissionChecked = true;
-                        return true;
-                    } else if (result.state === 'denied') {
-                        micPermissionChecked = true;
-                        alert('Microphone access is blocked. Please enable it in your browser settings and refresh.');
-                        return false;
-                    }
-                }
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                sharedStream = stream;
-                micPermissionGranted = true;
-                micPermissionChecked = true;
-                return true;
-            } catch (error) {
-                console.warn('Microphone permission error:', error);
-                micPermissionChecked = true;
-                micPermissionGranted = false;
-                alert('Microphone access is required for recording. Please allow it in your browser.');
-                return false;
-            }
+  document.querySelectorAll('.record-btn.download').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const container = this.closest('.recording-controls');
+      const startBtn = container.querySelector('.record-btn.start');
+      const id = startBtn ? startBtn.dataset.recording : null;
+      if (!id) return;
+      const rec = state.recordings[id];
+      if (!rec) return;
+      const link = document.createElement('a');
+      link.href = rec.url;
+      link.download = `recording_${id}_${new Date().toISOString().slice(0,10)}.wav`;
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    });
+  });
+
+  fabBtn.addEventListener('click', async function() {
+    if (!await getMic()) return;
+    if (globalIsRecording) { if (globalMediaRecorder) globalMediaRecorder.stop(); return; }
+    const firstStart = document.querySelector('.recording-controls .record-btn.start');
+    if (firstStart) firstStart.click();
+  });
+
+  document.querySelectorAll('.fb-retry').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const id = this.dataset.fb;
+      const container = document.querySelector(`.recording-controls[data-recording-group="${id}"]`);
+      if (container) {
+        const startBtn = container.querySelector('.record-btn.start');
+        if (startBtn) {
+          const card = document.getElementById('feedback-'+id);
+          if (card) card.classList.remove('visible');
+          startBtn.click();
         }
-
-        // ===== DOM REFS =====
-        const progressFill = document.getElementById('progressFill');
-        const completedCount = document.getElementById('completedCount');
-        const totalCount = document.getElementById('totalCount');
-        const fabBtn = document.getElementById('fabBtn');
-        const fabTimer = document.getElementById('fabTimer');
-        const fabStatus = document.getElementById('fabStatus');
-        const themeToggle = document.getElementById('themeToggle');
-        const dashProgress = document.getElementById('dashProgress');
-        const dashPoints = document.getElementById('dashPoints');
-        const dashBadge = document.getElementById('dashBadge');
-        const dashStreak = document.getElementById('dashStreak');
-
-        // ===== GLOBAL MEDIA RECORDER =====
-        let globalMediaRecorder = null;
-        let globalStream = null;
-        let globalAudioChunks = [];
-        let globalIsRecording = false;
-        let globalRecordingId = null;
-        let globalTimerInterval = null;
-        let globalSeconds = 0;
-        let globalStartTime = 0;
-        let globalWaveformInstance = null;
-
-        // ===== COUNT TOTAL ITEMS =====
-        function countTotalItems() {
-            const checkboxes = document.querySelectorAll('.checkbox, .check-box');
-            state.totalItems = checkboxes.length;
-            totalCount.textContent = state.totalItems;
-            updateProgress();
-        }
-
-        // ===== UPDATE PROGRESS =====
-        function updateProgress() {
-            const done = state.completed.size;
-            const total = state.totalItems || 1;
-            const pct = Math.round((done / total) * 100);
-            progressFill.style.width = pct + '%';
-            completedCount.textContent = done;
-            dashProgress.textContent = pct + '%';
-            state.points = done * 10;
-            dashPoints.textContent = state.points;
-            updateBadges(done);
-            const today = new Date().toDateString();
-            const lastActive = localStorage.getItem('accent_last_active');
-            if (lastActive === today) {
-                state.streak = parseInt(localStorage.getItem('accent_streak')) || 1;
-            } else if (done > 0) {
-                state.streak = (lastActive && new Date(lastActive).getTime() > Date.now() - 86400000) ?
-                    (parseInt(localStorage.getItem('accent_streak')) || 0) + 1 : 1;
-                localStorage.setItem('accent_streak', state.streak);
-            }
-            localStorage.setItem('accent_last_active', today);
-            dashStreak.textContent = state.streak || 0;
-        }
-
-        // ===== BADGES =====
-        function updateBadges(done) {
-            const badges = [];
-            if (done >= 5) badges.push('🌱');
-            if (done >= 15) badges.push('🔥');
-            if (done >= 30) badges.push('⭐');
-            if (done >= 50) badges.push('🏆');
-            if (done >= 80) badges.push('👑');
-            if (done >= 100) badges.push('🗽');
-            dashBadge.textContent = badges.length ? badges.join(' ') : '⭐';
-        }
-
-        // ===== THEME =====
-        function initTheme() {
-            const saved = localStorage.getItem('accent_theme') || 'dark';
-            state.theme = saved;
-            document.documentElement.setAttribute('data-theme', saved);
-            themeToggle.innerHTML = saved === 'dark' ?
-                '<i class="fas fa-moon"></i> <span>Dark</span>' :
-                '<i class="fas fa-sun"></i> <span>Light</span>';
-        }
-
-        themeToggle.addEventListener('click', function() {
-            const newTheme = state.theme === 'dark' ? 'light' : 'dark';
-            state.theme = newTheme;
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('accent_theme', newTheme);
-            this.innerHTML = newTheme === 'dark' ?
-                '<i class="fas fa-moon"></i> <span>Dark</span>' :
-                '<i class="fas fa-sun"></i> <span>Light</span>';
-        });
-
-        // ===== TOGGLE CHECKBOX =====
-        function toggleCheckbox(el) {
-            el.classList.toggle('checked');
-            const key = el.dataset.item;
-            if (!key) return;
-            if (el.classList.contains('checked')) {
-                state.completed.add(key);
-                el.innerHTML = '✓';
-                el.style.color = '#fff';
-            } else {
-                state.completed.delete(key);
-                el.innerHTML = '';
-                el.style.color = 'transparent';
-            }
-            updateProgress();
-            try {
-                localStorage.setItem('accent_practice_progress', JSON.stringify([...state.completed]));
-            } catch (e) {}
-        }
-
-        // ===== NAVIGATION =====
-        function initNavigation() {
-            const tabs = document.querySelectorAll('.nav-tab');
-            const sections = {
-                section1: document.getElementById('section1'),
-                section2: document.getElementById('section2'),
-                section3: document.getElementById('section3'),
-                final: document.getElementById('final'),
-            };
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    const target = this.dataset.section;
-                    Object.keys(sections).forEach(key => {
-                        sections[key].classList.toggle('active', key === target);
-                    });
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            });
-        }
-
-        // ===== AUDIO PLAYER =====
-        function initAudioPlayers() {
-            document.querySelectorAll('.audio-player').forEach(container => {
-                const playBtn = container.querySelector('.play-btn');
-                const progress = container.querySelector('.progress .fill');
-                const timeDisplay = container.querySelector('.time');
-                const src = container.dataset.audio;
-                if (!src) return;
-
-                const audio = new Audio(src);
-                let isPlaying = false;
-                state.audioPlayers[src] = audio;
-
-                function formatTime(sec) {
-                    if (!sec || isNaN(sec)) return '0:00';
-                    const m = Math.floor(sec / 60);
-                    const s = Math.floor(sec % 60);
-                    return m + ':' + (s < 10 ? '0' : '') + s;
-                }
-
-                audio.addEventListener('timeupdate', function() {
-                    const pct = (this.currentTime / this.duration) * 100;
-                    progress.style.width = pct + '%';
-                    timeDisplay.textContent = formatTime(this.currentTime) + ' / ' + formatTime(this.duration);
-                });
-
-                audio.addEventListener('ended', function() {
-                    isPlaying = false;
-                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                    playBtn.classList.remove('playing');
-                    progress.style.width = '0%';
-                    timeDisplay.textContent = '0:00 / ' + formatTime(this.duration);
-                });
-
-                playBtn.addEventListener('click', function() {
-                    if (isPlaying) {
-                        audio.pause();
-                        this.innerHTML = '<i class="fas fa-play"></i>';
-                        this.classList.remove('playing');
-                        isPlaying = false;
-                    } else {
-                        document.querySelectorAll('.audio-player .play-btn').forEach(b => {
-                            if (b !== this && b.classList.contains('playing')) b.click();
-                        });
-                        audio.play().catch(() => {});
-                        this.innerHTML = '<i class="fas fa-pause"></i>';
-                        this.classList.add('playing');
-                        isPlaying = true;
-                    }
-                });
-
-                const track = container.querySelector('.progress');
-                track.addEventListener('click', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const pct = (e.clientX - rect.left) / rect.width;
-                    audio.currentTime = pct * audio.duration;
-                });
-            });
-        }
-
-        // ===== WAVEFORM =====
-        function setupWaveform(canvasId) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const parent = canvas.parentElement;
-            let width = parent.clientWidth || 300;
-            let height = 32;
-            canvas.width = width;
-            canvas.height = height;
-            const bars = 45;
-            let isActive = false;
-            let animationFrame = null;
-
-            function draw(active) {
-                isActive = active;
-                if (!isActive && animationFrame) {
-                    cancelAnimationFrame(animationFrame);
-                    animationFrame = null;
-                    drawStatic();
-                    return;
-                }
-                animate();
-            }
-
-            function drawStatic() {
-                ctx.clearRect(0, 0, width, height);
-                const barWidth = Math.max(2, (width / bars) - 2);
-                for (let i = 0; i < bars; i++) {
-                    const barHeight = 3;
-                    const x = i * (barWidth + 2);
-                    const y = (height - barHeight) / 2;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-                    gradient.addColorStop(0, '#6C3CE1');
-                    gradient.addColorStop(1, '#8B5CF6');
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(x, y, barWidth, Math.max(barHeight, 2));
-                }
-            }
-
-            function animate() {
-                if (!isActive) {
-                    drawStatic();
-                    return;
-                }
-                ctx.clearRect(0, 0, width, height);
-                const barWidth = Math.max(2, (width / bars) - 2);
-                for (let i = 0; i < bars; i++) {
-                    const barHeight = (Math.random() * height * 0.7 + 4);
-                    const x = i * (barWidth + 2);
-                    const y = (height - barHeight) / 2;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-                    gradient.addColorStop(0, '#EF4444');
-                    gradient.addColorStop(0.5, '#F59E0B');
-                    gradient.addColorStop(1, '#EF4444');
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(x, y, barWidth, Math.max(barHeight, 2));
-                }
-                if (isActive) animationFrame = requestAnimationFrame(animate);
-            }
-
-            return {
-                draw: draw,
-                canvas: canvas,
-                resize: function() {
-                    width = parent.clientWidth || 300;
-                    canvas.width = width;
-                },
-                isActive: function() { return isActive; }
-            };
-        }
-
-        const waveInstances = [];
-        document.querySelectorAll('.waveform-container canvas').forEach(c => {
-            const inst = setupWaveform(c.id);
-            waveInstances.push(inst);
-            inst.draw(false);
-        });
-
-        // ===== FEEDBACK SYSTEM =====
-        const feedbackMessages = {
-            flap: { good: "Good! Try making the 'r' sound quicker. Keep practicing! 💪", great: "Great! Your flap T sounds natural and clear! 🌟", excellent: "Excellent! That's how a native speaker says it! 🎯🔥" },
-            glottal: { good: "Good! Remember to drop the 't' completely. You're getting there! 💪", great: "Great! The glottal stop sounds perfect! 🌟", excellent: "Perfect! You've mastered the glottal stop! 🎯🔥" },
-            th: { good: "Good! Try using more air for the 'th' sound. Keep going! 💪", great: "Great! Your voiced/unvoiced TH is accurate! 🌟", excellent: "Excellent! You sound like a native speaker! 🏆🔥" },
-            ough: { good: "Good! This one is tricky, keep practicing daily! 💪", great: "Great! You're mastering the tough 'ough' sounds! 🌟", excellent: "Amazing! You've conquered the hardest sound in English! 🏆🔥" },
-            shun: { good: "Good! Remember the 'shun' sound. Practice makes perfect! 💪", great: "Great! Your 'shun' endings sound professional! 🌟", excellent: "Brilliant! You sound like a sophisticated speaker! 🎯🔥" },
-            final: { good: "Good! You're almost there. Review the sounds and try again! 💪", great: "Great! Your American accent is really coming along! 🌟", excellent: "Outstanding! You sound like a true American! 🗽🏆🔥" }
-        };
-
-        const feedbackTips = {
-            flap: "💡 Tip: Remember to tap the 'r' sound quickly - it's like the Arabic letter /r/.",
-            glottal: "💡 Tip: Feel the catch in your throat. Drop the 't' completely in 'button' → 'bu-in'.",
-            th: "💡 Tip: Use air for unvoiced TH (ث), buzz for voiced TH (ذ). Feel the difference!",
-            ough: "💡 Tip: OUGH has 8 different pronunciations. Practice each one separately!",
-            shun: "💡 Tip: The 'shun' sound is everywhere! Practice it in everyday words.",
-            final: "💡 Tip: You've mastered all the sounds. Now focus on fluency and confidence!"
-        };
-
-        function showFeedback(recordingId, exerciseType, duration, audioUrl) {
-            const feedbackCard = document.getElementById('feedback-' + recordingId);
-            if (!feedbackCard) return;
-
-            let score = Math.min(75 + Math.floor(Math.random() * 25), 100);
-            if (duration > 10) score = Math.min(score + 5, 100);
-            if (duration < 3) score = Math.max(score - 20, 30);
-
-            let level = 'good';
-            if (score >= 85) level = 'excellent';
-            else if (score >= 65) level = 'great';
-
-            const messages = feedbackMessages[exerciseType] || feedbackMessages.flap;
-            const message = messages[level] || messages.good;
-            const tip = feedbackTips[exerciseType] || feedbackTips.flap;
-            const stars = level === 'excellent' ? '★★★★★' : level === 'great' ? '★★★★☆' : '★★★☆☆';
-
-            const starEl = feedbackCard.querySelector('.fb-stars');
-            if (starEl) starEl.textContent = stars;
-            const meter = feedbackCard.querySelector('.bar-fill');
-            if (meter) meter.style.width = score + '%';
-            const labels = feedbackCard.querySelectorAll('.bar-label span');
-            if (labels.length >= 2) labels[1].textContent = score + '%';
-            const msgEl = feedbackCard.querySelector('.fb-message');
-            if (msgEl) msgEl.textContent = message;
-            const tipEl = feedbackCard.querySelector('.fb-tip');
-            if (tipEl) tipEl.textContent = tip;
-
-            const listenBtn = feedbackCard.querySelector('.fb-listen');
-            if (listenBtn) listenBtn.dataset.url = audioUrl;
-
-            feedbackCard.classList.add('visible');
-
-            setTimeout(() => {
-                feedbackCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
-        }
-
-        // ===== STOP ALL WAVEFORMS =====
-        function stopAllWaveforms() {
-            waveInstances.forEach(inst => inst.draw(false));
-            globalIsRecording = false;
-            state.isRecording = false;
-        }
-
-        // ===== START WAVEFORM FOR SPECIFIC CANVAS =====
-        function startWaveformForCanvas(canvasId) {
-            const inst = waveInstances.find(w => w.canvas && w.canvas.id === canvasId);
-            if (inst) {
-                inst.draw(true);
-                globalWaveformInstance = inst;
-            }
-        }
-
-        // ===== RECORDING =====
-        function initRecording() {
-            let localMediaRecorder = null;
-            let localStream = null;
-            let localAudioChunks = [];
-            let localTimerInterval = null;
-            let localSeconds = 0;
-
-            fabBtn.addEventListener('click', async function() {
-                if (!micPermissionGranted) {
-                    const ok = await getMicrophonePermission();
-                    if (!ok) return;
-                }
-                if (globalIsRecording || state.isRecording) {
-                    if (globalMediaRecorder && globalMediaRecorder.state === 'recording') globalMediaRecorder.stop();
-                    return;
-                }
-                const groups = document.querySelectorAll('.recording-controls');
-                let targetGroup = null;
-                groups.forEach(group => {
-                    const rect = group.getBoundingClientRect();
-                    if (rect.top >= 0 && rect.top < window.innerHeight / 2) targetGroup = group;
-                });
-                if (!targetGroup) {
-                    groups.forEach(group => {
-                        const rect = group.getBoundingClientRect();
-                        if (rect.bottom > 0 && rect.top < window.innerHeight) targetGroup = group;
-                    });
-                }
-                if (targetGroup) {
-                    const startBtn = targetGroup.querySelector('.record-btn.start');
-                    if (startBtn) startBtn.click();
-                } else {
-                    const firstStart = document.querySelector('.recording-controls .record-btn.start');
-                    if (firstStart) firstStart.click();
-                }
-            });
-
-            document.querySelectorAll('.record-btn.start').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.preventDefault();
-                    const id = this.dataset.recording;
-                    if (!id) return;
-
-                    if (!micPermissionGranted) {
-                        const ok = await getMicrophonePermission();
-                        if (!ok) return;
-                    }
-                    if (globalIsRecording || state.isRecording) {
-                        if (globalMediaRecorder && globalMediaRecorder.state === 'recording') globalMediaRecorder.stop();
-                        return;
-                    }
-
-                    const container = this.closest('.recording-controls');
-                    const stopBtn = container.querySelector('.record-btn.stop');
-                    const playbackBtn = container.querySelector('.record-btn.playback');
-                    const downloadBtn = container.querySelector('.record-btn.download');
-                    const status = container.querySelector('.recording-status .dot');
-                    const statusText = container.querySelector('.recording-status');
-                    const timerEl = container.querySelector('.timer');
-                    const card = container.closest('.card');
-                    const canvas = card ? card.querySelector('.waveform-container canvas') : null;
-                    const canvasId = canvas ? canvas.id : null;
-
-                    if (globalMediaRecorder) {
-                        try { globalMediaRecorder.stop(); } catch (e) {}
-                        globalMediaRecorder = null;
-                    }
-
-                    globalAudioChunks = [];
-                    localAudioChunks = [];
-                    globalRecordingId = id;
-                    globalIsRecording = true;
-                    state.isRecording = true;
-                    localSeconds = 0;
-                    globalSeconds = 0;
-                    globalStartTime = Date.now();
-
-                    this.disabled = true;
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting...';
-                    this.classList.add('recording');
-                    stopBtn.disabled = false;
-                    stopBtn.classList.add('active');
-                    playbackBtn.disabled = true;
-                    downloadBtn.disabled = true;
-                    if (status) status.classList.add('active');
-                    if (statusText) statusText.innerHTML = '<span class="dot active"></span> Starting...';
-
-                    fabBtn.classList.remove('idle');
-                    fabBtn.classList.add('recording');
-                    fabBtn.innerHTML = '<i class="fas fa-stop"></i>';
-                    fabTimer.classList.add('visible');
-                    fabTimer.textContent = '0:00';
-                    fabStatus.classList.remove('visible', 'saved');
-                    fabStatus.textContent = 'Starting...';
-                    fabStatus.classList.add('visible');
-
-                    if (canvasId) startWaveformForCanvas(canvasId);
-
-                    if (localTimerInterval) clearInterval(localTimerInterval);
-                    localTimerInterval = setInterval(() => {
-                        localSeconds++;
-                        const m = Math.floor(localSeconds / 60);
-                        const s = localSeconds % 60;
-                        const timeStr = m + ':' + (s < 10 ? '0' : '') + s;
-                        fabTimer.textContent = timeStr;
-                        if (timerEl) timerEl.textContent = timeStr;
-                        globalSeconds = localSeconds;
-                    }, 1000);
-
-                    try {
-                        let stream;
-                        if (sharedStream) stream = sharedStream;
-                        else {
-                            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                            sharedStream = stream;
-                            micPermissionGranted = true;
-                        }
-                        localStream = stream;
-                        globalStream = stream;
-                        const recorder = new MediaRecorder(stream);
-                        localMediaRecorder = recorder;
-                        globalMediaRecorder = recorder;
-
-                        recorder.ondataavailable = event => {
-                            if (event.data && event.data.size > 0) {
-                                localAudioChunks.push(event.data);
-                                globalAudioChunks.push(event.data);
-                            }
-                        };
-
-                        recorder.onstop = function() {
-                            const duration = Math.round((Date.now() - globalStartTime) / 1000);
-                            const audioBlob = new Blob(localAudioChunks, { type: 'audio/wav' });
-                            const audioUrl = URL.createObjectURL(audioBlob);
-
-                            state.recordings[id] = { blob: audioBlob, url: audioUrl, timestamp: Date.now() };
-
-                            playbackBtn.disabled = false;
-                            downloadBtn.disabled = false;
-                            btn.disabled = false;
-                            btn.innerHTML = '<i class="fas fa-microphone"></i> Record';
-                            btn.classList.remove('recording');
-                            stopBtn.disabled = true;
-                            stopBtn.classList.remove('active');
-                            if (status) status.classList.remove('active');
-                            if (statusText) statusText.innerHTML = '<span class="dot saved"></span> Saved ✓';
-
-                            globalIsRecording = false;
-                            state.isRecording = false;
-                            if (localTimerInterval) {
-                                clearInterval(localTimerInterval);
-                                localTimerInterval = null;
-                            }
-                            fabBtn.classList.remove('recording');
-                            fabBtn.classList.add('idle');
-                            fabBtn.innerHTML = '<i class="fas fa-microphone"></i>';
-                            fabTimer.classList.remove('visible');
-                            fabStatus.textContent = 'Saved! ✓';
-                            fabStatus.classList.add('saved', 'visible');
-                            setTimeout(() => {
-                                fabStatus.classList.remove('visible', 'saved');
-                                fabStatus.textContent = 'Ready';
-                            }, 3000);
-
-                            stopAllWaveforms();
-
-                            if (localStream && localStream !== sharedStream) {
-                                localStream.getTracks().forEach(t => t.stop());
-                                localStream = null;
-                                globalStream = null;
-                            }
-
-                            const exerciseType = container.dataset.exerciseType || 'flap';
-                            showFeedback(id, exerciseType, duration, audioUrl);
-                        };
-
-                        recorder.start();
-
-                        btn.innerHTML = '<i class="fas fa-circle" style="color:#ff6b6b;font-size:0.6rem;"></i> Recording...';
-                        if (statusText) statusText.innerHTML = '<span class="dot active"></span> Recording...';
-                        fabStatus.textContent = 'Recording...';
-
-                    } catch (err) {
-                        console.error('Recording error:', err);
-                        alert('Could not access microphone. Please allow access and try again.');
-                        btn.disabled = false;
-                        btn.innerHTML = '<i class="fas fa-microphone"></i> Record';
-                        btn.classList.remove('recording');
-                        stopBtn.disabled = true;
-                        stopBtn.classList.remove('active');
-                        if (status) status.classList.remove('active');
-                        if (statusText) statusText.innerHTML = '<span class="dot"></span> Error';
-                        globalIsRecording = false;
-                        state.isRecording = false;
-                        fabBtn.classList.remove('recording');
-                        fabBtn.classList.add('idle');
-                        fabBtn.innerHTML = '<i class="fas fa-microphone"></i>';
-                        fabTimer.classList.remove('visible');
-                        fabStatus.classList.remove('visible', 'saved');
-                        fabStatus.textContent = 'Ready';
-                        stopAllWaveforms();
-                        if (localStream && localStream !== sharedStream) {
-                            localStream.getTracks().forEach(t => t.stop());
-                            localStream = null;
-                            globalStream = null;
-                        }
-                    }
-                });
-            });
-
-            document.querySelectorAll('.record-btn.stop').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (globalMediaRecorder && globalMediaRecorder.state === 'recording') globalMediaRecorder.stop();
-                });
-            });
-
-            document.querySelectorAll('.record-btn.playback').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const container = this.closest('.recording-controls');
-                    const startBtn = container.querySelector('.record-btn.start');
-                    const id = startBtn ? startBtn.dataset.recording : null;
-                    if (!id) return;
-                    const recording = state.recordings[id];
-                    if (!recording) return;
-
-                    if (state.playbackInstances[id]) {
-                        const audio = state.playbackInstances[id];
-                        audio.pause();
-                        audio.currentTime = 0;
-                        delete state.playbackInstances[id];
-                        this.innerHTML = '<i class="fas fa-play"></i> Playback';
-                        this.classList.remove('playing');
-                        return;
-                    }
-
-                    const audio = new Audio(recording.url);
-                    state.playbackInstances[id] = audio;
-                    this.innerHTML = '<i class="fas fa-pause"></i> Playing...';
-                    this.classList.add('playing');
-                    audio.play().catch(() => {});
-                    audio.onended = () => {
-                        delete state.playbackInstances[id];
-                        this.innerHTML = '<i class="fas fa-play"></i> Playback';
-                        this.classList.remove('playing');
-                    };
-                });
-            });
-
-            document.querySelectorAll('.record-btn.download').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const container = this.closest('.recording-controls');
-                    const startBtn = container.querySelector('.record-btn.start');
-                    const id = startBtn ? startBtn.dataset.recording : null;
-                    if (!id) return;
-                    const recording = state.recordings[id];
-                    if (!recording) return;
-                    const link = document.createElement('a');
-                    link.href = recording.url;
-                    link.download = `recording_${id}_${new Date().toISOString().slice(0,10)}.wav`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                });
-            });
-
-            document.querySelectorAll('.fb-retry').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.fb;
-                    const container = document.querySelector(`.recording-controls[data-recording-group="${id}"]`);
-                    if (container) {
-                        const startBtn = container.querySelector('.record-btn.start');
-                        if (startBtn) {
-                            const card = document.getElementById('feedback-' + id);
-                            if (card) card.classList.remove('visible');
-                            startBtn.click();
-                        }
-                    }
-                });
-            });
-
-            document.querySelectorAll('.fb-listen').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.fb;
-                    const url = this.dataset.url;
-                    if (!url) return;
-
-                    if (state.playbackInstances['fb-' + id]) {
-                        const audio = state.playbackInstances['fb-' + id];
-                        audio.pause();
-                        audio.currentTime = 0;
-                        delete state.playbackInstances['fb-' + id];
-                        this.innerHTML = '<i class="fas fa-play"></i> Listen';
-                        this.classList.remove('playing');
-                        return;
-                    }
-
-                    const audio = new Audio(url);
-                    state.playbackInstances['fb-' + id] = audio;
-                    this.innerHTML = '<i class="fas fa-pause"></i> Playing...';
-                    this.classList.add('playing');
-                    audio.play().catch(() => {});
-                    audio.onended = () => {
-                        delete state.playbackInstances['fb-' + id];
-                        this.innerHTML = '<i class="fas fa-play"></i> Listen';
-                        this.classList.remove('playing');
-                    };
-                });
-            });
-
-            document.querySelectorAll('.fb-download-fb').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.fb;
-                    const recording = state.recordings[id];
-                    if (!recording) return;
-                    const link = document.createElement('a');
-                    link.href = recording.url;
-                    link.download = `recording_${id}_${new Date().toISOString().slice(0,10)}.wav`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                });
-            });
-        }
-
-        // ===== SCROLL TO TOP =====
-        function initScrollTop() {
-            const btn = document.getElementById('scrollTop');
-            window.addEventListener('scroll', function() {
-                btn.classList.toggle('visible', window.scrollY > 400);
-            });
-            btn.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-
-        // ===== WINDOW RESIZE =====
-        function initResize() {
-            window.addEventListener('resize', function() {
-                waveInstances.forEach(inst => {
-                    if (inst.resize) inst.resize();
-                    inst.draw(inst.isActive());
-                });
-            });
-        }
-
-        // ===== INIT =====
-        function init() {
-            initTheme();
-            countTotalItems();
-
-            try {
-                const saved = JSON.parse(localStorage.getItem('accent_practice_progress'));
-                if (saved && Array.isArray(saved)) {
-                    saved.forEach(key => {
-                        state.completed.add(key);
-                        const el = document.querySelector(`[data-item="${key}"]`);
-                        if (el) {
-                            el.classList.add('checked');
-                            el.innerHTML = '✓';
-                            el.style.color = '#fff';
-                        }
-                    });
-                    updateProgress();
-                }
-            } catch (e) {}
-
-            document.querySelectorAll('.checkbox, .check-box').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    toggleCheckbox(this);
-                });
-            });
-
-            initNavigation();
-            initAudioPlayers();
-            initRecording();
-            initScrollTop();
-            initResize();
-
-            console.log('🗽 American Accent Mastery loaded!');
-            console.log('📚 Total practice items:', state.totalItems);
-            console.log('✅ Microphone permission will be requested ONCE.');
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-    })();
-    </script>
+      }
+    });
+  });
+
+  document.querySelectorAll('.fb-listen').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const id = this.dataset.fb;
+      const url = this.dataset.url;
+      if (!url) return;
+      if (state.playbackInstances['fb-'+id]) {
+        const a = state.playbackInstances['fb-'+id]; a.pause(); a.currentTime = 0;
+        delete state.playbackInstances['fb-'+id];
+        this.innerHTML = '<i class="fas fa-play"></i> Listen'; this.classList.remove('playing');
+        return;
+      }
+      const audio = new Audio(url);
+      state.playbackInstances['fb-'+id] = audio;
+      this.innerHTML = '<i class="fas fa-pause"></i> Playing...'; this.classList.add('playing');
+      audio.play().catch(()=>{});
+      audio.onended = () => { delete state.playbackInstances['fb-'+id]; this.innerHTML='<i class="fas fa-play"></i> Listen'; this.classList.remove('playing'); };
+    });
+  });
+
+  document.querySelectorAll('.fb-download-fb').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const id = this.dataset.fb;
+      const rec = state.recordings[id];
+      if (!rec) return;
+      const link = document.createElement('a');
+      link.href = rec.url;
+      link.download = `recording_${id}_${new Date().toISOString().slice(0,10)}.wav`;
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    });
+  });
+
+  document.querySelectorAll('.checkbox').forEach(el => {
+    el.addEventListener('click', function(e) { e.stopPropagation(); toggleCheck(this); });
+  });
+
+  window.addEventListener('scroll', function() { scrollBtn.classList.toggle('visible', window.scrollY > 400); });
+  scrollBtn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  window.addEventListener('resize', function() {
+    waveInstances.forEach(w => { if (w.resize) w.resize(); w.draw(w.isActive()); });
+  });
+
+  try {
+    const saved = JSON.parse(localStorage.getItem('accent_practice_progress'));
+    if (saved && Array.isArray(saved)) {
+      saved.forEach(key => {
+        state.completed.add(key);
+        const el = document.querySelector(`[data-item="${key}"]`);
+        if (el) { el.classList.add('checked'); el.innerHTML='✓'; el.style.color='#fff'; }
+      });
+    }
+  } catch(e) {}
+
+  countTotal();
+  updateProgress();
+  console.log('🗽 American Accent Mastery loaded.');
+})();
+</script>
 </body>
 </html>

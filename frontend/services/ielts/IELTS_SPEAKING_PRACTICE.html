@@ -1,383 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IELTS Speaking Practice Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
         :root {
             --bg-primary: #f0f4f9; --bg-secondary: #ffffff; --bg-card: #ffffff; --bg-card-alt: #f8faff;
             --bg-input: #f0f4fe; --bg-hover: #eef2f7; --bg-status: #e8f5ed; --bg-progress: #d9e2ef;
-            --bg-nav: #f8faff; --bg-tips: #f0f7fe; --bg-answer: #f6faff; --bg-toggle: #eef2f7;
-            --bg-part-tab: #eef2f7; --bg-part-tab-active: #ffffff; --bg-hero: linear-gradient(135deg, #e8f0fe 0%, #d4e4ff 100%);
-            --text-primary: #0b1e33; --text-secondary: #1f3a5f; --text-muted: #5a7a9a; --text-light: #ffffff; --text-link: #2a7de1;
+            --bg-nav: #f8faff; --bg-permission: #f0f7fe; --bg-tips: #f0f7fe; --bg-answer: #f6faff;
+            --bg-toggle: #eef2f7; --bg-part-tab: #eef2f7; --bg-part-tab-active: #ffffff;
+            --bg-hero: linear-gradient(135deg, #e8f0fe 0%, #d4e4ff 100%);
+            --text-primary: #0b1e33; --text-secondary: #1f3a5f; --text-muted: #5a7a9a;
+            --text-light: #ffffff; --text-link: #2a7de1;
             --border-light: #e6edf8; --border-hover: #b6cef0; --border-part: #d0ddee;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06); --shadow-md: 0 8px 30px rgba(0,0,0,0.08); --shadow-lg: 0 20px 60px rgba(0,0,0,0.12); --shadow-xl: 0 30px 80px rgba(0,0,0,0.15);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06); --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.12); --shadow-xl: 0 30px 80px rgba(0,0,0,0.15);
             --gradient-primary: linear-gradient(135deg, #2a7de1, #6ca6ff); --gradient-success: linear-gradient(135deg, #1d9c73, #34d399);
             --gradient-danger: linear-gradient(135deg, #d1453b, #f87171); --gradient-warning: linear-gradient(135deg, #f0b429, #fbbf24);
             --gradient-hero: linear-gradient(135deg, #1a5fb4 0%, #2a7de1 50%, #6ca6ff 100%);
             --gradient-part1: linear-gradient(135deg, #1d9c73, #34d399); --gradient-part2: linear-gradient(135deg, #f0b429, #fbbf24);
-            --gradient-part3: linear-gradient(135deg, #2a7de1, #6ca6ff); --radius-sm: 12px; --radius-md: 20px; --radius-lg: 28px; --radius-xl: 40px; --radius-full: 9999px;
+            --gradient-part3: linear-gradient(135deg, #2a7de1, #6ca6ff);
+            --radius-sm: 12px; --radius-md: 20px; --radius-lg: 28px; --radius-xl: 40px; --radius-full: 9999px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
         }
         [data-theme="dark"] {
             --bg-primary: #0f1420; --bg-secondary: #1a1f2e; --bg-card: #1e2436; --bg-card-alt: #252b3f;
             --bg-input: #252b3f; --bg-hover: #2d3448; --bg-status: #1a2e2a; --bg-progress: #2d3448;
-            --bg-nav: #1a1f2e; --bg-tips: #1a2e3a; --bg-answer: #1a2a3a; --bg-toggle: #2d3448;
-            --bg-part-tab: #252b3f; --bg-part-tab-active: #1e2436; --bg-hero: linear-gradient(135deg, #0f1420 0%, #1a1f2e 100%);
+            --bg-nav: #1a1f2e; --bg-permission: #1a2e3a; --bg-tips: #1a2e3a; --bg-answer: #1a2a3a;
+            --bg-toggle: #2d3448; --bg-part-tab: #252b3f; --bg-part-tab-active: #1e2436;
+            --bg-hero: linear-gradient(135deg, #0f1420 0%, #1a1f2e 100%);
             --text-primary: #e8edf5; --text-secondary: #b0c4de; --text-muted: #7a8aa8; --text-light: #ffffff;
             --border-light: #2d3448; --border-hover: #4a5578; --border-part: #2d3448;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; padding: 20px; transition: background 0.4s, color 0.4s; }
-        .hero { max-width: 1100px; margin: 0 auto; padding: 40px; background: var(--bg-hero); border-radius: var(--radius-xl); text-align: center; margin-bottom: 20px; }
-        .hero h1 { font-size: 2.5rem; font-weight: 900; color: #fff; }
-        .hero p { color: rgba(255, 255, 255, 0.9); margin-top: 8px; }
-        .container { max-width: 1100px; margin: 0 auto; background: var(--bg-secondary); border-radius: var(--radius-xl); padding: 32px; box-shadow: var(--shadow-lg); }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .theme-toggle { background: var(--bg-toggle); border: none; padding: 8px 16px; border-radius: 50px; cursor: pointer; font-family: inherit; color: var(--text-primary); }
 
-        /* Navigation */
-        .part-nav { display: flex; gap: 10px; margin-bottom: 20px; }
-        .part-tab { flex: 1; padding: 14px; border: none; border-radius: var(--radius-md); background: var(--bg-part-tab); color: var(--text-muted); font-weight: 700; cursor: pointer; }
-        .part-tab.active { background: #2a7de1; color: #fff; box-shadow: 0 4px 16px rgba(42,125,225,0.3); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; padding: 20px; transition: 0.3s; }
 
-        /* Cards */
-        .question-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 24px; margin-bottom: 20px; }
-        .question-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; }
-        .question-text .highlight { color: #2a7de1; background: rgba(42,125,225,0.1); padding: 0 4px; border-radius: 4px; }
+        .hero { max-width: 1020px; margin: 0 auto 20px; background: var(--gradient-hero); border-radius: var(--radius-xl); padding: 32px 40px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+        .hero-content { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; position: relative; z-index: 2; }
+        .hero-text .badge-top { background: rgba(255,255,255,0.2); color: #fff; display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 16px; border-radius: 50px; margin-bottom: 10px; }
+        .hero-text h1 { font-size: 30px; font-weight: 900; color: #fff; }
+        .hero-text p { color: rgba(255,255,255,0.85); font-size: 15px; margin-top: 6px; }
+        .hero-stats { display: flex; gap: 24px; margin-top: 16px; color: #fff; font-size: 14px; }
+        .hero-illustration { width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 44px; color: #fff; animation: float 3s infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* Recording Controls */
-        .recording-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
-        .record-btn { padding: 10px 18px; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; font-family: inherit; }
-        .record-btn.start { background: #ef4444; color: #fff; }
-        .record-btn.stop { background: #6b7280; color: #fff; }
-        .record-btn.playback { background: #10b981; color: #fff; }
-        .record-btn.download { background: #f59e0b; color: #fff; }
-        .record-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .record-btn.start.recording { animation: pulse 1.2s infinite; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); } 50% { box-shadow: 0 0 0 12px rgba(239,68,68,0); } }
+        .container { max-width: 1020px; margin: 0 auto; background: var(--bg-secondary); border-radius: var(--radius-xl); padding: 28px 36px; box-shadow: var(--shadow-lg); }
+        .header { display: flex; justify-content: space-between; margin-bottom: 16px; }
+        .header-badge { background: var(--bg-input); color: var(--text-link); font-weight: 700; font-size: 13px; padding: 6px 16px; border-radius: 50px; }
+        .theme-toggle { background: var(--bg-toggle); border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 18px; color: var(--text-primary); cursor: pointer; }
 
-        .recording-status { font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
-        .recording-status .dot { width: 8px; height: 8px; border-radius: 50%; background: #6b7280; }
-        .recording-status .dot.active { background: #ef4444; animation: pulse-dot 1s infinite; }
-        .recording-status .dot.saved { background: #10b981; }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .part-nav { display: flex; gap: 8px; margin-bottom: 16px; background: var(--bg-part-tab); padding: 6px; border-radius: 50px; }
+        .part-tab { flex: 1; padding: 10px; border: none; border-radius: 50px; background: transparent; color: var(--text-muted); font-weight: 700; cursor: pointer; }
+        .part-tab.active { background: var(--bg-part-tab-active); box-shadow: var(--shadow-md); color: var(--text-primary); }
 
-        /* Result & Feedback */
-        .feedback-card { background: var(--bg-card); border: 2px solid #10b981; border-radius: var(--radius-md); padding: 20px; margin-bottom: 20px; display: none; }
-        .feedback-card.visible { display: block; }
-        .feedback-card .fb-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .feedback-card .fb-title { font-weight: 700; color: #10b981; }
-        .feedback-card .fb-stars { font-size: 1.2rem; color: #f59e0b; }
-        .feedback-card .fb-message { font-weight: 600; margin: 10px 0; }
-        .feedback-card .fb-tip { background: rgba(42,125,225,0.1); padding: 10px; border-radius: 10px; margin: 10px 0; font-size: 0.9rem; }
-        .feedback-card .fb-actions { display: flex; gap: 10px; }
-        .feedback-card .fb-actions button { padding: 8px 16px; border-radius: 50px; border: none; cursor: pointer; font-family: inherit; font-weight: 600; }
+        .permission-status { background: var(--bg-permission); padding: 12px 20px; border-radius: 50px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+        .permission-status .status-icon { width: 10px; height: 10px; border-radius: 50%; }
+        .permission-status .status-icon.granted { background: #1d9c73; }
+        .permission-status .status-icon.pending { background: #f0b429; animation: pulse-dot 1.2s infinite; }
+        .permission-status .status-icon.denied { background: #d1453b; }
+        .grant-btn { background: var(--gradient-primary); color: #fff; border: none; padding: 6px 16px; border-radius: 50px; cursor: pointer; margin-left: auto; }
+        @keyframes pulse-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
 
-        /* Timer */
-        .timer-section { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 20px 0; }
-        .timer-display { font-size: 3rem; font-weight: 800; font-variant-numeric: tabular-nums; background: var(--bg-input); padding: 10px 30px; border-radius: 50px; }
-        .timer-controls button { padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer; font-family: inherit; font-weight: 600; }
-        #startTimerBtn { background: #2a7de1; color: #fff; }
-        #resetTimerBtn { background: var(--bg-toggle); color: var(--text-secondary); }
+        .question-nav { display: flex; justify-content: space-between; align-items: center; background: var(--bg-nav); padding: 8px 16px; border-radius: 50px; margin-bottom: 16px; }
+        .nav-btn { background: transparent; border: none; color: var(--text-secondary); font-weight: 600; cursor: pointer; padding: 8px 16px; border-radius: 50px; }
+        .nav-btn:hover:not(:disabled) { background: var(--gradient-primary); color: #fff; }
+        .nav-btn:disabled { opacity: 0.4; }
 
-        /* Real Talk */
-        .real-talk { margin-top: 30px; }
-        .real-talk-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; }
-        .real-talk-phrase { background: var(--bg-card); border: 1px solid var(--border-light); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
-        .real-talk-phrase .phrase { font-size: 1.1rem; font-weight: 600; }
-        .real-talk-phrase .phrase-mean { font-size: 0.8rem; color: var(--text-muted); }
-        .real-talk-phrase .listen-btn { background: #2a7de1; color: #fff; width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer; }
+        .progress-section { background: var(--bg-input); border-radius: 50px; padding: 5px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .progress-track { flex: 1; height: 8px; background: var(--bg-progress); border-radius: 50px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--gradient-primary); }
+        .progress-label { font-size: 13px; font-weight: 700; color: var(--text-link); margin-right: 10px; }
 
-        /* Floating Record */
-        .floating-record { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .fab-btn { width: 56px; height: 56px; border-radius: 50%; border: none; background: #ef4444; color: #fff; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 20px rgba(239,68,68,0.5); }
-        .fab-btn.recording { animation: pulse 1.2s infinite; }
-        .fab-btn.idle { background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-light); }
+        .question-card { background: var(--bg-card); border: 1.5px solid var(--border-light); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 18px; }
+        .question-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; margin-bottom: 12px; }
+        .part-tag { background: var(--gradient-primary); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 50px; }
+        .question-text { font-size: 20px; line-height: 1.6; font-weight: 500; margin-top: 10px; }
+        .cue-card { background: var(--bg-card-alt); border: 1px dashed var(--border-hover); padding: 16px; border-radius: 16px; margin-top: 16px; }
+        .cue-card ul { padding-left: 20px; color: var(--text-secondary); }
 
-        /* Home Button */
-        .home-btn { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #fff; font-size: 11px; font-weight: bold; background: #2a7de1; padding: 8px 12px; border-radius: 8px; }
+        .recording-area { margin-top: 16px; padding: 16px; background: var(--bg-card-alt); border-radius: 16px; border: 1px solid var(--border-light); }
+        .video-preview { width: 100%; max-width: 320px; margin: 0 auto 12px; border-radius: 12px; transform: scaleX(-1); display: none; }
+        .recording-status { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .recording-status .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--bg-progress); }
+        .recording-status .dot.active { background: #d1453b; animation: pulse-dot 1s infinite; }
+        .status-text { color: var(--text-secondary); font-weight: 500; }
+        .live-badge { display: none; background: #d1453b; color: white; padding: 2px 8px; border-radius: 4px; font-weight: 800; }
+
+        .action-row { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+        .btn { border: none; border-radius: 50px; padding: 10px 18px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-success { background: var(--gradient-success); color: #fff; }
+        .btn-danger { background: var(--gradient-danger); color: #fff; }
+        .btn-export { background: var(--gradient-primary); color: #fff; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .recordings-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .recording-item { background: var(--bg-card); border: 1px solid var(--border-light); padding: 8px 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+        .recording-item .rec-actions button { background: none; border: none; cursor: pointer; color: var(--text-link); font-size: 14px; margin-left: 8px; }
+
+        .timer-section { display: flex; justify-content: center; align-items: center; gap: 16px; background: var(--bg-card-alt); padding: 12px 24px; border-radius: 50px; margin-bottom: 18px; }
+        .timer-display { font-size: 40px; font-weight: 800; letter-spacing: 2px; background: var(--bg-input); padding: 4px 20px; border-radius: 50px; }
+        .timer-display.warning { color: #d1453b; animation: timer-pulse 0.8s infinite; }
+        @keyframes timer-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        .timer-label { font-size: 12px; color: var(--text-muted); text-align: center; }
+
+        .answer-section { margin-top: 16px; border-top: 2px solid var(--border-light); padding-top: 16px; }
+        .answer-toggle { background: none; border: none; color: var(--text-link); font-weight: 600; cursor: pointer; }
+        .answer-content { display: none; background: var(--bg-answer); padding: 20px; border-radius: 16px; margin-top: 12px; line-height: 1.8; color: var(--text-secondary); border-left: 4px solid var(--text-link); }
+        .answer-content.open { display: block; }
+
+        .tips-box { background: var(--bg-tips); padding: 16px; border-radius: 16px; margin-top: 16px; }
+        .tips-box ul { padding-left: 16px; color: var(--text-secondary); line-height: 1.8; }
+
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--bg-secondary); padding: 24px; border-radius: 20px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; margin-bottom: 16px; }
+        .modal-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-light); }
+        .q-status.saved { background: var(--bg-status); color: #1d9c73; padding: 2px 10px; border-radius: 50px; }
+        .q-status.empty { background: var(--bg-input); color: var(--text-muted); padding: 2px 10px; border-radius: 50px; }
+        .modal-footer { display: flex; justify-content: flex-end; margin-top: 16px; gap: 8px; }
+
+        @media (max-width: 768px) { .container { padding: 16px; } .part-nav { flex-direction: column; } .question-nav { flex-direction: column; gap: 8px; } }
     </style>
 </head>
 <body>
-    <a href="/" class="home-btn">🏠 Home</a>
 
-    <!-- FLOATING RECORD -->
-    <div class="floating-record" id="floatingRecord">
-        <button class="fab-btn idle" id="fabBtn"><i class="fas fa-microphone"></i></button>
-    </div>
-
-    <!-- HERO -->
     <div class="hero">
-        <h1>🎤 IELTS Speaking Practice Pro</h1>
-        <p>Master Part 1, 2, and 3 with video recording.</p>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge-top">IELTS Preparation</div>
+                <h1>Speaking Practice <span>Pro</span></h1>
+                <p>Master the IELTS speaking test with video recording and multi-take progress tracking.</p>
+                <div class="hero-stats">
+                    <div><i class="fas fa-question-circle"></i> <strong>60</strong> Questions</div>
+                    <div><i class="fas fa-video"></i> <strong>Video</strong> Rec</div>
+                    <div><i class="fas fa-star"></i> <strong>Rate</strong> Yourself</div>
+                    <div><i class="fas fa-layer-group"></i> <strong>3</strong> Parts</div>
+                </div>
+            </div>
+            <div class="hero-illustration"><i class="fas fa-comment-dots"></i></div>
+        </div>
     </div>
 
-    <!-- CONTAINER -->
-    <div class="container">
+    <div class="container" id="app">
         <div class="header">
-            <div class="header-badge">Practice Mode</div>
-            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            <span class="header-badge">Part <span id="currentPartDisplay">1</span></span>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon" id="themeIcon"></i></button>
         </div>
 
         <div class="part-nav" id="partNav">
-            <button class="part-tab active" data-part="1">Part 1</button>
-            <button class="part-tab" data-part="2">Part 2</button>
-            <button class="part-tab" data-part="3">Part 3</button>
+            <button class="part-tab part1 active" data-part="1">Part 1</button>
+            <button class="part-tab part2" data-part="2">Part 2</button>
+            <button class="part-tab part3" data-part="3">Part 3</button>
+        </div>
+
+        <div class="permission-status" id="permissionStatus">
+            <span class="status-icon pending" id="permissionIcon"></span>
+            <span id="permissionText">⏳ Checking...</span>
+            <button class="grant-btn" id="grantPermissionBtn" style="display:none;">Grant Access</button>
+        </div>
+
+        <div class="question-nav">
+            <button class="nav-btn" id="prevBtn" disabled>Prev</button>
+            <span class="question-counter">Q <span id="currentQNum">1</span> / <span id="totalQNum">20</span></span>
+            <button class="nav-btn" id="nextBtn">Next</button>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <span class="progress-label" id="progressLabel">0%</span>
         </div>
 
         <div class="question-card">
-            <div class="question-text" id="questionText">Loading question...</div>
-            
-            <div class="recording-controls">
-                <button class="record-btn start" id="recordBtn" disabled><i class="fas fa-microphone"></i> Record</button>
-                <button class="record-btn stop" id="stopRecordBtn" disabled><i class="fas fa-stop"></i> Stop</button>
-                <button class="record-btn playback" id="playbackBtn" disabled><i class="fas fa-play"></i> Playback</button>
-                <button class="record-btn download" id="downloadBtn" disabled><i class="fas fa-download"></i> Download</button>
-                <span class="recording-status"><span class="dot" id="recordingDot"></span> <span id="recordingStatusText">Ready</span></span>
-            </div>
-            
-            <div class="feedback-card" id="feedbackCard">
-                <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-                <div class="fb-message" id="feedbackMsg">Great job! Keep practicing!</div>
-                <div class="fb-tip">💡 Tip: Remember to speak clearly and at a steady pace.</div>
-                <div class="fb-actions"><button class="fb-listen" onclick="playFeedback()"><i class="fas fa-play"></i> Listen</button><button class="fb-download" onclick="downloadFeedback()"><i class="fas fa-download"></i> Download</button></div>
+            <div class="question-icon" id="questionIcon"><i class="fas fa-comment"></i></div>
+            <span class="part-tag" id="partTag">PART 1</span>
+            <div class="question-text" id="questionText">Loading...</div>
+            <div class="cue-card" id="cueCard" style="display:none;"><ul id="cuePoints"></ul></div>
+
+            <div class="recording-area">
+                <video id="videoPreview" class="video-preview" autoplay playsinline muted></video>
+                <div class="recording-status">
+                    <span class="dot" id="recordingDot"></span>
+                    <span class="live-badge" id="liveBadge">● LIVE</span>
+                    <span class="status-text" id="recordingStatusText">Ready</span>
+                </div>
+                <div class="action-row">
+                    <button class="btn btn-success" id="recordBtn" disabled>Record</button>
+                    <button class="btn btn-danger" id="stopRecordBtn" disabled>Stop</button>
+                </div>
+                <div class="recordings-list" id="recordingsList"></div>
             </div>
         </div>
 
         <div class="timer-section">
-            <div class="timer-display" id="timerDisplay">02:00</div>
+            <div>
+                <div class="timer-display" id="timerDisplay">02:00</div>
+                <div class="timer-label" id="timerLabel">Speaking Time (2 min)</div>
+            </div>
             <div class="timer-controls">
-                <button id="startTimerBtn"><i class="fas fa-play"></i> Start</button>
-                <button id="resetTimerBtn"><i class="fas fa-redo-alt"></i> Reset</button>
+                <button class="btn btn-primary" id="startTimerBtn" style="background: var(--gradient-primary); color: white;">Start</button>
+                <button class="btn btn-secondary" id="resetTimerBtn" style="background: var(--bg-toggle); color: var(--text-secondary);">Reset</button>
+            </div>
+        </div>
+
+        <div class="answer-section">
+            <button class="answer-toggle" id="answerToggle">Show Sample Answer</button>
+            <div class="answer-content" id="answerContent"><p id="sampleAnswerText"></p></div>
+            <div class="tips-box">
+                <strong>Tips:</strong>
+                <ul>
+                    <li>Record multiple takes and compare them.</li>
+                    <li>Use your camera to practice eye contact.</li>
+                    <li>Download your recordings to track progress.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn btn-export" id="exportBtn">Export All Recordings</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Export Recordings</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div id="modalContent"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCancel">Cancel</button>
+                <button class="btn btn-primary" id="modalExportAll" style="background: var(--gradient-primary); color: white;">Download All</button>
             </div>
         </div>
     </div>
 
     <script>
-        (function() {
-            'use strict';
-            const parts = {
-                1: [
-                    'Let\'s talk about <span class="highlight">your home</span>.<br>Where do you live and who do you live with?',
-                    'Let\'s talk about <span class="highlight">your work or studies</span>.<br>What do you do?',
-                    'Let\'s talk about <span class="highlight">free time</span>.<br>What do you enjoy doing in your free time?'
-                ],
-                2: [
-                    'Describe <span class="highlight">a memorable trip</span> you have taken.',
-                    'Describe <span class="highlight">a person who inspires you</span>.',
-                    'Describe <span class="highlight">a skill you would like to learn</span>.'
-                ],
-                3: [
-                    'Let\'s discuss <span class="highlight">globalization</span>.<br>What are the benefits and challenges?',
-                    'Let\'s discuss <span class="highlight">education systems</span>.<br>How should education evolve?',
-                    'Let\'s discuss <span class="highlight">climate change</span>.<br>What can individuals do?'
-                ]
-            };
-            const totalQuestions = 20;
-            let currentPart = 1;
-            let currentIndex = 0;
-            let questionRecordings = {};
-            let recordingBlob = null;
-            let recordingUrl = null;
-            let mediaRecorder = null;
-            let stream = null;
-            let isRecording = false;
-            let hasPermission = false;
-            let timerInterval = null;
-            let timeSeconds = 120;
-            let isTimerRunning = false;
+        // ================================================================
+        //  DATA (20 Questions Per Part)
+        // ================================================================
 
-            const questionText = document.getElementById('questionText');
-            const recordBtn = document.getElementById('recordBtn');
-            const stopRecordBtn = document.getElementById('stopRecordBtn');
-            const playbackBtn = document.getElementById('playbackBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const recordingDot = document.getElementById('recordingDot');
-            const recordingStatusText = document.getElementById('recordingStatusText');
-            const feedbackCard = document.getElementById('feedbackCard');
-            const timerDisplay = document.getElementById('timerDisplay');
-            const startTimerBtn = document.getElementById('startTimerBtn');
-            const resetTimerBtn = document.getElementById('resetTimerBtn');
-            const themeToggle = document.getElementById('themeToggle');
-            const fabBtn = document.getElementById('fabBtn');
+        var PART1_QUESTIONS = [
+            { icon: 'fa-home', text: 'Let\'s talk about <span class="highlight">your home</span>.<br>Where do you live and who do you live with?', sample: 'I currently live in a flat in the city center with my family.' },
+            { icon: 'fa-briefcase', text: 'Let\'s talk about <span class="highlight">your work or studies</span>.<br>What do you do?', sample: 'I\'m currently a university student majoring in computer science.' },
+            { icon: 'fa-paint-brush', text: 'Let\'s talk about <span class="highlight">free time</span>.<br>What do you enjoy doing in your free time?', sample: 'In my free time, I love reading novels and going for long walks.' },
+            { icon: 'fa-utensils', text: 'Let\'s talk about <span class="highlight">food</span>.<br>What is your favorite meal?', sample: 'My favorite meal is definitely a traditional Sunday roast.' },
+            { icon: 'fa-music', text: 'Let\'s talk about <span class="highlight">music</span>.<br>What kind of music do you like?', sample: 'I enjoy a wide range of music, but my favorite is indie folk.' },
+            { icon: 'fa-film', text: 'Let\'s talk about <span class="highlight">movies</span>.<br>Do you prefer watching at home or the cinema?', sample: 'I prefer watching at home for comfort, but love the big screen for blockbusters.' },
+            { icon: 'fa-book', text: 'Let\'s talk about <span class="highlight">reading</span>.<br>Do you enjoy reading books?', sample: 'Yes, I\'m an avid reader. I particularly enjoy fiction and historical novels.' },
+            { icon: 'fa-bicycle', text: 'Let\'s talk about <span class="highlight">transport</span>.<br>How do you usually get around?', sample: 'I usually use public transport, especially the metro and buses.' },
+            { icon: 'fa-shopping-bag', text: 'Let\'s talk about <span class="highlight">shopping</span>.<br>Do you enjoy shopping?', sample: 'I enjoy shopping for books or gadgets, but not for clothes.' },
+            { icon: 'fa-futbol', text: 'Let\'s talk about <span class="highlight">sports</span>.<br>Do you play any sports?', sample: 'I play basketball regularly with friends.' },
+            { icon: 'fa-tree', text: 'Let\'s talk about <span class="highlight">nature</span>.<br>Do you like spending time in nature?', sample: 'Absolutely. I find nature incredibly calming and enjoy hiking.' },
+            { icon: 'fa-clock', text: 'Let\'s talk about <span class="highlight">daily routine</span>.<br>What does a typical day look like?', sample: 'My day starts at 7 am with breakfast and study time.' },
+            { icon: 'fa-phone', text: 'Let\'s talk about <span class="highlight">technology</span>.<br>How often do you use your phone?', sample: 'I use my phone frequently for communication and news.' },
+            { icon: 'fa-handshake', text: 'Let\'s talk about <span class="highlight">friendship</span>.<br>What do you value in a friend?', sample: 'I value honesty, loyalty, and a good sense of humor.' },
+            { icon: 'fa-plane', text: 'Let\'s talk about <span class="highlight">travel</span>.<br>Do you enjoy traveling?', sample: 'Yes, I love traveling and experiencing new cultures.' },
+            { icon: 'fa-language', text: 'Let\'s talk about <span class="highlight">languages</span>.<br>Do you speak any other languages?', sample: 'I speak English fluently and am learning Spanish.' },
+            { icon: 'fa-gift', text: 'Let\'s talk about <span class="highlight">gifts</span>.<br>What was the best gift you received?', sample: 'The best gift I received was a vintage camera from my grandfather.' },
+            { icon: 'fa-bed', text: 'Let\'s talk about <span class="highlight">sleep</span>.<br>How many hours of sleep do you get?', sample: 'I usually get around 7 to 8 hours of sleep.' },
+            { icon: 'fa-smile', text: 'Let\'s talk about <span class="highlight">happiness</span>.<br>What makes you happy?', sample: 'Simple things make me happy: time with family and a good book.' },
+            { icon: 'fa-future', text: 'Let\'s talk about <span class="highlight">the future</span>.<br>What are your future plans?', sample: 'I plan to pursue a career in technology and travel more.' }
+        ];
 
-            // Theme
-            function setTheme(t) {
-                document.documentElement.setAttribute('data-theme', t);
-                themeToggle.innerHTML = t === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                localStorage.setItem('speaking_theme', t);
+        var PART2_QUESTIONS = [
+            { icon: 'fa-plane', text: 'Describe <span class="highlight">a memorable trip</span> you have taken.', cue: ['where you went', 'who you went with', 'what you did there', 'and explain why it was memorable'], sample: 'A memorable trip I took was to the mountains with college friends.' },
+            { icon: 'fa-user-graduate', text: 'Describe <span class="highlight">a person who inspires you</span>.', cue: ['who the person is', 'how you know them', 'what they have done', 'and explain why they inspire you'], sample: 'My mother is the person who inspires me most.' },
+            { icon: 'fa-guitar', text: 'Describe <span class="highlight">a skill you would like to learn</span>.', cue: ['what the skill is', 'why you want to learn it', 'how you would learn it', 'and explain how it could benefit you'], sample: 'I would love to learn how to play the guitar.' },
+            { icon: 'fa-book', text: 'Describe <span class="highlight">a book that had a big impact on you</span>.', cue: ['what the book is', 'what it is about', 'why you read it', 'and explain why it had such an impact'], sample: 'One book that had a huge impact on me is "1984".' },
+            { icon: 'fa-film', text: 'Describe <span class="highlight">a movie you would recommend</span>.', cue: ['what the movie is', 'what it is about', 'why you recommend it', 'and who would enjoy it'], sample: 'I recommend "The Pursuit of Happyness".' },
+            { icon: 'fa-utensils', text: 'Describe <span class="highlight">your favorite restaurant</span>.', cue: ['where it is', 'what kind of food it serves', 'how often you go there', 'and explain why you like it'], sample: 'My favorite restaurant is a small Italian place.' },
+            { icon: 'fa-tree', text: 'Describe <span class="highlight">a beautiful place in nature</span>.', cue: ['where it is', 'what it looks like', 'what you did there', 'and explain why it was beautiful'], sample: 'The Lake District in the UK is beautiful.' },
+            { icon: 'fa-users', text: 'Describe <span class="highlight">a family member you are close to</span>.', cue: ['who they are', 'what they are like', 'what you do together', 'and explain why you are close'], sample: 'I\'m very close to my older sister.' },
+            { icon: 'fa-graduation-cap', text: 'Describe <span class="highlight">a teacher who influenced you</span>.', cue: ['who they were', 'what subject they taught', 'what they did that was special', 'and explain how they influenced you'], sample: 'My high school English teacher had a profound influence on me.' },
+            { icon: 'fa-home', text: 'Describe <span class="highlight">your childhood home</span>.', cue: ['where it was', 'what it looked like', 'what you did there', 'and explain why it was special'], sample: 'My childhood home was a small house with a large garden.' },
+            { icon: 'fa-bicycle', text: 'Describe <span class="highlight">a journey you took by public transport</span>.', cue: ['where you went', 'what transport you used', 'what happened during the journey', 'and explain how you felt about it'], sample: 'I once took an overnight train journey across the country.' },
+            { icon: 'fa-music', text: 'Describe <span class="highlight">a concert you enjoyed</span>.', cue: ['what it was', 'where it took place', 'who performed', 'and explain why you enjoyed it'], sample: 'I attended a live performance by my favorite band last year.' },
+            { icon: 'fa-heart', text: 'Describe <span class="highlight">a meaningful gift you received</span>.', cue: ['what it was', 'who gave it to you', 'what it looked like', 'and explain why it was meaningful'], sample: 'My grandmother gave me a handmade quilt.' },
+            { icon: 'fa-sun', text: 'Describe <span class="highlight">a perfect day</span> you have experienced.', cue: ['where you were', 'what you did', 'who you were with', 'and explain why it was perfect'], sample: 'One perfect day was when my friends and I went to the beach.' },
+            { icon: 'fa-building', text: 'Describe <span class="highlight">a building you find interesting</span>.', cue: ['what it is', 'where it is', 'what it looks like', 'and explain why you find it interesting'], sample: 'I find the Sagrada Familia in Barcelona fascinating.' },
+            { icon: 'fa-paw', text: 'Describe <span class="highlight">a pet you have or would like</span>.', cue: ['what it is', 'what it looks like', 'what it does', 'and explain why you like it'], sample: 'I would love to have a golden retriever.' },
+            { icon: 'fa-flag', text: 'Describe <span class="highlight">a festival in your culture</span>.', cue: ['what it is', 'when it takes place', 'what people do', 'and explain why it is important'], sample: 'Diwali is one of the most important festivals in my culture.' },
+            { icon: 'fa-hiking', text: 'Describe <span class="highlight">an outdoor activity</span> you enjoy.', cue: ['what it is', 'where you do it', 'how often you do it', 'and explain why you enjoy it'], sample: 'I enjoy hiking and usually go to national parks.' },
+            { icon: 'fa-robot', text: 'Describe <span class="highlight">a piece of technology</span> you use daily.', cue: ['what it is', 'how you use it', 'how it changed your life', 'and explain why it is important'], sample: 'My smartphone is a piece of technology I use constantly.' },
+            { icon: 'fa-star', text: 'Describe <span class="highlight">a goal you have set</span>.', cue: ['what the goal is', 'how you plan to achieve it', 'why you set it', 'and explain how you will feel'], sample: 'My current goal is to become fluent in Spanish.' }
+        ];
+
+        var PART3_QUESTIONS = [
+            { icon: 'fa-globe', text: 'Let\'s discuss <span class="highlight">globalization</span>.<br>What are the benefits and challenges?', sample: 'Globalization has brought benefits like access to goods, but challenges like inequality.' },
+            { icon: 'fa-graduation-cap', text: 'Let\'s discuss <span class="highlight">education systems</span>.<br>How should education evolve?', sample: 'Education should become more personalized and flexible.' },
+            { icon: 'fa-tree', text: 'Let\'s discuss <span class="highlight">climate change</span>.<br>What can individuals do?', sample: 'Individuals can reduce waste and use public transport.' },
+            { icon: 'fa-users', text: 'Let\'s discuss <span class="highlight">urbanization</span>.<br>What are the effects of cities growing?', sample: 'Urbanization brings opportunities but also overcrowding.' },
+            { icon: 'fa-robot', text: 'Let\'s discuss <span class="highlight">artificial intelligence</span>.<br>How will AI change work?', sample: 'AI will automate tasks but require workers to adapt.' },
+            { icon: 'fa-heart', text: 'Let\'s discuss <span class="highlight">health and wellness</span>.<br>What is the secret to a healthy life?', sample: 'A healthy lifestyle balances good nutrition, exercise, and mental well-being.' },
+            { icon: 'fa-shield-virus', text: 'Let\'s discuss <span class="highlight">public health</span>.<br>What lessons did we learn from the pandemic?', sample: 'We learned the importance of public health systems and preparation.' },
+            { icon: 'fa-paint-brush', text: 'Let\'s discuss <span class="highlight">art and culture</span>.<br>Why is art important in society?', sample: 'Art expresses human experience and preserves heritage.' },
+            { icon: 'fa-newspaper', text: 'Let\'s discuss <span class="highlight">media and truth</span>.<br>How can people identify reliable news?', sample: 'People should read from multiple sources and be skeptical.' },
+            { icon: 'fa-hand-holding-usd', text: 'Let\'s discuss <span class="highlight">economic inequality</span>.<br>What can reduce the wealth gap?', sample: 'Reducing the gap requires fair wages and access to education.' },
+            { icon: 'fa-phone', text: 'Let\'s discuss <span class="highlight">digital addiction</span>.<br>How can we reduce screen time?', sample: 'Setting boundaries and engaging in offline activities helps.' },
+            { icon: 'fa-utensils', text: 'Let\'s discuss <span class="highlight">sustainable food</span>.<br>How can we create sustainable food systems?', sample: 'Reduce food waste and support local farmers.' },
+            { icon: 'fa-bed', text: 'Let\'s discuss <span class="highlight">mental health</span>.<br>Why is awareness important?', sample: 'Awareness reduces stigma and encourages people to seek help.' },
+            { icon: 'fa-globe-asia', text: 'Let\'s discuss <span class="highlight">overpopulation</span>.<br>What are the challenges of a growing population?', sample: 'Growing population strains resources like food and water.' },
+            { icon: 'fa-home', text: 'Let\'s discuss <span class="highlight">housing affordability</span>.<br>How can cities solve the housing crisis?', sample: 'Cities can build more social housing and implement rent controls.' },
+            { icon: 'fa-language', text: 'Let\'s discuss <span class="highlight">language and identity</span>.<br>How does language shape identity?', sample: 'Language is a core part of culture and identity.' },
+            { icon: 'fa-future', text: 'Let\'s discuss <span class="highlight">the future of work</span>.<br>Will remote work become the norm?', sample: 'Remote work is likely to remain, but hybrid models will dominate.' },
+            { icon: 'fa-shield-alt', text: 'Let\'s discuss <span class="highlight">cybersecurity</span>.<br>How can people protect their privacy?', sample: 'Use strong passwords and be cautious about what you share.' },
+            { icon: 'fa-smile', text: 'Let\'s discuss <span class="highlight">happiness and productivity</span>.<br>Is happiness connected to success?', sample: 'Happiness comes from purpose and relationships, often leading to success.' },
+            { icon: 'fa-tree', text: 'Let\'s discuss <span class="highlight">biodiversity loss</span>.<br>Why should we protect endangered species?', sample: 'Each species plays a role in ecosystem balance.' }
+        ];
+
+        // Build Master List (60 Questions)
+        var QUESTIONS = [];
+        for(var i=0; i<PART1_QUESTIONS.length; i++) QUESTIONS.push({part:1, tag:'PART 1', icon:PART1_QUESTIONS[i].icon, text:PART1_QUESTIONS[i].text, cue:null, sample:PART1_QUESTIONS[i].sample, index:i});
+        for(var i=0; i<PART2_QUESTIONS.length; i++) QUESTIONS.push({part:2, tag:'PART 2', icon:PART2_QUESTIONS[i].icon, text:PART2_QUESTIONS[i].text, cue:PART2_QUESTIONS[i].cue, sample:PART2_QUESTIONS[i].sample, index:i});
+        for(var i=0; i<PART3_QUESTIONS.length; i++) QUESTIONS.push({part:3, tag:'PART 3', icon:PART3_QUESTIONS[i].icon, text:PART3_QUESTIONS[i].text, cue:null, sample:PART3_QUESTIONS[i].sample, index:i});
+
+        // ================================================================
+        //  STATE & DOM
+        // ================================================================
+        var currentIndex = 0;
+        var currentPart = 1;
+        var timerInterval = null;
+        var timeSeconds = 120;
+        var isTimerRunning = false;
+
+        var mediaRecorder = null;
+        var audioChunks = [];
+        var isRecording = false;
+        var recordedBlob = null;
+        var microphoneStream = null;
+        var hasMediaPermission = false;
+
+        var questionRecordings = new Array(QUESTIONS.length);
+        for(var i=0; i<questionRecordings.length; i++) questionRecordings[i] = [];
+        var questionRatings = new Array(QUESTIONS.length).fill(0);
+        var STORAGE_KEY = 'ielts_speaking_data_multi';
+
+        var partTabs = document.getElementById('partNav').querySelectorAll('.part-tab');
+        var progressFill = document.getElementById('progressFill');
+        var progressLabel = document.getElementById('progressLabel');
+        var partTag = document.getElementById('partTag');
+        var questionText = document.getElementById('questionText');
+        var questionIcon = document.getElementById('questionIcon');
+        var currentQNum = document.getElementById('currentQNum');
+        var totalQNum = document.getElementById('totalQNum');
+        var cueCard = document.getElementById('cueCard');
+        var cuePoints = document.getElementById('cuePoints');
+        var sampleAnswerText = document.getElementById('sampleAnswerText');
+        var timerDisplay = document.getElementById('timerDisplay');
+        var timerLabel = document.getElementById('timerLabel');
+        var startTimerBtn = document.getElementById('startTimerBtn');
+        var resetTimerBtn = document.getElementById('resetTimerBtn');
+        var recordBtn = document.getElementById('recordBtn');
+        var stopRecordBtn = document.getElementById('stopRecordBtn');
+        var recordingsList = document.getElementById('recordingsList');
+        var recordingDot = document.getElementById('recordingDot');
+        var liveBadge = document.getElementById('liveBadge');
+        var recordingStatusText = document.getElementById('recordingStatusText');
+        var answerToggle = document.getElementById('answerToggle');
+        var answerContent = document.getElementById('answerContent');
+        var permissionIcon = document.getElementById('permissionIcon');
+        var permissionText = document.getElementById('permissionText');
+        var grantPermissionBtn = document.getElementById('grantPermissionBtn');
+        var themeToggle = document.getElementById('themeToggle');
+        var themeIcon = document.getElementById('themeIcon');
+        var prevBtn = document.getElementById('prevBtn');
+        var nextBtn = document.getElementById('nextBtn');
+        var exportBtn = document.getElementById('exportBtn');
+        var exportModal = document.getElementById('exportModal');
+        var modalClose = document.getElementById('modalClose');
+        var modalCancel = document.getElementById('modalCancel');
+        var modalContent = document.getElementById('modalContent');
+        var modalExportAll = document.getElementById('modalExportAll');
+        var videoPreview = document.getElementById('videoPreview');
+
+        // ================================================================
+        //  THEME
+        // ================================================================
+        function setTheme(theme) { document.documentElement.setAttribute('data-theme', theme); themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; }
+        themeToggle.addEventListener('click', function() { setTheme(localStorage.getItem('ielts_theme') === 'dark' ? 'light' : 'dark'); });
+        setTheme(localStorage.getItem('ielts_theme') || 'light');
+
+        // ================================================================
+        //  PERMISSION
+        // ================================================================
+        async function initPermission() {
+            try {
+                var stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+                microphoneStream = stream;
+                hasMediaPermission = true;
+                videoPreview.srcObject = stream;
+                videoPreview.style.display = 'block';
+                permissionIcon.className = 'status-icon granted';
+                permissionText.textContent = '✅ Camera & Microphone ready';
+                grantPermissionBtn.style.display = 'none';
+                recordBtn.disabled = false;
+            } catch(e) {
+                permissionIcon.className = 'status-icon denied';
+                permissionText.textContent = '❌ Access needed';
+                grantPermissionBtn.style.display = 'inline-flex';
+                recordBtn.disabled = true;
             }
-            themeToggle.addEventListener('click', function() {
-                setTheme(localStorage.getItem('speaking_theme') === 'dark' ? 'light' : 'dark');
-            });
-            setTheme(localStorage.getItem('speaking_theme') || 'light');
+        }
+        grantPermissionBtn.addEventListener('click', initPermission);
 
-            // Part Selection
-            const partTabs = document.querySelectorAll('.part-tab');
-            partTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    partTabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    currentPart = parseInt(this.dataset.part);
-                    currentIndex = 0;
-                    // Set timer based on part
-                    if (currentPart === 2) {
-                        timeSeconds = 180; // 3 minutes
-                    } else {
-                        timeSeconds = 120; // 2 minutes
-                    }
-                    updateTimerDisplay();
-                    renderQuestion();
-                });
-            });
+        // ================================================================
+        //  RENDER QUESTION
+        // ================================================================
+        function renderQuestion(globalIndex) {
+            var q = QUESTIONS[globalIndex];
+            if (!q) return;
+            currentPart = q.part;
+            currentIndex = globalIndex;
+            for (var i=0; i<partTabs.length; i++) {
+                partTabs[i].classList.toggle('active', parseInt(partTabs[i].dataset.part) === q.part);
+            }
+            partTag.textContent = q.tag;
+            questionText.innerHTML = q.text;
+            questionIcon.className = 'question-icon part' + q.part;
+            questionIcon.innerHTML = '<i class="fas ' + q.icon + '"></i>';
+            currentQNum.textContent = q.index + 1;
+            totalQNum.textContent = 20;
+            prevBtn.disabled = (q.index === 0);
+            nextBtn.disabled = (q.index === 19);
 
-            // Render
-            function renderQuestion() {
-                const questions = parts[currentPart];
-                questionText.innerHTML = questions[currentIndex];
+            if(q.cue) { cueCard.style.display = 'block'; cuePoints.innerHTML = q.cue.map(function(c){ return '<li>'+c+'</li>'; }).join(''); }
+            else { cueCard.style.display = 'none'; }
+
+            sampleAnswerText.textContent = q.sample;
+            answerContent.classList.remove('open');
+            answerToggle.innerHTML = 'Show Sample Answer';
+            progressFill.style.width = ((q.index + 1) / 20 * 100) + '%';
+            progressLabel.textContent = Math.round((q.index + 1) / 20 * 100) + '%';
+
+            timeSeconds = (q.part === 2) ? 180 : 120;
+            timerLabel.textContent = (q.part === 2) ? 'Speaking Time (3 min)' : 'Speaking Time (2 min)';
+            updateTimerDisplay();
+            if(timerInterval) { clearInterval(timerInterval); timerInterval = null; isTimerRunning = false; }
+
+            if(isRecording) stopRecording();
+            renderRecordingList();
+        }
+
+        function renderRecordingList() {
+            recordingsList.innerHTML = '';
+            var recs = questionRecordings[currentIndex];
+            for(var i=0; i<recs.length; i++) {
+                var item = document.createElement('div');
+                item.className = 'recording-item';
+                item.innerHTML = '<span><i class="fas fa-video"></i> Recording ' + (i+1) + '</span>' +
+                    '<div class="rec-actions">' +
+                    '<button class="play-btn" data-index="' + i + '"><i class="fas fa-play"></i></button>' +
+                    '<button class="del-btn" data-index="' + i + '"><i class="fas fa-trash"></i></button>' +
+                    '</div>';
+                recordingsList.appendChild(item);
+            }
+        }
+
+        recordingsList.addEventListener('click', function(e) {
+            var btn = e.target.closest('button');
+            if(!btn) return;
+            var idx = parseInt(btn.dataset.index);
+            var recs = questionRecordings[currentIndex];
+            if(btn.classList.contains('play-btn')) {
+                var url = URL.createObjectURL(recs[idx]);
+                var audio = new Audio(url); audio.play();
+            }
+            else if(btn.classList.contains('del-btn')) {
+                recs.splice(idx, 1);
+                saveData(); renderRecordingList();
+            }
+        });
+
+        // ================================================================
+        //  TIMER
+        // ================================================================
+        function updateTimerDisplay() {
+            var m = Math.floor(timeSeconds / 60);
+            var s = timeSeconds % 60;
+            timerDisplay.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            if(timeSeconds <= 10) timerDisplay.classList.add('warning'); else timerDisplay.classList.remove('warning');
+        }
+        function startTimer() {
+            if(isTimerRunning) return;
+            isTimerRunning = true;
+            startTimerBtn.innerHTML = 'Pause';
+            timerInterval = setInterval(function() {
+                timeSeconds--;
                 updateTimerDisplay();
-                resetRecording();
-            }
+                if(timeSeconds <= 0) { clearInterval(timerInterval); timerInterval=null; isTimerRunning=false; startTimerBtn.innerHTML='Start'; if(isRecording) stopRecording(); alert('Time is up!'); }
+            }, 1000);
+        }
+        function pauseTimer() {
+            if(timerInterval) { clearInterval(timerInterval); timerInterval=null; isTimerRunning=false; startTimerBtn.innerHTML='Start'; }
+        }
+        function resetTimer() { pauseTimer(); timeSeconds = (QUESTIONS[currentIndex].part === 2) ? 180 : 120; updateTimerDisplay(); }
+        startTimerBtn.addEventListener('click', function() { isTimerRunning ? pauseTimer() : startTimer(); });
+        resetTimerBtn.addEventListener('click', resetTimer);
 
-            // Recording Logic
-            async function getPermission() {
-                if (hasPermission) return true;
-                try {
-                    stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-                    hasPermission = true;
-                    recordBtn.disabled = false;
-                    return true;
-                } catch (e) {
-                    alert('Microphone or Camera access needed.');
-                    return false;
-                }
-            }
-
-            recordBtn.addEventListener('click', async function() {
-                if (!await getPermission()) return;
-                if (isRecording) return;
-
-                recordingBlob = null;
-                state.chunks = [];
-                mediaRecorder = new MediaRecorder(stream);
-                isRecording = true;
-
-                this.disabled = true;
-                this.classList.add('recording');
-                stopRecordBtn.disabled = false;
-                recordingDot.classList.add('active');
-                recordingStatusText.textContent = 'Recording...';
-
-                mediaRecorder.ondataavailable = e => {
-                    if (e.data && e.data.size > 0) state.chunks.push(e.data);
+        // ================================================================
+        //  RECORDING (Video & Audio)
+        // ================================================================
+        function startRecording() {
+            if(!hasMediaPermission) { alert('Grant camera and mic access first!'); return; }
+            try {
+                mediaRecorder = new MediaRecorder(microphoneStream);
+                audioChunks = [];
+                mediaRecorder.ondataavailable = function(e) { audioChunks.push(e.data); };
+                mediaRecorder.onstop = function() {
+                    var blob = new Blob(audioChunks, { type: 'video/webm' });
+                    questionRecordings[currentIndex].push(blob);
+                    saveData(); renderRecordingList();
+                    recordingDot.classList.remove('active'); liveBadge.style.display='none';
+                    recordingStatusText.textContent = '✅ Saved!';
                 };
-
-                mediaRecorder.onstop = () => {
-                    recordingBlob = new Blob(state.chunks, { type: 'video/webm' });
-                    recordingUrl = URL.createObjectURL(recordingBlob);
-                    isRecording = false;
-                    this.disabled = false;
-                    this.classList.remove('recording');
-                    stopRecordBtn.disabled = true;
-                    recordingDot.classList.remove('active');
-                    recordingDot.classList.add('saved');
-                    recordingStatusText.textContent = 'Saved!';
-                    playbackBtn.disabled = false;
-                    downloadBtn.disabled = false;
-                    feedbackCard.classList.add('visible');
-                };
-
-                mediaRecorder.start();
-            });
-
-            stopRecordBtn.addEventListener('click', function() {
-                if (mediaRecorder && isRecording) mediaRecorder.stop();
-            });
-
-            playbackBtn.addEventListener('click', function() {
-                if (recordingUrl) {
-                    const video = document.createElement('video');
-                    video.src = recordingUrl;
-                    video.controls = true;
-                    video.style.width = '100%';
-                    video.style.marginTop = '10px';
-                    document.querySelector('.question-card').appendChild(video);
-                }
-            });
-
-            downloadBtn.addEventListener('click', function() {
-                if (recordingUrl) {
-                    const a = document.createElement('a');
-                    a.href = recordingUrl;
-                    a.download = 'IELTS_Part' + currentPart + '_Q' + (currentIndex + 1) + '.webm';
-                    a.click();
-                }
-            });
-
-            // Timer
-            function updateTimerDisplay() {
-                const m = Math.floor(timeSeconds / 60);
-                const s = timeSeconds % 60;
-                timerDisplay.textContent = m + ':' + ('0' + s).slice(-2);
+                mediaRecorder.start(); isRecording = true;
+                recordBtn.disabled = true; stopRecordBtn.disabled = false;
+                recordingDot.classList.add('active'); liveBadge.style.display='inline-block';
+                recordingStatusText.textContent = '🔴 Recording...';
+                var duration = (QUESTIONS[currentIndex].part === 2) ? 180 : 120;
+                setTimeout(function() { if(isRecording) stopRecording(); }, duration * 1000);
+            } catch(e) { alert('Error accessing media.'); }
+        }
+        function stopRecording() {
+            if(mediaRecorder && isRecording) {
+                mediaRecorder.stop(); isRecording=false;
+                recordBtn.disabled=false; stopRecordBtn.disabled=true;
+                recordingDot.classList.remove('active'); liveBadge.style.display='none';
             }
+        }
+        recordBtn.addEventListener('click', startRecording);
+        stopRecordBtn.addEventListener('click', stopRecording);
 
-            function startTimer() {
-                if (isTimerRunning) return;
-                isTimerRunning = true;
-                timerInterval = setInterval(() => {
-                    timeSeconds--;
-                    updateTimerDisplay();
-                    if (timeSeconds <= 0) {
-                        clearInterval(timerInterval);
-                        isTimerRunning = false;
-                        alert('Time is up!');
+        // ================================================================
+        //  SAVE & LOAD
+        // ================================================================
+        function saveData() {
+            try {
+                var recCount = [];
+                for(var i=0; i<questionRecordings.length; i++) recCount.push(questionRecordings[i].length);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ recCount: recCount }));
+            } catch(e) {}
+        }
+        function loadData() {
+            try {
+                var raw = localStorage.getItem(STORAGE_KEY);
+                if(raw) {
+                    var data = JSON.parse(raw);
+                    if(data.recCount) {
+                        for(var i=0; i<data.recCount.length; i++) {
+                            questionRecordings[i] = new Array(data.recCount[i]).fill(null);
+                        }
                     }
-                }, 1000);
-            }
-
-            function resetTimer() {
-                clearInterval(timerInterval);
-                isTimerRunning = false;
-                if (currentPart === 2) {
-                    timeSeconds = 180;
-                } else {
-                    timeSeconds = 120;
                 }
-                updateTimerDisplay();
+            } catch(e) {}
+        }
+
+        // ================================================================
+        //  EXPORT
+        // ================================================================
+        exportBtn.addEventListener('click', function() {
+            var html = '';
+            for(var i=0; i<QUESTIONS.length; i++) {
+                var count = questionRecordings[i].length;
+                html += '<div class="modal-item"><div><strong>Q' + (i+1) + ' · Part ' + QUESTIONS[i].part + '</strong><br><span style="color: var(--text-muted); font-size: 12px;">' + QUESTIONS[i].text.replace(/<[^>]*>/g, '').substring(0,30) + '</span></div><span class="q-status ' + (count > 0 ? 'saved' : 'empty') + '">' + (count > 0 ? count + ' saved' : 'Empty') + '</span></div>';
             }
+            modalContent.innerHTML = html;
+            exportModal.classList.add('active');
+        });
+        modalClose.addEventListener('click', function() { exportModal.classList.remove('active'); });
+        modalCancel.addEventListener('click', function() { exportModal.classList.remove('active'); });
+        exportModal.addEventListener('click', function(e) { if(e.target===exportModal) exportModal.classList.remove('active'); });
 
-            startTimerBtn.addEventListener('click', startTimer);
-            resetTimerBtn.addEventListener('click', resetTimer);
-
-            // Floating Record Button
-            fabBtn.addEventListener('click', async function() {
-                if (!await getPermission()) return;
-                if (isRecording) {
-                    if (mediaRecorder) mediaRecorder.stop();
-                } else {
-                    recordBtn.click();
+        modalExportAll.addEventListener('click', function() {
+            var total = 0;
+            for(var i=0; i<questionRecordings.length; i++) {
+                for(var j=0; j<questionRecordings[i].length; j++) {
+                    if(questionRecordings[i][j]) {
+                        var url = URL.createObjectURL(questionRecordings[i][j]);
+                        var a = document.createElement('a'); a.href=url;
+                        a.download = 'IELTS_Q' + (i+1) + '_Part' + QUESTIONS[i].part + '.webm';
+                        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                        total++;
+                    }
                 }
-            });
-
-            function resetRecording() {
-                recordingBlob = null;
-                recordingUrl = null;
-                playbackBtn.disabled = true;
-                downloadBtn.disabled = true;
-                stopRecordBtn.disabled = true;
-                recordBtn.disabled = !hasPermission;
-                recordingDot.classList.remove('active', 'saved');
-                recordingStatusText.textContent = 'Ready';
-                feedbackCard.classList.remove('visible');
             }
+            alert(total + ' recordings downloaded!');
+            exportModal.classList.remove('active');
+        });
 
-            // Initialize
-            getPermission();
-            renderQuestion();
-        })();
+        // ================================================================
+        //  NAVIGATION
+        // ================================================================
+        function goToQuestion(idx) { if(isRecording) stopRecording(); pauseTimer(); renderQuestion(idx); }
+        for(var i=0; i<partTabs.length; i++) {
+            partTabs[i].addEventListener('click', function() { goToQuestion((parseInt(this.dataset.part)-1)*20); });
+        }
+        prevBtn.addEventListener('click', function() { if(QUESTIONS[currentIndex].index > 0) goToQuestion(currentIndex-1); });
+        nextBtn.addEventListener('click', function() { if(QUESTIONS[currentIndex].index < 19) goToQuestion(currentIndex+1); });
+
+        answerToggle.addEventListener('click', function() {
+            answerContent.classList.toggle('open');
+            answerToggle.innerHTML = answerContent.classList.contains('open') ? 'Hide Sample Answer' : 'Show Sample Answer';
+        });
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        loadData();
+        initPermission();
+        renderQuestion(0);
     </script>
+
+<script>
+  // Universal Floating Home Button (Hacker's Hack)
+  (function() {
+    var backBtn = document.createElement('a');
+    backBtn.href = '/';
+    backBtn.innerHTML = '<span style="font-size: 20px; margin-bottom: 2px;">🏠</span>Home';
+    backBtn.style.cssText = 'position:fixed; top:20px; right:20px; display:flex; flex-direction:column; align-items:center; text-decoration:none; color:#555; font-size:11px; font-weight:bold; z-index:9999; background:rgba(255,255,255,0.9); padding:8px 12px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.1); line-height:1.2;';
+    document.body.appendChild(backBtn);
+  })();
+</script>
 </body>
 </html>

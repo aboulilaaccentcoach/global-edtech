@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🗽 American Accent Mastery</title>
+  <!-- 🚀 RECOMMENDATION 1: SEO & TARGET AUDIENCE OPTIMIZATION -->
+  <title>American Accent Mastery for Arabic Speakers | Flap T, Glottal Stop & TH Guide</title>
+  <meta name="description" content="Master the American Accent with our specialized course designed for Arabic speakers. Learn the Flap T, Glottal Stop, TH sounds, and perfect your pronunciation with interactive audio and recording tools.">
+  <meta name="keywords" content="American Accent, Arabic Speakers, English Pronunciation, Flap T, Glottal Stop, TH Sound, Accent Reduction, American English">
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* ===== all styles (same as before) ===== */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --primary: #6C3CE1; --primary-light: #8B5CF6; --primary-dark: #4F29A8;
@@ -21,18 +24,32 @@
       --bg-body: #F5F0FF; --bg-card: #FFFFFF; --text-primary: #1A142F;
       --text-secondary: #4A3A6B; --border: #E0D6F0; --shadow: 0 20px 60px rgba(0,0,0,0.08);
     }
-    body {
-      font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-primary);
-      min-height: 100vh; padding: 16px; transition: background 0.4s, color 0.4s;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-primary); min-height: 100vh; padding: 16px; transition: background 0.4s, color 0.4s; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 12px; }
-    .header { text-align: center; padding: 24px 0 16px; }
+    
+    /* Header & Home Button */
+    .header { text-align: center; padding: 24px 0 16px; position: relative; }
+    .home-btn { position: absolute; top: 20px; left: 0; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); padding: 8px 16px; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px; transition: var(--transition); }
+    .home-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
     .header h1 { font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 900; background: linear-gradient(135deg, var(--text-primary), var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .header p { color: var(--text-secondary); font-size: 0.95rem; }
+    .audience-badge { display: inline-block; background: rgba(108,60,225,0.2); color: var(--primary-light); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; border: 1px solid var(--primary); }
+    
+    /* Dashboard & Progress */
     .dashboard { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; }
     .dash-item { text-align: center; }
     .dash-item .value { font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .dash-item .label { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
+    
+    /* 🚀 RECOMMENDATION 2: DAILY CHALLENGE HOOK */
+    .daily-challenge { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, var(--primary-dark), var(--bg-card)); border: 1px solid var(--primary); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 18px; box-shadow: 0 4px 20px rgba(108,60,225,0.3); }
+    .dc-icon { font-size: 1.8rem; }
+    .dc-content { flex: 1; }
+    .dc-title { font-weight: 800; font-size: 1rem; color: #fff; }
+    .dc-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
+    .dc-btn { background: var(--secondary); color: #1A142F; border: none; padding: 8px 16px; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); }
+    .dc-btn:hover { background: #fff; transform: scale(1.05); }
+    
     .progress-wrapper { position: sticky; top: 0; z-index: 100; background: var(--bg-body); padding: 8px 0; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
     .progress-bar-track { width: 100%; height: 5px; background: var(--border); border-radius: 10px; overflow: hidden; }
     .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: width 0.5s; }
@@ -42,22 +59,33 @@
     .section { display: none; animation: fade 0.3s; }
     .section.active { display: block; }
     @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* Cards & Content */
     .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px; transition: background 0.4s, border-color 0.4s; }
     .card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
     .card-title { font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .badge-level { background: var(--primary-dark); color: var(--text-secondary); padding: 2px 10px; border-radius: 50px; font-size: 0.6rem; font-weight: 600; }
+    
+    /* Audio Player */
     .audio-player { display: flex; align-items: center; gap: 12px; background: var(--bg-body); padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin: 10px 0; flex-wrap: wrap; }
     .audio-player .play-btn { width: 36px; height: 36px; border: none; border-radius: 50%; background: var(--primary); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .audio-player .play-btn.playing { background: var(--secondary); }
     .audio-player .progress { flex: 1; height: 4px; background: var(--border); border-radius: 10px; cursor: pointer; position: relative; min-width: 60px; }
     .audio-player .progress .fill { height: 100%; width: 0%; background: var(--primary-light); border-radius: 10px; }
     .audio-player .time { font-size: 0.65rem; color: var(--text-muted); min-width: 60px; text-align: center; }
+    
+    /* Tables & Practice Items */
     .data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 8px 0; }
     .data-table th { text-align: left; padding: 6px 8px; background: var(--bg-body); color: var(--text-secondary); font-weight: 600; font-size: 0.65rem; border-bottom: 2px solid var(--border); }
     .data-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    .romaji { color: var(--secondary); font-weight: 600; }
+    .practice-item { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-radius: var(--radius-sm); background: var(--bg-body); margin-bottom: 4px; }
+    .practice-item .text { flex: 1; font-size: 0.85rem; }
+    
+    /* Checkboxes */
     .checkbox { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 5px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; background: transparent; color: transparent; font-size: 0.6rem; transition: var(--transition); flex-shrink: 0; }
     .checkbox.checked { background: var(--success); border-color: var(--success); color: #fff; }
+    
+    /* Recording UI */
     .recording-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
     .record-btn { padding: 6px 14px; border: none; border-radius: var(--radius-sm); font-family: inherit; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 5px; }
     .record-btn.start { background: var(--danger); color: #fff; }
@@ -76,6 +104,8 @@
     @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
     .waveform-container { height: 32px; background: var(--bg-body); border-radius: var(--radius-sm); margin: 6px 0; overflow: hidden; border: 1px solid var(--border); }
     .waveform-container canvas { width: 100%; height: 100%; display: block; }
+    
+    /* Feedback Card */
     .feedback-card { background: var(--bg-body); border: 2px solid var(--success); border-radius: var(--radius-sm); padding: 14px 16px; margin: 10px 0; display: none; }
     .feedback-card.visible { display: block; }
     .fb-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
@@ -87,6 +117,11 @@
     .fb-retry { background: var(--secondary); color: #1A142F; }
     .fb-listen { background: var(--success); color: #fff; }
     .fb-download-fb { background: var(--primary); color: #fff; }
+    /* 🚀 RECOMMENDATION 3: SHARE SCORE BUTTON */
+    .fb-share { background: #25D366; color: #fff; display: flex; align-items: center; gap: 5px; }
+    .fb-share:hover { background: #128C7E; }
+    
+    /* Floating Record & Scroll */
     .floating-record { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .floating-record .fab-btn { width: 52px; height: 52px; border: none; border-radius: 50%; background: var(--danger); color: #fff; font-size: 1.2rem; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 20px rgba(239,68,68,0.4); display: flex; align-items: center; justify-content: center; }
     .floating-record .fab-btn.idle { background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); }
@@ -96,18 +131,18 @@
     .floating-record .fab-timer.visible { display: block; }
     .scroll-top { position: fixed; bottom: 90px; right: 24px; width: 38px; height: 38px; border: none; border-radius: 50%; background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); cursor: pointer; opacity: 0; visibility: hidden; transition: var(--transition); z-index: 200; }
     .scroll-top.visible { opacity: 1; visibility: visible; }
-    .practice-item { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-radius: var(--radius-sm); background: var(--bg-body); margin-bottom: 4px; }
-    .practice-item .text { flex: 1; font-size: 0.85rem; }
-    .bar-label { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
-    @media (max-width: 640px) { .dashboard { grid-template-columns: repeat(2,1fr); } .nav-tabs { flex-wrap: nowrap; overflow-x: auto; } .nav-tab { min-width: 60px; font-size: 0.65rem; } }
+    @media (max-width: 640px) { .dashboard { grid-template-columns: repeat(2,1fr); } .nav-tabs { flex-wrap: nowrap; overflow-x: auto; } .nav-tab { min-width: 60px; font-size: 0.65rem; } .home-btn { position: relative; top: 0; left: 0; margin-bottom: 10px; display: inline-flex; } .daily-challenge { flex-direction: column; text-align: center; } .dc-btn { width: 100%; } }
   </style>
 </head>
 <body>
 <div class="container">
 
   <header class="header">
+    <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
     <h1>🗽 American Accent Mastery</h1>
     <p>Practice with audio, record your voice, and sound like a native speaker.</p>
+    <!-- 🚀 Target Audience Badge -->
+    <div class="audience-badge"><i class="fas fa-language"></i> Designed for Arabic Speakers</div>
   </header>
 
   <div class="dashboard">
@@ -115,6 +150,16 @@
     <div class="dash-item"><div class="value" id="dashPoints">0</div><div class="label">Points</div></div>
     <div class="dash-item"><div class="badge-icon" id="dashBadge">⭐</div><div class="label">Badges</div></div>
     <div class="dash-item"><div class="value" id="dashStreak">0</div><div class="label">Streak</div></div>
+  </div>
+
+  <!-- 🚀 RECOMMENDATION 2: DAILY CHALLENGE WIDGET -->
+  <div class="daily-challenge" id="dailyChallenge">
+    <div class="dc-icon">🎯</div>
+    <div class="dc-content">
+      <div class="dc-title" id="dcTitle">Daily Challenge</div>
+      <div class="dc-desc" id="dcDesc">Loading today's focus...</div>
+    </div>
+    <button class="dc-btn" id="dcBtn">Start Challenge</button>
   </div>
 
   <div class="progress-wrapper">
@@ -133,17 +178,18 @@
 
   <!-- ===== SECTION 1 ===== -->
   <section class="section active" id="section1">
-    <!-- Trick 1: Flap T -->
+    <!-- TRICK 1: Flap T -->
     <div class="card">
-      <div class="card-header"><div><div class="card-title">🔥 Trick 1: The "American D" (Flap /ɾ/)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">"water" → "wa[r]er"</div></div><span class="badge-level">Level 1</span></div>
-      <div class="audio-player" data-audio="/services/section1/trick1_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="card-header"><div><div class="card-title">🔥 Trick 1: The "American T/D" Trick (Flap /r/)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">The Secret: Your tongue taps the roof of your mouth, like the Arabic letter /r/.</div></div><span class="badge-level">Level 1</span></div>
+      <div class="audio-player" data-audio="section1/trick1_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:5px;">Repeat & Compare. Say it again with the "American T" trick.</p>
       <table class="data-table"><thead><tr><th>Standard</th><th>American Flap</th><th>Done</th></tr></thead>
         <tbody>
-          <tr><td>water</td><td><span class="romaji">wa[r]er</span></td><td><button class="checkbox" data-item="t1_l1_water"></button></td></tr>
-          <tr><td>better</td><td><span class="romaji">be[r]er</span></td><td><button class="checkbox" data-item="t1_l1_better"></button></td></tr>
-          <tr><td>city</td><td><span class="romaji">si[r]y</span></td><td><button class="checkbox" data-item="t1_l1_city"></button></td></tr>
-          <tr><td>matter</td><td><span class="romaji">ma[r]er</span></td><td><button class="checkbox" data-item="t1_l1_matter"></button></td></tr>
-          <tr><td>daughter</td><td><span class="romaji">daw[r]er</span></td><td><button class="checkbox" data-item="t1_l1_daughter"></button></td></tr>
+          <tr><td>water</td><td>wa[r]er</td><td><button class="checkbox" data-item="t1_l1_water"></button></td></tr>
+          <tr><td>better</td><td>be[r]er</td><td><button class="checkbox" data-item="t1_l1_better"></button></td></tr>
+          <tr><td>city</td><td>si[r]y</td><td><button class="checkbox" data-item="t1_l1_city"></button></td></tr>
+          <tr><td>matter</td><td>ma[r]er</td><td><button class="checkbox" data-item="t1_l1_matter"></button></td></tr>
+          <tr><td>daughter</td><td>daw[r]er</td><td><button class="checkbox" data-item="t1_l1_daughter"></button></td></tr>
         </tbody>
       </table>
       <div class="recording-controls" data-recording-group="t1_l1" data-exercise-type="flap">
@@ -156,7 +202,7 @@
       <div class="waveform-container"><canvas id="waveform-t1_l1"></canvas></div>
       <div class="feedback-card" id="feedback-t1_l1">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars" id="fb-stars-t1_l1">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji" id="fb-target-t1_l1">wa[r]er</span></div>
+        <div class="fb-target">Target: wa[r]er</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" id="fb-meter-t1_l1" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span id="fb-score-t1_l1">0%</span><span>Excellent!</span></div></div>
         <div class="fb-message" id="fb-msg-t1_l1">Great job!</div>
         <div class="fb-tip" id="fb-tip-t1_l1">💡 Tip: tap the 'r' sound quickly.</div>
@@ -164,21 +210,21 @@
       </div>
     </div>
 
-    <!-- Trick 1A: Sentences -->
+    <!-- TRICK 1A: Sentences -->
     <div class="card">
       <div class="card-header"><div><div class="card-title">🎯 Flap T in Action</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat each sentence 3 times</div></div><span class="badge-level">Level 1A</span></div>
-      <div class="audio-player" data-audio="/services/section1/trick1_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="audio-player" data-audio="section1/trick1_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
       <div>
-        <div class="practice-item"><span class="text">I need some <span class="romaji">wa[r]er</span>.</span><button class="checkbox" data-item="t1_l1a_1"></button></div>
-        <div class="practice-item"><span class="text">She <span class="romaji">iz</span> my <span class="romaji">daw[r]er</span>.</span><button class="checkbox" data-item="t1_l1a_2"></button></div>
-        <div class="practice-item"><span class="text">The <span class="romaji">si[r]y iz</span> big.</span><button class="checkbox" data-item="t1_l1a_3"></button></div>
-        <div class="practice-item"><span class="text">This <span class="romaji">ma[r]er iz im-por-int</span>.</span><button class="checkbox" data-item="t1_l1a_4"></button></div>
-        <div class="practice-item"><span class="text">I feel much <span class="romaji">be[r]er</span> now.</span><button class="checkbox" data-item="t1_l1a_5"></button></div>
-        <div class="practice-item"><span class="text">The <span class="romaji">wa[r]er iz</span> cold.</span><button class="checkbox" data-item="t1_l1a_6"></button></div>
-        <div class="practice-item"><span class="text">My <span class="romaji">daw[r]er livz</span> in the <span class="romaji">si[r]y</span>.</span><button class="checkbox" data-item="t1_l1a_7"></button></div>
-        <div class="practice-item"><span class="text">Nothing <span class="romaji">ma[r]ers</span> more.</span><button class="checkbox" data-item="t1_l1a_8"></button></div>
-        <div class="practice-item"><span class="text">I want a <span class="romaji">be[r]er leye f</span>.</span><button class="checkbox" data-item="t1_l1a_9"></button></div>
-        <div class="practice-item"><span class="text">The <span class="romaji">si[r]y wa[r]er iz kleen</span>.</span><button class="checkbox" data-item="t1_l1a_10"></button></div>
+        <div class="practice-item"><span class="text">I need some wa[r]er.</span><button class="checkbox" data-item="t1_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">She iz my daw[r]er.</span><button class="checkbox" data-item="t1_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">The si[r]y iz big.</span><button class="checkbox" data-item="t1_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">This ma[r]er iz im-por-int.</span><button class="checkbox" data-item="t1_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">I feel much be[r]er now.</span><button class="checkbox" data-item="t1_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">The wa[r]er iz cold.</span><button class="checkbox" data-item="t1_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">My daw[r]er livz in the si[r]y.</span><button class="checkbox" data-item="t1_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">Nothing ma[r]ers more.</span><button class="checkbox" data-item="t1_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">I want a be[r]er leye f.</span><button class="checkbox" data-item="t1_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">The si[r]y wa[r]er iz kleen.</span><button class="checkbox" data-item="t1_l1a_10"></button></div>
       </div>
       <div class="recording-controls" data-recording-group="t1_l1a" data-exercise-type="flap">
         <button class="record-btn start" data-recording="t1_l1a"><i class="fas fa-microphone"></i> Record</button>
@@ -190,7 +236,7 @@
       <div class="waveform-container"><canvas id="waveform-t1_l1a"></canvas></div>
       <div class="feedback-card" id="feedback-t1_l1a">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">wa[r]er</span></div>
+        <div class="fb-target">Target: wa[r]er</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: tap the 'r' quickly.</div>
@@ -198,17 +244,118 @@
       </div>
     </div>
 
-    <!-- Trick 2: Glottal Stop -->
+    <!-- TRICK 1 LEVEL 2: Phrases -->
     <div class="card">
-      <div class="card-header"><div><div class="card-title">🔥 Trick 2: Glottal Stop (Drop the T)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">"button" → "bu-in"</div></div><span class="badge-level">Level 2</span></div>
-      <div class="audio-player" data-audio="/services/section1/trick2_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <table class="data-table"><thead><tr><th>Standard</th><th>Glottal</th><th>Done</th></tr></thead>
+      <div class="card-header"><div><div class="card-title">🔗 2-Word Phrases (The Flap Connects)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">When a word ends with a Flap T/D and the next begins with a vowel, they connect.</div></div><span class="badge-level">Level 2</span></div>
+      <div class="audio-player" data-audio="section1/trick1_level2_phrases.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Written</th><th>Say It With The Flap</th><th>Done</th></tr></thead>
         <tbody>
-          <tr><td>button</td><td><span class="romaji">bu-in</span></td><td><button class="checkbox" data-item="t2_l1_button"></button></td></tr>
-          <tr><td>cotton</td><td><span class="romaji">ca-in</span></td><td><button class="checkbox" data-item="t2_l1_cotton"></button></td></tr>
-          <tr><td>mountain</td><td><span class="romaji">moun-in</span></td><td><button class="checkbox" data-item="t2_l1_mountain"></button></td></tr>
-          <tr><td>kitten</td><td><span class="romaji">ki-in</span></td><td><button class="checkbox" data-item="t2_l1_kitten"></button></td></tr>
-          <tr><td>certain</td><td><span class="romaji">cer-in</span></td><td><button class="checkbox" data-item="t2_l1_certain"></button></td></tr>
+          <tr><td>got it</td><td>go[r]it</td><td><button class="checkbox" data-item="t1_l2_gotit"></button></td></tr>
+          <tr><td>put it</td><td>pu[r]it</td><td><button class="checkbox" data-item="t1_l2_putit"></button></td></tr>
+          <tr><td>about it</td><td>about[r]it</td><td><button class="checkbox" data-item="t1_l2_aboutit"></button></td></tr>
+          <tr><td>ride out</td><td>ri[r]-out</td><td><button class="checkbox" data-item="t1_l2_rideout"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="t1_l2" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="t1_l2"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l2">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t1_l2"></canvas></div>
+      <div class="feedback-card" id="feedback-t1_l2">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: go[r]it</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Connect the words smoothly.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t1_l2"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t1_l2"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t1_l2"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 1 LEVEL 2A: Sentences -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Flap Connections</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Say these sentences 3 times each.</div></div><span class="badge-level">Level 2A</span></div>
+      <div class="audio-player" data-audio="section1/trick1_level2a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I go[r]it right.</span><button class="checkbox" data-item="t1_l2a_1"></button></div>
+        <div class="practice-item"><span class="text">Can you pu[r]it down?</span><button class="checkbox" data-item="t1_l2a_2"></button></div>
+        <div class="practice-item"><span class="text">Think about[r]it now.</span><button class="checkbox" data-item="t1_l2a_3"></button></div>
+        <div class="practice-item"><span class="text">Let's ri[r]e-out today.</span><button class="checkbox" data-item="t1_l2a_4"></button></div>
+        <div class="practice-item"><span class="text">I go[r]it from the stor.</span><button class="checkbox" data-item="t1_l2a_5"></button></div>
+        <div class="practice-item"><span class="text">You should pu[r]it here.</span><button class="checkbox" data-item="t1_l2a_6"></button></div>
+        <div class="practice-item"><span class="text">Don't worry about[r]it.</span><button class="checkbox" data-item="t1_l2a_7"></button></div>
+        <div class="practice-item"><span class="text">We can ri[r]e-out at noon.</span><button class="checkbox" data-item="t1_l2a_8"></button></div>
+        <div class="practice-item"><span class="text">I go[r]it for yoo.</span><button class="checkbox" data-item="t1_l2a_9"></button></div>
+        <div class="practice-item"><span class="text">Let me pu[r]it away.</span><button class="checkbox" data-item="t1_l2a_10"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t1_l2a" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="t1_l2a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l2a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t1_l2a"></canvas></div>
+      <div class="feedback-card" id="feedback-t1_l2a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: go[r]it</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: tap the 'r' quickly.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t1_l2a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t1_l2a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t1_l2a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 1 LEVEL 3A: More Practice -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🏆 Level 3A: More Sentence Practice</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat these until the flap sounds natural.</div></div><span class="badge-level">Level 3A</span></div>
+      <div class="audio-player" data-audio="section1/trick1_level3a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I need a li[r]el wa[r]er for my be[r]er leye f.</span><button class="checkbox" data-item="t1_l3a_1"></button></div>
+        <div class="practice-item"><span class="text">Let me pu[r]it on the le[r]er.</span><button class="checkbox" data-item="t1_l3a_2"></button></div>
+        <div class="practice-item"><span class="text">I thought about[r]it for a mi-nut.</span><button class="checkbox" data-item="t1_l3a_3"></button></div>
+        <div class="practice-item"><span class="text">She bought a pre[r]y dres.</span><button class="checkbox" data-item="t1_l3a_4"></button></div>
+        <div class="practice-item"><span class="text">He rote a le[r]er to hiz daw[r]er.</span><button class="checkbox" data-item="t1_l3a_5"></button></div>
+        <div class="practice-item"><span class="text">I go[r]it from my fa[r]er.</span><button class="checkbox" data-item="t1_l3a_6"></button></div>
+        <div class="practice-item"><span class="text">The par[r]y waz so much fun.</span><button class="checkbox" data-item="t1_l3a_7"></button></div>
+        <div class="practice-item"><span class="text">We way[t]ed for an ow-er.</span><button class="checkbox" data-item="t1_l3a_8"></button></div>
+        <div class="practice-item"><span class="text">I wan[t]ed to see the moo-vee.</span><button class="checkbox" data-item="t1_l3a_9"></button></div>
+        <div class="practice-item"><span class="text">She stu-deed hard for the test.</span><button class="checkbox" data-item="t1_l3a_10"></button></div>
+        <div class="practice-item"><span class="text">I need a be[r]er kar.</span><button class="checkbox" data-item="t1_l3a_11"></button></div>
+        <div class="practice-item"><span class="text">The wa[r]er iz ve-ree hot.</span><button class="checkbox" data-item="t1_l3a_12"></button></div>
+        <div class="practice-item"><span class="text">My daw[r]er iz a ri[r]er.</span><button class="checkbox" data-item="t1_l3a_13"></button></div>
+        <div class="practice-item"><span class="text">Pu[r]it on the tay-bel.</span><button class="checkbox" data-item="t1_l3a_14"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t1_l3a" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="t1_l3a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t1_l3a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t1_l3a"></canvas></div>
+      <div class="feedback-card" id="feedback-t1_l3a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: wa[r]er</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: tap the 'r' quickly.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t1_l3a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t1_l3a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t1_l3a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 2: Glottal Stop -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🔥 Trick 2: The Glottal Stop</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Drop the /t/ sound in /t/ + /n/ combinations.</div></div><span class="badge-level">Level 1</span></div>
+      <div class="audio-player" data-audio="section1/trick2_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Written</th><th>Glottal Stop</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>button</td><td>bu-in</td><td><button class="checkbox" data-item="t2_l1_button"></button></td></tr>
+          <tr><td>cotton</td><td>caw-in</td><td><button class="checkbox" data-item="t2_l1_cotton"></button></td></tr>
+          <tr><td>mountain</td><td>moun-in</td><td><button class="checkbox" data-item="t2_l1_mountain"></button></td></tr>
+          <tr><td>important</td><td>im-por-int</td><td><button class="checkbox" data-item="t2_l1_important"></button></td></tr>
         </tbody>
       </table>
       <div class="recording-controls" data-recording-group="t2_l1" data-exercise-type="glottal">
@@ -221,7 +368,7 @@
       <div class="waveform-container"><canvas id="waveform-t2_l1"></canvas></div>
       <div class="feedback-card" id="feedback-t2_l1">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">bu-in</span></div>
+        <div class="fb-target">Target: bu-in</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: Feel the catch in your throat.</div>
@@ -229,18 +376,88 @@
       </div>
     </div>
 
-    <!-- Trick 3: TH -->
+    <!-- TRICK 2 LEVEL 1A: Sentences -->
     <div class="card">
-      <div class="card-header"><div><div class="card-title">🔥 Trick 3: The "TH" (Voiced/Unvoiced)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">think (ث) vs this (ذ)</div></div><span class="badge-level">Level 3</span></div>
-      <div class="audio-player" data-audio="/services/section1/trick3_level1_isolated.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <table class="data-table"><thead><tr><th>Word</th><th>Type</th><th>Done</th></tr></thead>
+      <div class="card-header"><div><div class="card-title">🎯 Glottal Stop Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat these sentences 3 times each. Feel the catch in your throat!</div></div><span class="badge-level">Level 1A</span></div>
+      <div class="audio-player" data-audio="section1/trick2_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">Sew the bu-in on my shirt.</span><button class="checkbox" data-item="t2_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">I bought a caw-in shirt.</span><button class="checkbox" data-item="t2_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">We climbed the moun-in.</span><button class="checkbox" data-item="t2_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">This iz ve-ree im-por-int.</span><button class="checkbox" data-item="t2_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">I lost a bu-in from my kot.</span><button class="checkbox" data-item="t2_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">She luvz caw-in kan-dee.</span><button class="checkbox" data-item="t2_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">The moun-in iz hey e.</span><button class="checkbox" data-item="t2_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">It's im-por-int to be keyend.</span><button class="checkbox" data-item="t2_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">My shurt haz a bu-in.</span><button class="checkbox" data-item="t2_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">I pre-fer caw-in o-ver silk.</span><button class="checkbox" data-item="t2_l1a_10"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t2_l1a" data-exercise-type="glottal">
+        <button class="record-btn start" data-recording="t2_l1a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t2_l1a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t2_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-t2_l1a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: bu-in</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Feel the catch in your throat.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t2_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t2_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t2_l1a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 2 LEVEL 2A: Sentences -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Glottal Stop: Sentence Challenge</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Combine the flap and the silent "T". Say these full sentences out loud.</div></div><span class="badge-level">Level 2A</span></div>
+      <div class="audio-player" data-audio="section1/trick2_level2a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I bought a bu-in for my caw-in shirt.</span><button class="checkbox" data-item="t2_l2a_1"></button></div>
+        <div class="practice-item"><span class="text">It's im-por-int to have wa[r]er on a moun-in.</span><button class="checkbox" data-item="t2_l2a_2"></button></div>
+        <div class="practice-item"><span class="text">The moun-in kleyem waz ve-ree im-por-int to me.</span><button class="checkbox" data-item="t2_l2a_3"></button></div>
+        <div class="practice-item"><span class="text">She sode a caw-in bu-in on her ja-ket.</span><button class="checkbox" data-item="t2_l2a_4"></button></div>
+        <div class="practice-item"><span class="text">It's im-por-int to drink wa[r]er on the moun-in.</span><button class="checkbox" data-item="t2_l2a_5"></button></div>
+        <div class="practice-item"><span class="text">I fownd a bu-in on the moun-in path.</span><button class="checkbox" data-item="t2_l2a_6"></button></div>
+        <div class="practice-item"><span class="text">Caw-in iz im-por-int for may-king shurts.</span><button class="checkbox" data-item="t2_l2a_7"></button></div>
+        <div class="practice-item"><span class="text">She wor a caw-in hat to the moun-in.</span><button class="checkbox" data-item="t2_l2a_8"></button></div>
+        <div class="practice-item"><span class="text">It's im-por-int to so the bu-in furm-lee.</span><button class="checkbox" data-item="t2_l2a_9"></button></div>
+        <div class="practice-item"><span class="text">We kleyemd the moun-in in caw-in klothes.</span><button class="checkbox" data-item="t2_l2a_10"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t2_l2a" data-exercise-type="glottal">
+        <button class="record-btn start" data-recording="t2_l2a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t2_l2a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t2_l2a"></canvas></div>
+      <div class="feedback-card" id="feedback-t2_l2a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: bu-in</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Feel the catch in your throat.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t2_l2a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t2_l2a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t2_l2a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 3: TH -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🔥 Trick 3: The "TH" Secret Rule</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Voiced TH (like Arabic 3) vs. Unvoiced TH (like Arabic 3).</div></div><span class="badge-level">Level 1</span></div>
+      <div class="audio-player" data-audio="section1/trick3_level1_sorting.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:5px;">Say each word and decide if it uses the "blow air" sound (/θ/) or the "buzz" sound (/ð/).</p>
+      <table class="data-table"><thead><tr><th>Word</th><th>/θ/ "blow air" (think)</th><th>/ð/ "buzz" (this)</th><th>Done</th></tr></thead>
         <tbody>
-          <tr><td>think</td><td><span class="romaji">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_think"></button></td></tr>
-          <tr><td>this</td><td><span class="romaji">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_this"></button></td></tr>
-          <tr><td>three</td><td><span class="romaji">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_three"></button></td></tr>
-          <tr><td>that</td><td><span class="romaji">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_that"></button></td></tr>
-          <tr><td>mouth</td><td><span class="romaji">Unvoiced (ث)</span></td><td><button class="checkbox" data-item="t3_l1_mouth"></button></td></tr>
-          <tr><td>mother</td><td><span class="romaji">Voiced (ذ)</span></td><td><button class="checkbox" data-item="t3_l1_mother"></button></td></tr>
+          <tr><td>three</td><td><button class="checkbox" data-item="t3_l1_three_blow"></button></td><td><button class="checkbox" data-item="t3_l1_three_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_three"></button></td></tr>
+          <tr><td>those</td><td><button class="checkbox" data-item="t3_l1_those_blow"></button></td><td><button class="checkbox" data-item="t3_l1_those_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_those"></button></td></tr>
+          <tr><td>though</td><td><button class="checkbox" data-item="t3_l1_though_blow"></button></td><td><button class="checkbox" data-item="t3_l1_though_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_though"></button></td></tr>
+          <tr><td>thought</td><td><button class="checkbox" data-item="t3_l1_thought_blow"></button></td><td><button class="checkbox" data-item="t3_l1_thought_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_thought"></button></td></tr>
+          <tr><td>thunder</td><td><button class="checkbox" data-item="t3_l1_thunder_blow"></button></td><td><button class="checkbox" data-item="t3_l1_thunder_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_thunder"></button></td></tr>
+          <tr><td>their</td><td><button class="checkbox" data-item="t3_l1_their_blow"></button></td><td><button class="checkbox" data-item="t3_l1_their_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_their"></button></td></tr>
+          <tr><td>Thursday</td><td><button class="checkbox" data-item="t3_l1_thursday_blow"></button></td><td><button class="checkbox" data-item="t3_l1_thursday_buzz"></button></td><td><button class="checkbox" data-item="t3_l1_thursday"></button></td></tr>
         </tbody>
       </table>
       <div class="recording-controls" data-recording-group="t3_l1" data-exercise-type="th">
@@ -253,11 +470,136 @@
       <div class="waveform-container"><canvas id="waveform-t3_l1"></canvas></div>
       <div class="feedback-card" id="feedback-t3_l1">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">think</span></div>
+        <div class="fb-target">Target: think</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: Air for unvoiced, buzz for voiced.</div>
         <div class="fb-actions"><button class="fb-retry" data-fb="t3_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t3_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t3_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 3 LEVEL 1A: Sentences -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 The TH Sounds</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat these sentences 3 times each. Focus on the correct TH sound.</div></div><span class="badge-level">Level 1A</span></div>
+      <div class="audio-player" data-audio="section1/trick3_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I have three sisters.</span><button class="checkbox" data-item="t3_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">Those are my friends.</span><button class="checkbox" data-item="t3_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">I thought about it.</span><button class="checkbox" data-item="t3_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">Though it's raining.</span><button class="checkbox" data-item="t3_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">The thunder is loud.</span><button class="checkbox" data-item="t3_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">Their house is big.</span><button class="checkbox" data-item="t3_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">I work on Thursday.</span><button class="checkbox" data-item="t3_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">I have three dogs.</span><button class="checkbox" data-item="t3_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">Those shoes are nice.</span><button class="checkbox" data-item="t3_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">I thought you were coming.</span><button class="checkbox" data-item="t3_l1a_10"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t3_l1a" data-exercise-type="th">
+        <button class="record-btn start" data-recording="t3_l1a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l1a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t3_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-t3_l1a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: think</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Air for unvoiced, buzz for voiced.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t3_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t3_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t3_l1a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 3 LEVEL 2: Minimal Pairs -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Minimal Pairs (Hear the Difference)</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">The words sound similar but are different!</div></div><span class="badge-level">Level 2</span></div>
+      <div class="audio-player" data-audio="section1/trick3_level2_minimal_pairs.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Unvoiced /θ/ (blow)</th><th>Voiced /ð/ (buzz)</th><th>Your Practice</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>think</td><td>this</td><td>Say "I think this is good."</td><td><button class="checkbox" data-item="t3_l2_1"></button></td></tr>
+          <tr><td>teeth</td><td>teethe</td><td>Say "The baby is starting to teethe."</td><td><button class="checkbox" data-item="t3_l2_2"></button></td></tr>
+          <tr><td>three</td><td>these</td><td>Say "I have three of these."</td><td><button class="checkbox" data-item="t3_l2_3"></button></td></tr>
+          <tr><td>thank</td><td>that</td><td>Say "I thank you for that."</td><td><button class="checkbox" data-item="t3_l2_4"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="t3_l2" data-exercise-type="th">
+        <button class="record-btn start" data-recording="t3_l2"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l2">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t3_l2"></canvas></div>
+      <div class="feedback-card" id="feedback-t3_l2">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: think / this</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Air for unvoiced, buzz for voiced.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t3_l2"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t3_l2"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t3_l2"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 3 LEVEL 2A: Sentences -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 TH Minimal Pairs Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Feel the difference between the TH sounds.</div></div><span class="badge-level">Level 2A</span></div>
+      <div class="audio-player" data-audio="section1/trick3_level2a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I think this is perfect.</span><button class="checkbox" data-item="t3_l2a_1"></button></div>
+        <div class="practice-item"><span class="text">The baby needs to teethe.</span><button class="checkbox" data-item="t3_l2a_2"></button></div>
+        <div class="practice-item"><span class="text">I have three of these.</span><button class="checkbox" data-item="t3_l2a_3"></button></div>
+        <div class="practice-item"><span class="text">I thank you for that.</span><button class="checkbox" data-item="t3_l2a_4"></button></div>
+        <div class="practice-item"><span class="text">I think this is the best idea.</span><button class="checkbox" data-item="t3_l2a_5"></button></div>
+        <div class="practice-item"><span class="text">The baby is teething now.</span><button class="checkbox" data-item="t3_l2a_6"></button></div>
+        <div class="practice-item"><span class="text">Three of these apples are mine.</span><button class="checkbox" data-item="t3_l2a_7"></button></div>
+        <div class="practice-item"><span class="text">I thank you for that gift.</span><button class="checkbox" data-item="t3_l2a_8"></button></div>
+        <div class="practice-item"><span class="text">I think this is amazing.</span><button class="checkbox" data-item="t3_l2a_9"></button></div>
+        <div class="practice-item"><span class="text">She is teething and crying.</span><button class="checkbox" data-item="t3_l2a_10"></button></div>
+        <div class="practice-item"><span class="text">I have three of these books.</span><button class="checkbox" data-item="t3_l2a_11"></button></div>
+        <div class="practice-item"><span class="text">I thank you for that help.</span><button class="checkbox" data-item="t3_l2a_12"></button></div>
+        <div class="practice-item"><span class="text">Think about this carefully.</span><button class="checkbox" data-item="t3_l2a_13"></button></div>
+        <div class="practice-item"><span class="text">The baby is teething on her toy.</span><button class="checkbox" data-item="t3_l2a_14"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="t3_l2a" data-exercise-type="th">
+        <button class="record-btn start" data-recording="t3_l2a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l2a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t3_l2a"></canvas></div>
+      <div class="feedback-card" id="feedback-t3_l2a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: think / this</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Air for unvoiced, buzz for voiced.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t3_l2a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t3_l2a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t3_l2a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <!-- TRICK 3 LEVEL 3: Tongue Twister -->
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🏆 Tongue Twister Time!</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Say it slowly, then try to speed up. The goal is clarity, not speed!</div></div><span class="badge-level">Level 3</span></div>
+      <div class="audio-player" data-audio="section1/trick3_level3_tongue_twister.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text">"These three thoughts are those things I thank you for."</span><button class="checkbox" data-item="t3_l3_twister"></button></div>
+      <div class="recording-controls" data-recording-group="t3_l3" data-exercise-type="th">
+        <button class="record-btn start" data-recording="t3_l3"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-t3_l3">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-t3_l3"></canvas></div>
+      <div class="feedback-card" id="feedback-t3_l3">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: These three thoughts...</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Air for unvoiced, buzz for voiced.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="t3_l3"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="t3_l3"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="t3_l3"><i class="fas fa-download"></i> Download</button></div>
       </div>
     </div>
   </section>
@@ -265,62 +607,276 @@
   <!-- ===== SECTION 2: PATTERNS ===== -->
   <section class="section" id="section2">
     <div class="card">
-      <div class="card-header"><div><div class="card-title">🧱 Pattern 1: "SHUN" (-tion, -sion)</div></div><span class="badge-level">Pattern</span></div>
-      <div class="audio-player" data-audio="/services/section2/pattern1_level1_patt...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <table class="data-table"><thead><tr><th>Word</th><th>Sound</th><th>Done</th></tr></thead>
+      <div class="card-header"><div><div class="card-title">🧱 System 1 Level 1: The "tion" Pattern</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Add the "-tion" or "-sion" ending to make a new word.</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system1_level1_pattern.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Base Word</th><th>Your New Word</th><th>Say It</th><th>Done</th></tr></thead>
         <tbody>
-          <tr><td>action</td><td><span class="romaji">ac-shun</span></td><td><button class="checkbox" data-item="p1_l1_action"></button></td></tr>
-          <tr><td>nation</td><td><span class="romaji">na-shun</span></td><td><button class="checkbox" data-item="p1_l1_nation"></button></td></tr>
-          <tr><td>station</td><td><span class="romaji">sta-shun</span></td><td><button class="checkbox" data-item="p1_l1_station"></button></td></tr>
-          <tr><td>vision</td><td><span class="romaji">vi-zhun</span></td><td><button class="checkbox" data-item="p1_l1_vision"></button></td></tr>
-          <tr><td>mission</td><td><span class="romaji">mi-shun</span></td><td><button class="checkbox" data-item="p1_l1_mission"></button></td></tr>
+          <tr><td>inform</td><td>information</td><td>in-for-may-shun</td><td><button class="checkbox" data-item="s1_l1_inform"></button></td></tr>
+          <tr><td>divide</td><td>division</td><td>di-vi-jun</td><td><button class="checkbox" data-item="s1_l1_divide"></button></td></tr>
+          <tr><td>confuse</td><td>confusion</td><td>kon-fyu-jun</td><td><button class="checkbox" data-item="s1_l1_confuse"></button></td></tr>
+          <tr><td>direct</td><td>direction</td><td>di-rek-shun</td><td><button class="checkbox" data-item="s1_l1_direct"></button></td></tr>
+          <tr><td>explode</td><td>explosion</td><td>ek-splo-jun</td><td><button class="checkbox" data-item="s1_l1_explode"></button></td></tr>
         </tbody>
       </table>
-      <div class="recording-controls" data-recording-group="p1_l1" data-exercise-type="shun">
-        <button class="record-btn start" data-recording="p1_l1"><i class="fas fa-microphone"></i> Record</button>
+      <div class="recording-controls" data-recording-group="s1_l1" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s1_l1"><i class="fas fa-microphone"></i> Record</button>
         <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
         <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
         <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p1_l1">0:00</span></span>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s1_l1">0:00</span></span>
       </div>
-      <div class="waveform-container"><canvas id="waveform-p1_l1"></canvas></div>
-      <div class="feedback-card" id="feedback-p1_l1">
+      <div class="waveform-container"><canvas id="waveform-s1_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-s1_l1">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">ac-shun</span></div>
+        <div class="fb-target">Target: in-for-may-shun</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: "shun" is everywhere.</div>
-        <div class="fb-actions"><button class="fb-retry" data-fb="p1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="p1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="p1_l1"><i class="fas fa-download"></i> Download</button></div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s1_l1"><i class="fas fa-download"></i> Download</button></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><div><div class="card-title">🧱 Pattern 2: "C" Code (Soft C)</div></div><span class="badge-level">Pattern</span></div>
-      <div class="audio-player" data-audio="/services/section2/pattern2_level1a_se...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <table class="data-table"><thead><tr><th>Word</th><th>Soft C</th><th>Done</th></tr></thead>
-        <tbody>
-          <tr><td>center</td><td><span class="romaji">sen-ter</span></td><td><button class="checkbox" data-item="p2_l1_center"></button></td></tr>
-          <tr><td>city</td><td><span class="romaji">si-ty</span></td><td><button class="checkbox" data-item="p2_l1_city"></button></td></tr>
-          <tr><td>ceiling</td><td><span class="romaji">see-ling</span></td><td><button class="checkbox" data-item="p2_l1_ceiling"></button></td></tr>
-          <tr><td>cycle</td><td><span class="romaji">si-cle</span></td><td><button class="checkbox" data-item="p2_l1_cycle"></button></td></tr>
-          <tr><td>certain</td><td><span class="romaji">ser-tain</span></td><td><button class="checkbox" data-item="p2_l1_certain"></button></td></tr>
-        </tbody>
-      </table>
-      <div class="recording-controls" data-recording-group="p2_l1" data-exercise-type="shun">
-        <button class="record-btn start" data-recording="p2_l1"><i class="fas fa-microphone"></i> Record</button>
+      <div class="card-header"><div><div class="card-title">🧱 System 1 Level 1A: "tion" Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Notice how the "SHUN" sound appears in everyday speech.</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system1_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I need in-for-may-shun.</span><button class="checkbox" data-item="s1_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">Mayk a de-si-jun kwik-lee.</span><button class="checkbox" data-item="s1_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">Ther iz kon-fyu-jun.</span><button class="checkbox" data-item="s1_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">Go in that di-rek-shun.</span><button class="checkbox" data-item="s1_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">The ek-splo-jun waz lowd.</span><button class="checkbox" data-item="s1_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">I have no in-for-may-shun.</span><button class="checkbox" data-item="s1_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">It's a di-fi-kult de-si-jun.</span><button class="checkbox" data-item="s1_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">Ther waz to-tal kon-fyu-jun.</span><button class="checkbox" data-item="s1_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">Wut iz the di-rek-shun?</span><button class="checkbox" data-item="s1_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">The ek-splo-jun waz hyooj.</span><button class="checkbox" data-item="s1_l1a_10"></button></div>
+        <div class="practice-item"><span class="text">I need mor in-for-may-shun.</span><button class="checkbox" data-item="s1_l1a_11"></button></div>
+        <div class="practice-item"><span class="text">She mayd a weyez de-si-jun.</span><button class="checkbox" data-item="s1_l1a_12"></button></div>
+        <div class="practice-item"><span class="text">The kon-fyu-jun iz o-ver.</span><button class="checkbox" data-item="s1_l1a_13"></button></div>
+        <div class="practice-item"><span class="text">Let me give yoo di-rek-shun.</span><button class="checkbox" data-item="s1_l1a_14"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="s1_l1a" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s1_l1a"><i class="fas fa-microphone"></i> Record</button>
         <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
         <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
         <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-p2_l1">0:00</span></span>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s1_l1a">0:00</span></span>
       </div>
-      <div class="waveform-container"><canvas id="waveform-p2_l1"></canvas></div>
-      <div class="feedback-card" id="feedback-p2_l1">
+      <div class="waveform-container"><canvas id="waveform-s1_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-s1_l1a">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">sen-ter</span></div>
+        <div class="fb-target">Target: in-for-may-shun</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: "shun" is everywhere.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s1_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s1_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s1_l1a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 System 1 Level 2: The "ture" Challenge</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">The "ture" is always the "tchur" sound.</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system1_level2_challenge.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text">"The fu[r]tchur iz all about tek-nol-o-jy."</span><button class="checkbox" data-item="s1_l2_1"></button></div>
+      <div class="practice-item"><span class="text">"This fur-ni-tchur iz made from natchural wood."</span><button class="checkbox" data-item="s1_l2_2"></button></div>
+      <div class="practice-item"><span class="text">"I'm going on an ad-ven-tchur!"</span><button class="checkbox" data-item="s1_l2_3"></button></div>
+      <div class="recording-controls" data-recording-group="s1_l2" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s1_l2"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s1_l2">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-s1_l2"></canvas></div>
+      <div class="feedback-card" id="feedback-s1_l2">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: fu[r]tchur</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: "ture" says "tchur".</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s1_l2"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s1_l2"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s1_l2"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 System 1 Level 2A: "ture" Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Feel the "ture" sound in your mouth.</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system1_level2a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">The fu[r]tchur iz breyet.</span><button class="checkbox" data-item="s1_l2a_1"></button></div>
+        <div class="practice-item"><span class="text">This fur-ni-tchur iz nyoo.</span><button class="checkbox" data-item="s1_l2a_2"></button></div>
+        <div class="practice-item"><span class="text">I luv nay-tchur.</span><button class="checkbox" data-item="s1_l2a_3"></button></div>
+        <div class="practice-item"><span class="text">She went on an ad-ven-tchur.</span><button class="checkbox" data-item="s1_l2a_4"></button></div>
+        <div class="practice-item"><span class="text">The fu[r]tchur iz un-known.</span><button class="checkbox" data-item="s1_l2a_5"></button></div>
+        <div class="practice-item"><span class="text">We bawt nyoo fur-ni-tchur.</span><button class="checkbox" data-item="s1_l2a_6"></button></div>
+        <div class="practice-item"><span class="text">Nay-tchur iz byoo-ti-ful.</span><button class="checkbox" data-item="s1_l2a_7"></button></div>
+        <div class="practice-item"><span class="text">I want an ad-ven-tchur.</span><button class="checkbox" data-item="s1_l2a_8"></button></div>
+        <div class="practice-item"><span class="text">The fu[r]tchur iz ek-seye-ting.</span><button class="checkbox" data-item="s1_l2a_9"></button></div>
+        <div class="practice-item"><span class="text">This fur-ni-tchur iz ek-spen-siv.</span><button class="checkbox" data-item="s1_l2a_10"></button></div>
+        <div class="practice-item"><span class="text">I luv nay-tchur fo-to-gra-fee.</span><button class="checkbox" data-item="s1_l2a_11"></button></div>
+        <div class="practice-item"><span class="text">Let's go on an ad-ven-tchur.</span><button class="checkbox" data-item="s1_l2a_12"></button></div>
+        <div class="practice-item"><span class="text">The fu[r]tchur of wurk iz chayn-jing.</span><button class="checkbox" data-item="s1_l2a_13"></button></div>
+        <div class="practice-item"><span class="text">The fur-ni-tchur stor iz klo-zing.</span><button class="checkbox" data-item="s1_l2a_14"></button></div>
+        <div class="practice-item"><span class="text">Nay-tchur iz hee-ling.</span><button class="checkbox" data-item="s1_l2a_15"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="s1_l2a" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s1_l2a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s1_l2a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-s1_l2a"></canvas></div>
+      <div class="feedback-card" id="feedback-s1_l2a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: fu[r]tchur</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: "ture" says "tchur".</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s1_l2a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s1_l2a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s1_l2a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 System 2 Level 1: The "C" Code Breaker</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">"C" is a chameleon: /k/ before (a, o, u) and /s/ before (e, y, i).</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system2_level1_game.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Is it /k/ or /s/?</th><th>Say It!</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>Cat</td><td>/k/</td><td>kat</td><td><button class="checkbox" data-item="s2_l1_cat"></button></td></tr>
+          <tr><td>Cereal</td><td>/s/</td><td>serial</td><td><button class="checkbox" data-item="s2_l1_cereal"></button></td></tr>
+          <tr><td>Cold</td><td>/k/</td><td>kold</td><td><button class="checkbox" data-item="s2_l1_cold"></button></td></tr>
+          <tr><td>Cent</td><td>/s/</td><td>sent</td><td><button class="checkbox" data-item="s2_l1_cent"></button></td></tr>
+          <tr><td>Cycle</td><td>/s/</td><td>sykel</td><td><button class="checkbox" data-item="s2_l1_cycle"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="s2_l1" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s2_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s2_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-s2_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-s2_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: kat / serial</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: C says 's' before E, I, Y.</div>
-        <div class="fb-actions"><button class="fb-retry" data-fb="p2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="p2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="p2_l1"><i class="fas fa-download"></i> Download</button></div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s2_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 System 2 Level 1A: "C" Code Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Pay attention to the "C" sound.</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system2_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">The kat is slee-ping.</span><button class="checkbox" data-item="s2_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">I eat serial for brek-fast.</span><button class="checkbox" data-item="s2_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">It's ve-ree kold out-seyed.</span><button class="checkbox" data-item="s2_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">I need wun sent.</span><button class="checkbox" data-item="s2_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">I reyed my sykel to wurk.</span><button class="checkbox" data-item="s2_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">The kat iz kyoot.</span><button class="checkbox" data-item="s2_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">My fay-vor-it serial iz korn.</span><button class="checkbox" data-item="s2_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">I don't leyk kold we-[r]er.</span><button class="checkbox" data-item="s2_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">I have a sent in my pa-ket.</span><button class="checkbox" data-item="s2_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">The sykel iz fast.</span><button class="checkbox" data-item="s2_l1a_10"></button></div>
+        <div class="practice-item"><span class="text">I have a kat.</span><button class="checkbox" data-item="s2_l1a_11"></button></div>
+        <div class="practice-item"><span class="text">He eyt serial.</span><button class="checkbox" data-item="s2_l1a_12"></button></div>
+        <div class="practice-item"><span class="text">It's ge-ting kold.</span><button class="checkbox" data-item="s2_l1a_13"></button></div>
+        <div class="practice-item"><span class="text">I spent a sent.</span><button class="checkbox" data-item="s2_l1a_14"></button></div>
+        <div class="practice-item"><span class="text">I reyed my sykel.</span><button class="checkbox" data-item="s2_l1a_15"></button></div>
+        <div class="practice-item"><span class="text">The kat iz blak.</span><button class="checkbox" data-item="s2_l1a_16"></button></div>
+        <div class="practice-item"><span class="text">I luv serial.</span><button class="checkbox" data-item="s2_l1a_17"></button></div>
+        <div class="practice-item"><span class="text">The wa[r]er iz kold.</span><button class="checkbox" data-item="s2_l1a_18"></button></div>
+        <div class="practice-item"><span class="text">I don't have a sent.</span><button class="checkbox" data-item="s2_l1a_19"></button></div>
+        <div class="practice-item"><span class="text">My sykel iz nyoo.</span><button class="checkbox" data-item="s2_l1a_20"></button></div>
+        <div class="practice-item"><span class="text">The kat iz hung-ree.</span><button class="checkbox" data-item="s2_l1a_21"></button></div>
+        <div class="practice-item"><span class="text">I need mor serial.</span><button class="checkbox" data-item="s2_l1a_22"></button></div>
+        <div class="practice-item"><span class="text">It's ve-ree kold to-day.</span><button class="checkbox" data-item="s2_l1a_23"></button></div>
+        <div class="practice-item"><span class="text">I have wun sent own-lee.</span><button class="checkbox" data-item="s2_l1a_24"></button></div>
+        <div class="practice-item"><span class="text">I kleen my sykel.</span><button class="checkbox" data-item="s2_l1a_25"></button></div>
+        <div class="practice-item"><span class="text">The kat iz on the mat.</span><button class="checkbox" data-item="s2_l1a_26"></button></div>
+        <div class="practice-item"><span class="text">I bawt serial from the stor.</span><button class="checkbox" data-item="s2_l1a_27"></button></div>
+        <div class="practice-item"><span class="text">The kold wind iz blo-wing.</span><button class="checkbox" data-item="s2_l1a_28"></button></div>
+        <div class="practice-item"><span class="text">I found a sent on the ground.</span><button class="checkbox" data-item="s2_l1a_29"></button></div>
+        <div class="practice-item"><span class="text">I got a nyoo sykel.</span><button class="checkbox" data-item="s2_l1a_30"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="s2_l1a" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s2_l1a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s2_l1a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-s2_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-s2_l1a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: kat / serial</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: C says 's' before E, I, Y.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s2_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s2_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s2_l1a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 System 3 Level 1: The "YEW-US" Ending</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">These words sound complex, but they're just "uous" at the end!</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system3_level1_builder.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Word</th><th>Say It</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>conspicuous</td><td>kon-spik-yew-us</td><td><button class="checkbox" data-item="s3_l1_conspicuous"></button></td></tr>
+          <tr><td>arduous</td><td>ar-djew-us</td><td><button class="checkbox" data-item="s3_l1_arduous"></button></td></tr>
+          <tr><td>virtuous</td><td>vir-tchoo-us</td><td><button class="checkbox" data-item="s3_l1_virtuous"></button></td></tr>
+          <tr><td>tempestuous</td><td>tem-pes-tchoo-us</td><td><button class="checkbox" data-item="s3_l1_tempestuous"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="s3_l1" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s3_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s3_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-s3_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-s3_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: kon-spik-yew-us</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: "uous" says "yew-us".</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s3_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s3_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s3_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🧱 System 3 Level 1A: "YEW-US" Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Sound sophisticated!</div></div><span class="badge-level">Pattern</span></div>
+      <div class="audio-player" data-audio="section2/system3_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">This is kon-spik-yew-us.</span><button class="checkbox" data-item="s3_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">The wurk iz ar-djew-us.</span><button class="checkbox" data-item="s3_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">She iz vir-tchoo-us.</span><button class="checkbox" data-item="s3_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">The we-[r]er iz tem-pes-tchoo-us.</span><button class="checkbox" data-item="s3_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">His be-hayv-yor waz kon-spik-yew-us.</span><button class="checkbox" data-item="s3_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">The jur-nee waz ar-djew-us.</span><button class="checkbox" data-item="s3_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">She iz a vir-tchoo-us pur-son.</span><button class="checkbox" data-item="s3_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">The storm waz tem-pes-tchoo-us.</span><button class="checkbox" data-item="s3_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">His pre-zens waz kon-spik-yew-us.</span><button class="checkbox" data-item="s3_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">The kleyem waz ar-djew-us.</span><button class="checkbox" data-item="s3_l1a_10"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="s3_l1a" data-exercise-type="shun">
+        <button class="record-btn start" data-recording="s3_l1a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-s3_l1a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-s3_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-s3_l1a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: kon-spik-yew-us</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: "uous" says "yew-us".</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="s3_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="s3_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="s3_l1a"><i class="fas fa-download"></i> Download</button></div>
       </div>
     </div>
   </section>
@@ -328,62 +884,223 @@
   <!-- ===== SECTION 3: REFINEMENTS ===== -->
   <section class="section" id="section3">
     <div class="card">
-      <div class="card-header"><div><div class="card-title">✨ Refinement 1: The "OUGH" Rules</div></div><span class="badge-level">Refinement</span></div>
-      <div class="audio-player" data-audio="/services/section3/refinement1_level1_ou...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <table class="data-table"><thead><tr><th>Word</th><th>Sound</th><th>Done</th></tr></thead>
+      <div class="card-header"><div><div class="card-title">✨ Expert 1 Level 1: The "OUGH" Map</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">No rules here, just fun! This is your final boss.</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="section3/expert1_level1_map.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>The Written Word</th><th>The Sound</th><th>Done</th></tr></thead>
         <tbody>
-          <tr><td>thought</td><td><span class="romaji">thawt</span></td><td><button class="checkbox" data-item="r1_l1_thought"></button></td></tr>
-          <tr><td>through</td><td><span class="romaji">threw</span></td><td><button class="checkbox" data-item="r1_l1_through"></button></td></tr>
-          <tr><td>though</td><td><span class="romaji">tho</span></td><td><button class="checkbox" data-item="r1_l1_though"></button></td></tr>
-          <tr><td>tough</td><td><span class="romaji">tuff</span></td><td><button class="checkbox" data-item="r1_l1_tough"></button></td></tr>
-          <tr><td>rough</td><td><span class="romaji">ruff</span></td><td><button class="checkbox" data-item="r1_l1_rough"></button></td></tr>
+          <tr><td>through</td><td>throo</td><td><button class="checkbox" data-item="e1_l1_through"></button></td></tr>
+          <tr><td>though</td><td>thoh</td><td><button class="checkbox" data-item="e1_l1_though"></button></td></tr>
+          <tr><td>thought</td><td>thawt</td><td><button class="checkbox" data-item="e1_l1_thought"></button></td></tr>
+          <tr><td>thorough</td><td>thur-uh</td><td><button class="checkbox" data-item="e1_l1_thorough"></button></td></tr>
+          <tr><td>cough</td><td>kuf</td><td><button class="checkbox" data-item="e1_l1_cough"></button></td></tr>
+          <tr><td>rough</td><td>ruf</td><td><button class="checkbox" data-item="e1_l1_rough"></button></td></tr>
         </tbody>
       </table>
-      <div class="recording-controls" data-recording-group="r1_l1" data-exercise-type="ough">
-        <button class="record-btn start" data-recording="r1_l1"><i class="fas fa-microphone"></i> Record</button>
+      <div class="recording-controls" data-recording-group="e1_l1" data-exercise-type="ough">
+        <button class="record-btn start" data-recording="e1_l1"><i class="fas fa-microphone"></i> Record</button>
         <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
         <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
         <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-r1_l1">0:00</span></span>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-e1_l1">0:00</span></span>
       </div>
-      <div class="waveform-container"><canvas id="waveform-r1_l1"></canvas></div>
-      <div class="feedback-card" id="feedback-r1_l1">
+      <div class="waveform-container"><canvas id="waveform-e1_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-e1_l1">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">thawt</span></div>
+        <div class="fb-target">Target: thawt</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: OUGH has 8 pronunciations.</div>
-        <div class="fb-actions"><button class="fb-retry" data-fb="r1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="r1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="r1_l1"><i class="fas fa-download"></i> Download</button></div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="e1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="e1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="e1_l1"><i class="fas fa-download"></i> Download</button></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><div><div class="card-title">✨ Refinement 2: Magic E</div></div><span class="badge-level">Refinement</span></div>
-      <div class="audio-player" data-audio="/services/section3/refinement2_level1_ma...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <table class="data-table"><thead><tr><th>Word</th><th>Magic E</th><th>Done</th></tr></thead>
-        <tbody>
-          <tr><td>hope</td><td><span class="romaji">hoap</span></td><td><button class="checkbox" data-item="r2_l1_hope"></button></td></tr>
-          <tr><td>like</td><td><span class="romaji">laik</span></td><td><button class="checkbox" data-item="r2_l1_like"></button></td></tr>
-          <tr><td>make</td><td><span class="romaji">maik</span></td><td><button class="checkbox" data-item="r2_l1_make"></button></td></tr>
-          <tr><td>note</td><td><span class="romaji">noat</span></td><td><button class="checkbox" data-item="r2_l1_note"></button></td></tr>
-          <tr><td>cute</td><td><span class="romaji">cyoot</span></td><td><button class="checkbox" data-item="r2_l1_cute"></button></td></tr>
-        </tbody>
-      </table>
-      <div class="recording-controls" data-recording-group="r2_l1" data-exercise-type="flap">
-        <button class="record-btn start" data-recording="r2_l1"><i class="fas fa-microphone"></i> Record</button>
+      <div class="card-header"><div><div class="card-title">✨ Expert 1 Level 1A: "OUGH" Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat these sentences 3 times each. Master the chaos!</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="section3/expert1_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">I can see throo the win-doh.</span><button class="checkbox" data-item="e1_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">Thoh I'm teyer d, I'll keep go-ing.</span><button class="checkbox" data-item="e1_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">I thawt she waz here.</span><button class="checkbox" data-item="e1_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">He iz ve-ree thur-uh.</span><button class="checkbox" data-item="e1_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">I have a bad kuf.</span><button class="checkbox" data-item="e1_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">The pay-per iz ruf.</span><button class="checkbox" data-item="e1_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">I kan see throo the glas.</span><button class="checkbox" data-item="e1_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">Thoh it's ray-ning, we will go.</span><button class="checkbox" data-item="e1_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">I thawt I saw yoo.</span><button class="checkbox" data-item="e1_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">She iz al-wayz thur-uh.</span><button class="checkbox" data-item="e1_l1a_10"></button></div>
+        <div class="practice-item"><span class="text">I kan't stop kuf-ing.</span><button class="checkbox" data-item="e1_l1a_11"></button></div>
+        <div class="practice-item"><span class="text">The rode iz ve-ree ruf.</span><button class="checkbox" data-item="e1_l1a_12"></button></div>
+        <div class="practice-item"><span class="text">I went throo the tu-nel.</span><button class="checkbox" data-item="e1_l1a_13"></button></div>
+        <div class="practice-item"><span class="text">Thoh I waz skerd, I did it.</span><button class="checkbox" data-item="e1_l1a_14"></button></div>
+        <div class="practice-item"><span class="text">I thawt yoo would kal.</span><button class="checkbox" data-item="e1_l1a_15"></button></div>
+        <div class="practice-item"><span class="text">He did a thur-uh job.</span><button class="checkbox" data-item="e1_l1a_16"></button></div>
+        <div class="practice-item"><span class="text">I have a kro-nik kuf.</span><button class="checkbox" data-item="e1_l1a_17"></button></div>
+        <div class="practice-item"><span class="text">The flor iz ruf.</span><button class="checkbox" data-item="e1_l1a_18"></button></div>
+        <div class="practice-item"><span class="text">I kan see throo the fog.</span><button class="checkbox" data-item="e1_l1a_19"></button></div>
+        <div class="practice-item"><span class="text">Thoh I waz layt, I ar-rayvd.</span><button class="checkbox" data-item="e1_l1a_20"></button></div>
+        <div class="practice-item"><span class="text">I thawt it waz o-ver.</span><button class="checkbox" data-item="e1_l1a_21"></button></div>
+        <div class="practice-item"><span class="text">She iz ve-ree thur-uh in her wurk.</span><button class="checkbox" data-item="e1_l1a_22"></button></div>
+        <div class="practice-item"><span class="text">I have a deep kuf.</span><button class="checkbox" data-item="e1_l1a_23"></button></div>
+        <div class="practice-item"><span class="text">The blan-ket iz ruf.</span><button class="checkbox" data-item="e1_l1a_24"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="e1_l1a" data-exercise-type="ough">
+        <button class="record-btn start" data-recording="e1_l1a"><i class="fas fa-microphone"></i> Record</button>
         <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
         <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
         <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-r2_l1">0:00</span></span>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-e1_l1a">0:00</span></span>
       </div>
-      <div class="waveform-container"><canvas id="waveform-r2_l1"></canvas></div>
-      <div class="feedback-card" id="feedback-r2_l1">
+      <div class="waveform-container"><canvas id="waveform-e1_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-e1_l1a">
         <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">hoap</span></div>
+        <div class="fb-target">Target: thawt</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: OUGH has 8 pronunciations.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="e1_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="e1_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="e1_l1a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">✨ Expert 1 Level 2: A "Thought" Experiment</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Focusing on the different -ough sounds.</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="section3/expert1_level2_experiment.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text">"Though I've thought about it, I can't get through this tough problem."</span><button class="checkbox" data-item="e1_l2_exp"></button></div>
+      <div class="recording-controls" data-recording-group="e1_l2" data-exercise-type="ough">
+        <button class="record-btn start" data-recording="e1_l2"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-e1_l2">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-e1_l2"></canvas></div>
+      <div class="feedback-card" id="feedback-e1_l2">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: Thoh I've thawt...</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: OUGH has 8 pronunciations.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="e1_l2"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="e1_l2"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="e1_l2"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">✨ Expert 1 Level 2A: More OUGH Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Repeat these sentences again and again until the "OUGH" sounds are automatic.</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="section3/expert1_level2a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">Thoh I've thawt about[r]it, I kan't get throo this tuf pra-blem.</span><button class="checkbox" data-item="e1_l2a_1"></button></div>
+        <div class="practice-item"><span class="text">I thawt yoo wur throo with the tuf wurk.</span><button class="checkbox" data-item="e1_l2a_2"></button></div>
+        <div class="practice-item"><span class="text">Thoh the kuf iz ruf, I'll push throo.</span><button class="checkbox" data-item="e1_l2a_3"></button></div>
+        <div class="practice-item"><span class="text">I thawt thur-uh-lee about[r]it the tuf de-si-jun.</span><button class="checkbox" data-item="e1_l2a_4"></button></div>
+        <div class="practice-item"><span class="text">Thoh it's ruf, we're al-most throo.</span><button class="checkbox" data-item="e1_l2a_5"></button></div>
+        <div class="practice-item"><span class="text">I thawt I had e-nuf, but it wazn't e-nuf.</span><button class="checkbox" data-item="e1_l2a_6"></button></div>
+        <div class="practice-item"><span class="text">Thoh the doh waz tuf, she mayd it.</span><button class="checkbox" data-item="e1_l2a_7"></button></div>
+        <div class="practice-item"><span class="text">I thawt the kuf waz ge-ting be[r]er.</span><button class="checkbox" data-item="e1_l2a_8"></button></div>
+        <div class="practice-item"><span class="text">Thoh it's a ruf rode, we'll get throo.</span><button class="checkbox" data-item="e1_l2a_9"></button></div>
+        <div class="practice-item"><span class="text">I thawt about[r]it thur-uh-lee.</span><button class="checkbox" data-item="e1_l2a_10"></button></div>
+        <div class="practice-item"><span class="text">Thoh the doh iz tuf, I'll mayk it.</span><button class="checkbox" data-item="e1_l2a_11"></button></div>
+        <div class="practice-item"><span class="text">I thawt the kuf waz gon.</span><button class="checkbox" data-item="e1_l2a_12"></button></div>
+        <div class="practice-item"><span class="text">Thoh the path iz ruf, we must go throo.</span><button class="checkbox" data-item="e1_l2a_13"></button></div>
+        <div class="practice-item"><span class="text">I thawt I kood do it, but it waz too tuf.</span><button class="checkbox" data-item="e1_l2a_14"></button></div>
+        <div class="practice-item"><span class="text">Thoh I kufd al neyet, I got throo.</span><button class="checkbox" data-item="e1_l2a_15"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="e1_l2a" data-exercise-type="ough">
+        <button class="record-btn start" data-recording="e1_l2a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-e1_l2a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-e1_l2a"></canvas></div>
+      <div class="feedback-card" id="feedback-e1_l2a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: tuf pra-blem</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: OUGH has 8 pronunciations.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="e1_l2a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="e1_l2a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="e1_l2a"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">✨ Expert 2 Level 1: The "Magic E" Rule</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">The "e" at the end is silent, but it makes the first vowel say its name.</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="section3/expert2_level1_transformation.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <table class="data-table"><thead><tr><th>Without the "E"</th><th>With the "Magic E"</th><th>Say It!</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td>hid (short /l/)</td><td>hide</td><td>heyed</td><td><button class="checkbox" data-item="e2_l1_hid"></button></td></tr>
+          <tr><td>hat (short /æ/)</td><td>hate</td><td>hayt</td><td><button class="checkbox" data-item="e2_l1_hat"></button></td></tr>
+          <tr><td>bit (short /l/)</td><td>bite</td><td>beyet</td><td><button class="checkbox" data-item="e2_l1_bit"></button></td></tr>
+          <tr><td>cut (short /l/)</td><td>cute</td><td>kyoot</td><td><button class="checkbox" data-item="e2_l1_cut"></button></td></tr>
+          <tr><td>tap (short /æ/)</td><td>tape</td><td>tayp</td><td><button class="checkbox" data-item="e2_l1_tap"></button></td></tr>
+        </tbody>
+      </table>
+      <div class="recording-controls" data-recording-group="e2_l1" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="e2_l1"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-e2_l1">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-e2_l1"></canvas></div>
+      <div class="feedback-card" id="feedback-e2_l1">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: heyed</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Great job!</div>
         <div class="fb-tip">💡 Tip: silent 'e' makes vowel say its name.</div>
-        <div class="fb-actions"><button class="fb-retry" data-fb="r2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="r2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="r2_l1"><i class="fas fa-download"></i> Download</button></div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="e2_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="e2_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="e2_l1"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">✨ Expert 2 Level 1A: "Magic E" Sentences</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Feel the vowel say its name!</div></div><span class="badge-level">Refinement</span></div>
+      <div class="audio-player" data-audio="section3/expert2_level1a_sentences.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text">Please heved the toyez.</span><button class="checkbox" data-item="e2_l1a_1"></button></div>
+        <div class="practice-item"><span class="text">I hayt this we-[r]er.</span><button class="checkbox" data-item="e2_l1a_2"></button></div>
+        <div class="practice-item"><span class="text">Don't beyet me.</span><button class="checkbox" data-item="e2_l1a_3"></button></div>
+        <div class="practice-item"><span class="text">She iz so kyoot.</span><button class="checkbox" data-item="e2_l1a_4"></button></div>
+        <div class="practice-item"><span class="text">I need sum tayp.</span><button class="checkbox" data-item="e2_l1a_5"></button></div>
+        <div class="practice-item"><span class="text">Heyed be-heyend the tree.</span><button class="checkbox" data-item="e2_l1a_6"></button></div>
+        <div class="practice-item"><span class="text">I hayt way-ting in leyen.</span><button class="checkbox" data-item="e2_l1a_7"></button></div>
+        <div class="practice-item"><span class="text">He tuk a beyet of the ap-pel.</span><button class="checkbox" data-item="e2_l1a_8"></button></div>
+        <div class="practice-item"><span class="text">Her smeyel iz kyoot.</span><button class="checkbox" data-item="e2_l1a_9"></button></div>
+        <div class="practice-item"><span class="text">Please pas me the tayp.</span><button class="checkbox" data-item="e2_l1a_10"></button></div>
+        <div class="practice-item"><span class="text">Let's keyed and seek.</span><button class="checkbox" data-item="e2_l1a_11"></button></div>
+        <div class="practice-item"><span class="text">I hayt bee-ing layt.</span><button class="checkbox" data-item="e2_l1a_12"></button></div>
+        <div class="practice-item"><span class="text">The dog meyet beyet.</span><button class="checkbox" data-item="e2_l1a_13"></button></div>
+        <div class="practice-item"><span class="text">The puh-pee iz kyoot.</span><button class="checkbox" data-item="e2_l1a_14"></button></div>
+        <div class="practice-item"><span class="text">We need mor tayp.</span><button class="checkbox" data-item="e2_l1a_15"></button></div>
+        <div class="practice-item"><span class="text">Heyed your mu-nee heer.</span><button class="checkbox" data-item="e2_l1a_16"></button></div>
+        <div class="practice-item"><span class="text">I hayt do-ing home-wurk.</span><button class="checkbox" data-item="e2_l1a_17"></button></div>
+        <div class="practice-item"><span class="text">Don't beyet your nayelz.</span><button class="checkbox" data-item="e2_l1a_18"></button></div>
+        <div class="practice-item"><span class="text">She iz a kyoot gurl.</span><button class="checkbox" data-item="e2_l1a_19"></button></div>
+        <div class="practice-item"><span class="text">I need tayp to rap the gift.</span><button class="checkbox" data-item="e2_l1a_20"></button></div>
+        <div class="practice-item"><span class="text">Heyed from the rayn.</span><button class="checkbox" data-item="e2_l1a_21"></button></div>
+        <div class="practice-item"><span class="text">I hayt lowd myoo-zik.</span><button class="checkbox" data-item="e2_l1a_22"></button></div>
+        <div class="practice-item"><span class="text">The mus-kee-to bit me.</span><button class="checkbox" data-item="e2_l1a_23"></button></div>
+        <div class="practice-item"><span class="text">Luk at that kyoot bay-bee.</span><button class="checkbox" data-item="e2_l1a_24"></button></div>
+        <div class="practice-item"><span class="text">I need sum pa-king tayp.</span><button class="checkbox" data-item="e2_l1a_25"></button></div>
+        <div class="practice-item"><span class="text">Heyed your fee-lingz.</span><button class="checkbox" data-item="e2_l1a_26"></button></div>
+        <div class="practice-item"><span class="text">I hayt bee-ing sik.</span><button class="checkbox" data-item="e2_l1a_27"></button></div>
+        <div class="practice-item"><span class="text">Please beyet the ku-kee.</span><button class="checkbox" data-item="e2_l1a_28"></button></div>
+        <div class="practice-item"><span class="text">She haz a kyoot nohz.</span><button class="checkbox" data-item="e2_l1a_29"></button></div>
+        <div class="practice-item"><span class="text">The tayp iz sti-kee.</span><button class="checkbox" data-item="e2_l1a_30"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="e2_l1a" data-exercise-type="flap">
+        <button class="record-btn start" data-recording="e2_l1a"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-e2_l1a">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-e2_l1a"></canvas></div>
+      <div class="feedback-card" id="feedback-e2_l1a">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: heyed</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: silent 'e' makes vowel say its name.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="e2_l1a"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="e2_l1a"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="e2_l1a"><i class="fas fa-download"></i> Download</button></div>
       </div>
     </div>
   </section>
@@ -391,28 +1108,91 @@
   <!-- ===== FINAL CHALLENGE ===== -->
   <section class="section" id="final">
     <div class="card">
-      <div class="card-header"><div><div class="card-title">🎯 Final Challenge: Mission Briefing</div></div><span class="badge-level">Final</span></div>
-      <div class="audio-player" data-audio="/services/final/american_challenge...mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
-      <div>
-        <div class="practice-item"><span class="text">I thought about the <span class="romaji">daw[r]er</span> in the <span class="romaji">si[r]y</span>.</span><button class="checkbox" data-item="f1_l1_1"></button></div>
-        <div class="practice-item"><span class="text">It's <span class="romaji">im-por-int</span> to <span class="romaji">think</span> clearly.</span><button class="checkbox" data-item="f1_l1_2"></button></div>
-        <div class="practice-item"><span class="text">The <span class="romaji">pic-cher</span> is <span class="romaji">beau-ti-ful</span>.</span><button class="checkbox" data-item="f1_l1_3"></button></div>
-      </div>
-      <div class="recording-controls" data-recording-group="f1_l1" data-exercise-type="final">
-        <button class="record-btn start" data-recording="f1_l1"><i class="fas fa-microphone"></i> Record</button>
+      <div class="card-header"><div><div class="card-title">🎯 Final Challenge: Mission Briefing</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">You're an American spy. Read this mission briefing with your best American accent.</div></div><span class="badge-level">Final</span></div>
+      <div class="audio-player" data-audio="final/american_challenge.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text">"Agent, your mission, if you choose to accept it, is to acquire the confidential file from the secure center. Be conscious of the surveillance cameras. The file is located in the city's main library, on the fourth floor, inside a cotton bag. This is important. We have reason to believe the target is an influential figure. They will be thorough in their search. Do not engage. Just put it in your bag and ride out quietly. This message will self-destruct in three... two... one. Good luck."</span><button class="checkbox" data-item="f1_challenge"></button></div>
+      <div class="recording-controls" data-recording-group="f1_challenge" data-exercise-type="final">
+        <button class="record-btn start" data-recording="f1_challenge"><i class="fas fa-microphone"></i> Record</button>
         <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
         <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
         <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
-        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-f1_l1">0:00</span></span>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-f1_challenge">0:00</span></span>
       </div>
-      <div class="waveform-container"><canvas id="waveform-f1_l1"></canvas></div>
-      <div class="feedback-card" id="feedback-f1_l1">
+      <div class="waveform-container"><canvas id="waveform-f1_challenge"></canvas></div>
+      <div class="feedback-card" id="feedback-f1_challenge">
         <div class="fb-header"><span class="fb-title">✅ Challenge Passed!</span><span class="fb-stars">★★★★★</span></div>
-        <div class="fb-target">Target: <span class="romaji">daw[r]er</span></div>
+        <div class="fb-target">Target: The American Challenge</div>
         <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
         <div class="fb-message">Outstanding! You sound like a true American!</div>
         <div class="fb-tip">💡 Tip: Focus on fluency.</div>
-        <div class="fb-actions"><button class="fb-retry" data-fb="f1_l1"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="f1_l1"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="f1_l1"><i class="fas fa-download"></i> Download</button></div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="f1_challenge"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="f1_challenge"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="f1_challenge"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Final Review Practice: Everyday Scenarios</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Read these scenarios with your best American accent.</div></div><span class="badge-level">Final</span></div>
+      <div class="audio-player" data-audio="final/scenarios_all.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div>
+        <div class="practice-item"><span class="text"><b>Scenario 1 (Coffee Shop):</b> "I'd like a wa[r]er with my coffee, please. I have a meeting at the center in thirty minutes. This is really important. Can you pu[r]it in a cotton bag? Thanks!"</span><button class="checkbox" data-item="f1_scenario1"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 2 (At Work):</b> "I thought about this project for a while. Though it's rough, I'm getting through it. The information iz on my desk. I need to write a be[r]er report by Thursday."</span><button class="checkbox" data-item="f1_scenario2"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 3 (At Home):</b> "Can you pu[r]it on the le[r]er? I'm expecting an important package. The furniture is new. I'm going on an adventure this weekend. This is a conspicuous place for the keys."</span><button class="checkbox" data-item="f1_scenario3"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 4 (Social):</b> "Those are my favorite things. I think they're amazing. I thought about calling you, though I was busy. The party was so much fun! This is a special occasion. We should get together on Thursday."</span><button class="checkbox" data-item="f1_scenario4"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 5 (Traveling):</b> "I went through the airport security. Though it was busy, I made it on time. I had a cough during the flight. The hotel is in the city center. The view of the mountain is breathtaking. This is an essential trip."</span><button class="checkbox" data-item="f1_scenario5"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 6 (Shopping):</b> "I need a be[r]er deal on this jacket. Those shoes are perfect. I thought about buying them. Though they're expensive, I'll get them. The furniture store is on the corner. I'll pu[r]it on my card."</span><button class="checkbox" data-item="f1_scenario6"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 7 (Health):</b> "It's important to drink wa[r]er every day. I have a cough and a sore throat. I need to take three pills. These are for the pain. Though I feel better, I need to rest."</span><button class="checkbox" data-item="f1_scenario7"></button></div>
+        <div class="practice-item"><span class="text"><b>Scenario 8 (Education):</b> "The information iz in the center of the book. I need to make a decision about my major. This iz a conscious choice. The nature of the project is important. I thought about it thoroughly."</span><button class="checkbox" data-item="f1_scenario8"></button></div>
+      </div>
+      <div class="recording-controls" data-recording-group="f1_scenarios" data-exercise-type="final">
+        <button class="record-btn start" data-recording="f1_scenarios"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-f1_scenarios">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-f1_scenarios"></canvas></div>
+      <div class="feedback-card" id="feedback-f1_scenarios">
+        <div class="fb-header"><span class="fb-title">✅ Recording Saved!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: Scenarios</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">Great job!</div>
+        <div class="fb-tip">💡 Tip: Focus on fluency.</div>
+        <div class="fb-actions"><button class="fb-retry" data-fb="f1_scenarios"><i class="fas fa-redo"></i> Try Again</button><button class="fb-listen" data-fb="f1_scenarios"><i class="fas fa-play"></i> Listen</button><button class="fb-download-fb" data-fb="f1_scenarios"><i class="fas fa-download"></i> Download</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">🎯 Final Speaking Exam</div><div class="card-subtitle" style="color:var(--text-secondary);font-size:0.8rem;">Read the following paragraphs aloud. Record yourself.</div></div><span class="badge-level">Exam</span></div>
+      
+      <div class="audio-player" data-audio="final/exam_passage1.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text"><b>Passage 1 (Easy):</b> "Every morning, I drink a glass of wa[r]er and eat a bowl of cereal. I think about what I need to do that day. This iz a good way to start. I work at a center near the city park. It's important for me to be on time. I always wear a cotton shirt. I thought about changing my routine, though it's rough at first. I feel much be[r]er now."</span><button class="checkbox" data-item="f1_exam1"></button></div>
+
+      <div class="audio-player" data-audio="final/exam_passage2.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text"><b>Passage 2 (Medium):</b> "I'm going on an adventure this weekend with my family. We're going to climb a mountain. This is something I've always wanted to do. My brother is very thorough in his planning. He has information about all the trails. I made a decision to take plenty of wa[r]er and tayp for any emergencies. Those items are in my bag. I'm excited to get through this tough challenge. My family is so supportive. I thank them for everything."</span><button class="checkbox" data-item="f1_exam2"></button></div>
+
+      <div class="audio-player" data-audio="final/exam_passage3.mp3"><button class="play-btn"><i class="fas fa-play"></i></button><div class="progress"><div class="fill"></div></div><span class="time">0:00 / 0:00</span></div>
+      <div class="practice-item"><span class="text"><b>Passage 3 (Hard):</b> "The fu[r]tchur of work iz changing rapidly. Though this shift iz conspicuous, many people are adapting. We need to make a collective decision about how to proceed. It's important to stay conscious of new technology. The furniture in modern offices is designed for comfort. These changes are influential in shaping our careers. Though the journey may be tempestuous, we must remain virtuous and persevere. I thought about this extensively and I believe we can get through any tough times."</span><button class="checkbox" data-item="f1_exam3"></button></div>
+
+      <div class="recording-controls" data-recording-group="f1_exam" data-exercise-type="final">
+        <button class="record-btn start" data-recording="f1_exam"><i class="fas fa-microphone"></i> Record</button>
+        <button class="record-btn stop" disabled><i class="fas fa-stop"></i> Stop</button>
+        <button class="record-btn playback" disabled><i class="fas fa-play"></i> Playback</button>
+        <button class="record-btn download" disabled><i class="fas fa-download"></i> Download</button>
+        <span class="recording-status"><span class="dot"></span> <span class="timer" id="timer-f1_exam">0:00</span></span>
+      </div>
+      <div class="waveform-container"><canvas id="waveform-f1_exam"></canvas></div>
+      <div class="feedback-card" id="feedback-f1_exam">
+        <div class="fb-header"><span class="fb-title">✅ Exam Passed!</span><span class="fb-stars">★★★★★</span></div>
+        <div class="fb-target">Target: Full Fluency</div>
+        <div class="fb-meter"><div class="bar-track"><div class="bar-fill" style="width:0%;"></div></div><div class="bar-label"><span>Needs Work</span><span>0%</span><span>Excellent!</span></div></div>
+        <div class="fb-message">NOW YOU MASTERED THE AMERICAN ACCENT AND YOU CAN USE IT ANYWHERE IN THE WORLD! GOOD LUCK</div>
+        <div class="fb-tip">💡 Tip: You're a pro now!</div>
+        <div class="fb-actions">
+          <button class="fb-retry" data-fb="f1_exam"><i class="fas fa-redo"></i> Try Again</button>
+          <button class="fb-listen" data-fb="f1_exam"><i class="fas fa-play"></i> Listen</button>
+          <button class="fb-download-fb" data-fb="f1_exam"><i class="fas fa-download"></i> Download</button>
+          <!-- 🚀 RECOMMENDATION 3: SHARE SCORE BUTTON -->
+          <button class="fb-share" id="shareScoreBtn" data-fb="f1_exam"><i class="fas fa-share-alt"></i> Share Score</button>
+        </div>
       </div>
     </div>
   </section>
@@ -447,6 +1227,11 @@
   const dashBadge = document.getElementById('dashBadge');
   const dashStreak = document.getElementById('dashStreak');
   const scrollBtn = document.getElementById('scrollTop');
+  
+  // 🚀 RECOMMENDATION 2: DAILY CHALLENGE VARIABLES
+  const dcTitle = document.getElementById('dcTitle');
+  const dcDesc = document.getElementById('dcDesc');
+  const dcBtn = document.getElementById('dcBtn');
 
   async function getMic() {
     if (micPermissionGranted) return true;
@@ -827,9 +1612,62 @@
     }
   } catch(e) {}
 
+  // 🚀 RECOMMENDATION 2: DAILY CHALLENGE LOGIC
+  function updateDailyChallenge() {
+    const challenges = [
+      { title: "The Flap T", section: "section1", desc: "Master the 'wa[r]er' sound today." },
+      { title: "The Glottal Stop", section: "section1", desc: "Drop the T in 'bu-in' and 'moun-in'." },
+      { title: "The TH Sounds", section: "section1", desc: "Distinguish between 'think' and 'this'." },
+      { title: "The SHUN Pattern", section: "section2", desc: "Perfect your 'tion' and 'sion' endings." },
+      { title: "The C Code", section: "section2", desc: "Crack the /k/ vs /s/ rule." },
+      { title: "The OUGH Adventure", section: "section3", desc: "Conquer 'though', 'through', and 'rough'." },
+      { title: "Magic E", section: "section3", desc: "Make vowels say their names." },
+      { title: "The American Challenge", section: "final", desc: "Put all your skills to the test." }
+    ];
+    const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+    const challenge = challenges[dayOfYear % challenges.length];
+    
+    dcTitle.textContent = "Today's Focus: " + challenge.title;
+    dcDesc.textContent = challenge.desc;
+    
+    // Remove old listener and add new one
+    const newBtn = dcBtn.cloneNode(true);
+    dcBtn.parentNode.replaceChild(newBtn, dcBtn);
+    newBtn.addEventListener('click', () => {
+      // Find the tab for the section
+      const tab = document.querySelector(`.nav-tab[data-section="${challenge.section}"]`);
+      if (tab) tab.click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // 🚀 RECOMMENDATION 3: SHARE SCORE LOGIC
+  document.getElementById('shareScoreBtn').addEventListener('click', async function() {
+    const scoreEl = document.getElementById('fb-score-f1_exam');
+    const score = scoreEl ? scoreEl.textContent : '100%';
+    const text = `🗽 I just mastered the American Accent with a score of ${score}! Check out this amazing course designed for Arabic speakers.`;
+    const url = window.location.href;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'American Accent Mastery',
+          text: text,
+          url: url
+        });
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // Fallback for desktop browsers
+      window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+    }
+  });
+
   countTotal();
   updateProgress();
-  console.log('🗽 American Accent Mastery loaded.');
+  updateDailyChallenge(); // Initialize the daily challenge
+  console.log('🗽 American Accent Mastery loaded. Ready for global competition.');
 })();
 </script>
 </body>

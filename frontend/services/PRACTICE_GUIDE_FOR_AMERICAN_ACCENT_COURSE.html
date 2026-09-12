@@ -131,6 +131,31 @@
     .floating-record .fab-timer.visible { display: block; }
     .scroll-top { position: fixed; bottom: 90px; right: 24px; width: 38px; height: 38px; border: none; border-radius: 50%; background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); cursor: pointer; opacity: 0; visibility: hidden; transition: var(--transition); z-index: 200; }
     .scroll-top.visible { opacity: 1; visibility: visible; }
+    /* Light/Dark Mode Toggle Button */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 0;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      font-size: 1.1rem;
+      z-index: 10;
+    }
+    .theme-toggle:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      transform: rotate(15deg) scale(1.1);
+    }
     @media (max-width: 640px) { .dashboard { grid-template-columns: repeat(2,1fr); } .nav-tabs { flex-wrap: nowrap; overflow-x: auto; } .nav-tab { min-width: 60px; font-size: 0.65rem; } .home-btn { position: relative; top: 0; left: 0; margin-bottom: 10px; display: inline-flex; } .daily-challenge { flex-direction: column; text-align: center; } .dc-btn { width: 100%; } }
   </style>
 </head>
@@ -139,6 +164,9 @@
 
   <header class="header">
     <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
+    <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">
+      <i class="fas fa-sun"></i>
+    </button>
     <h1>🗽 American Accent Mastery</h1>
     <p>Practice with audio, record your voice, and sound like a native speaker.</p>
     <!-- 🚀 Target Audience Badge -->
@@ -1667,6 +1695,31 @@
   countTotal();
   updateProgress();
   updateDailyChallenge(); // Initialize the daily challenge
+  // 🚀 LIGHT/DARK MODE TOGGLE LOGIC
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('i');
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('accent_theme', theme);
+    // Swap icon: Sun icon means "click to go light", Moon means "click to go dark"
+    if (theme === 'light') {
+      themeIcon.className = 'fas fa-moon'; 
+    } else {
+      themeIcon.className = 'fas fa-sun';  
+    }
+  }
+
+  // Check localStorage for saved preference, default to 'dark'
+  const savedTheme = localStorage.getItem('accent_theme') || 'dark';
+  applyTheme(savedTheme);
+
+  // Add click listener
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+  });
   console.log('🗽 American Accent Mastery loaded. Ready for global competition.');
 })();
 </script>

@@ -219,7 +219,6 @@ def static_files(path):
 # SERVICES API
 # ============================================================
 @app.route('/api/services', methods=['GET'])
-@login_required
 def get_services():
     services = [
         {'id': 'sat', 'name': 'SAT Adaptive 4 Exams', 'icon': '📘',

@@ -1,170 +1,187 @@
-from flask import Flask, request, jsonify, send_from_directory, session, render_template_string
+from flask import Flask, request, jsonify, send_from_directory, session, redirect
 from flask_cors import CORS
-import json
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
+from datetime import datetime
 import os
 import uuid
-import hashlib
 import secrets
-import subprocess
-import sys
-from datetime import datetime, timedelta
-from functools import wraps
 
-# Root directory setup for Render
+# ============================================================
+# APP & DATABASE SETUP
+# ============================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-app = Flask(__name__, 
+app = Flask(__name__,
             static_folder=os.path.join(BASE_DIR, '../frontend'),
             template_folder=os.path.join(BASE_DIR, '../frontend'))
-app.secret_key = secrets.token_hex(32)
-CORS(app)
 
-# File paths
-CLIENTS_FILE = os.path.join(BASE_DIR, 'clients.json')
-SAT_ENGINE_PATH = os.path.join(BASE_DIR, 'sat_engine')
+# SECRET KEY: Fixed via environment variable (prevents logout on restart)
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-me-in-production')
 
-# Ensure clients.json exists
-if not os.path.exists(CLIENTS_FILE):
-    with open(CLIENTS_FILE, 'w') as f:
-        json.dump([], f)
+# DATABASE: PostgreSQL in production, SQLite fallback locally
+database_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(BASE_DIR, 'local.db'))
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
 
-# Helper functions
-def load_clients():
-    with open(CLIENTS_FILE, 'r') as f:
-        return json.load(f)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
-def save_clients(clients):
-    with open(CLIENTS_FILE, 'w') as f:
-        json.dump(clients, f, indent=2)
+CORS(app, supports_credentials=True)
 
-def hash_password(password):
-    salt = secrets.token_hex(16)
-    hashed = hashlib.sha256((password + salt).encode()).hexdigest()
-    return f"{salt}:{hashed}"
+db = SQLAlchemy(app)
 
-def verify_password(password, stored_hash):
-    salt, hashed = stored_hash.split(':')
-    return hashlib.sha256((password + salt).encode()).hexdigest() == hashed
 
+# ============================================================
+# DATABASE MODELS
+# ============================================================
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    email = db.Column(db.String(255), unique=True, nullable=False, index=True)
+    password_hash = db.Column(db.String(255), nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
+    is_admin = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_login = db.Column(db.DateTime, nullable=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'email': self.email,
+            'is_active': self.is_active,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'last_login': self.last_login.isoformat() if self.last_login else None
+        }
+
+
+# Create all tables on first run
+with app.app_context():
+    db.create_all()
+    print("✅ Database tables verified/created.")
+
+
+# ============================================================
+# HELPERS
+# ============================================================
 def generate_password():
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*'
     return ''.join(secrets.choice(alphabet) for _ in range(12))
 
+
 def login_required(f):
+    """Protects API routes - returns 401 JSON if not logged in."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
-            return jsonify({'error': 'Please login first'}), 401
+            return jsonify({'error': 'Please login first', 'redirect': '/'}), 401
         return f(*args, **kwargs)
     return decorated_function
 
-# ---------- AUTH ROUTES ----------
+
+def page_login_required(f):
+    """Protects HTML pages - redirects to homepage if not logged in."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect('/?login_required=1')
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+# ============================================================
+# AUTH ROUTES
+# ============================================================
 @app.route('/api/signup', methods=['POST'])
 def signup():
-    data = request.json
+    data = request.json or {}
     email = data.get('email', '').strip().lower()
-    
     if not email:
         return jsonify({'error': 'Email is required'}), 400
-    
-    clients = load_clients()
-    
-    if any(c['email'] == email for c in clients):
+
+    existing = User.query.filter_by(email=email).first()
+    if existing:
         return jsonify({'error': 'Email already registered'}), 400
-    
-    password = generate_password()
-    hashed_password = password
-    
-    client = {
-        'id': str(uuid.uuid4()),
-        'email': email,
-        'password': hashed_password,
-        'created_at': datetime.now().isoformat(),
-        'last_login': None,
-        'is_active': True
-    }
-    
-    clients.append(client)
-    save_clients(clients)
-    
+
+    plain_password = generate_password()
+    new_user = User(
+        email=email,
+        password_hash=generate_password_hash(plain_password, method='pbkdf2:sha256')
+    )
+    db.session.add(new_user)
+    db.session.commit()
+
     return jsonify({
         'success': True,
         'message': 'Account created successfully',
         'email': email,
-        'password': password
+        'password': plain_password
     })
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    data = request.json
+    data = request.json or {}
     email = data.get('email', '').strip().lower()
     password = data.get('password', '')
-    
+
     if not email or not password:
         return jsonify({'error': 'Email and password required'}), 400
-    
-    clients = load_clients()
-    user = next((c for c in clients if c['email'] == email), None)
-    
-    if not user:
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not check_password_hash(user.password_hash, password):
         return jsonify({'error': 'Invalid credentials'}), 401
-    
-    if user['password'] != password:
-        return jsonify({'error': 'Invalid credentials'}), 401
-    
-    user['last_login'] = datetime.now().isoformat()
-    save_clients(clients)
-    
-    session['user_id'] = user['id']
-    session['email'] = user['email']
-    
+
+    if not user.is_active:
+        return jsonify({'error': 'Account is disabled'}), 403
+
+    user.last_login = datetime.utcnow()
+    db.session.commit()
+
+    session['user_id'] = user.id
+    session['email'] = user.email
+
     return jsonify({
         'success': True,
         'message': 'Login successful',
-        'user': {
-            'id': user['id'],
-            'email': user['email']
-        }
+        'user': {'id': user.id, 'email': user.email}
     })
+
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
     session.clear()
     return jsonify({'success': True, 'message': 'Logged out'})
 
+
 @app.route('/api/check-auth', methods=['GET'])
 def check_auth():
     if 'user_id' in session:
-        clients = load_clients()
-        user = next((c for c in clients if c['id'] == session['user_id']), None)
-        if user:
-            return jsonify({
-                'authenticated': True,
-                'user': {
-                    'id': user['id'],
-                    'email': user['email']
-                }
-            })
+        user = User.query.get(session['user_id'])
+        if user and user.is_active:
+            return jsonify({'authenticated': True, 'user': {'id': user.id, 'email': user.email}})
     return jsonify({'authenticated': False})
+
 
 @app.route('/api/forgot-password', methods=['POST'])
 def forgot_password():
-    data = request.json
+    data = request.json or {}
     email = data.get('email', '').strip().lower()
-    
     if not email:
         return jsonify({'error': 'Email is required'}), 400
-    
-    clients = load_clients()
-    user = next((c for c in clients if c['email'] == email), None)
-    
+
+    user = User.query.filter_by(email=email).first()
     if not user:
         return jsonify({'error': 'Email not found'}), 404
-    
+
     new_password = generate_password()
-    user['password'] = new_password
-    save_clients(clients)
-    
+    user.password_hash = generate_password_hash(new_password, method='pbkdf2:sha256')
+    db.session.commit()
+
     return jsonify({
         'success': True,
         'message': 'New password generated',
@@ -172,88 +189,78 @@ def forgot_password():
         'new_password': new_password
     })
 
-# ---------- SERVICE ROUTES ----------
+
+# ============================================================
+# PAGE ROUTES
+# ============================================================
 @app.route('/')
 def serve_homepage():
     return send_from_directory(os.path.join(BASE_DIR, '../frontend'), 'index.html')
+
 
 @app.route('/contact')
 def contact():
     return send_from_directory(os.path.join(BASE_DIR, '../frontend'), 'Contact-Us.html')
 
+
+# 🔒 PROTECTED: Only logged-in users can access course/service pages
 @app.route('/services/<path:filename>')
+@page_login_required
 def serve_service(filename):
     return send_from_directory(os.path.join(BASE_DIR, '../frontend/services'), filename)
+
 
 @app.route('/<path:path>')
 def static_files(path):
     return send_from_directory(os.path.join(BASE_DIR, '../frontend'), path)
 
-# ---------- SERVICES API ----------
+
+# ============================================================
+# SERVICES API
+# ============================================================
 @app.route('/api/services', methods=['GET'])
+@login_required
 def get_services():
     services = [
-        {
-            'id': 'sat',
-            'name': 'SAT Adaptive 4 Exams',
-            'icon': '📘',
-            'description': 'Full-length Digital SAT with adaptive scoring',
-            'requires_auth': False,
-            'path': '/services/sat/sat_hub.html'
-        },
-        {
-            'id': 'ielts_exam1',
-            'name': 'IELTS Exam 1',
-            'icon': '🎓',
-            'description': 'Complete IELTS Test 1 - Listening, Reading, Writing',
-            'requires_auth': False,
-            'path': '/services/ielts/exam1/ielts_listening_test.html'
-        },
-        {
-            'id': 'ielts_exam2',
-            'name': 'IELTS Exam 2',
-            'icon': '🎓',
-            'description': 'Complete IELTS Test 2 - Listening, Reading, Writing',
-            'requires_auth': False,
-            'path': '/services/ielts/exam2/IELTS_LISTENING_test2.html'
-        },
-        {
-            'id': 'speaking',
-            'name': 'IELTS Speaking Practice',
-            'icon': '🎤',
-            'description': 'Practice IELTS speaking with sample questions and tips',
-            'requires_auth': False,
-            'path': '/services/ielts/IELTS_SPEAKING_PRACTICE.html'
-        },
-        {
-            'id': 'accent',
-            'name': 'American Accent Guide',
-            'icon': '🇺🇸',
-            'description': 'Master American English pronunciation and accent',
-            'requires_auth': False,
-            'path': '/services/PRACTICE_GUIDE_FOR_AMERICAN_ACCENT_COURSE.html'
-        },
-        {
-            'id': 'speaker',
-            'name': 'Secrets of International Speaker',
-            'icon': '🎙️',
-            'description': 'Professional public speaking and presentation skills',
-            'requires_auth': False,
-            'path': '/services/international_speaker_secrets.html'
-        }
+        {'id': 'sat', 'name': 'SAT Adaptive 4 Exams', 'icon': '📘',
+         'path': '/services/sat/sat_hub.html'},
+        {'id': 'ielts_exam1', 'name': 'IELTS Exam 1', 'icon': '🎓',
+         'path': '/services/ielts/exam1/ielts_listening_test.html'},
+        {'id': 'ielts_exam2', 'name': 'IELTS Exam 2', 'icon': '🎓',
+         'path': '/services/ielts/exam2/IELTS_LISTENING_test2.html'},
+        {'id': 'speaking', 'name': 'IELTS Speaking Practice', 'icon': '🎤',
+         'path': '/services/ielts/IELTS_SPEAKING_PRACTICE.html'},
+        {'id': 'accent', 'name': 'American Accent Guide', 'icon': '🇺🇸',
+         'path': '/services/PRACTICE_GUIDE_FOR_AMERICAN_ACCENT_COURSE.html'},
+        {'id': 'speaker', 'name': 'Secrets of International Speaker', 'icon': '🎙️',
+         'path': '/services/international_speaker_secrets.html'}
     ]
     return jsonify(services)
 
-# ---------- HEALTH CHECK ----------
+
+# ============================================================
+# HEALTH CHECK
+# ============================================================
 @app.route('/api/health', methods=['GET'])
 def health_check():
+    try:
+        user_count = User.query.count()
+        db_status = 'connected'
+    except Exception as e:
+        user_count = 0
+        db_status = f'error: {str(e)}'
+
     return jsonify({
         'status': 'healthy',
-        'timestamp': datetime.now().isoformat(),
-        'services': ['auth', 'sat', 'ielts', 'accent', 'speaker']
+        'timestamp': datetime.utcnow().isoformat(),
+        'database': db_status,
+        'total_users': user_count
     })
 
+
+# ============================================================
+# ENTRY POINT
+# ============================================================
 if __name__ == '__main__':
-    # Render provides the PORT environment variable. Default to 5000 for local testing.
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)

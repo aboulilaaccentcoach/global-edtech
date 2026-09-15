@@ -157,7 +157,7 @@
       transform: rotate(15deg) scale(1.1);
     }
     @media (max-width: 640px) { .dashboard { grid-template-columns: repeat(2,1fr); } .nav-tabs { flex-wrap: nowrap; overflow-x: auto; } .nav-tab { min-width: 60px; font-size: 0.65rem; } .home-btn { position: relative; top: 0; left: 0; margin-bottom: 10px; display: inline-flex; } .daily-challenge { flex-direction: column; text-align: center; } .dc-btn { width: 100%; } }
-    /* Preview Mode Banner */
+       /* Preview Mode Banner */
     .preview-banner {
         display: none;
         position: sticky;
@@ -170,6 +170,7 @@
         font-weight: 600;
         font-size: 0.85rem;
         box-shadow: 0 4px 20px rgba(108,60,225,0.4);
+        font-family: 'Inter', sans-serif;
     }
     .preview-banner a {
         color: #FFD700;
@@ -177,57 +178,11 @@
         font-weight: 800;
         cursor: pointer;
     }
-    .preview-cta {
-        display: none;
-        text-align: center;
-        padding: 40px 20px;
-        background: linear-gradient(135deg, rgba(108,60,225,0.15), rgba(245,158,11,0.15));
-        border: 2px dashed var(--primary);
-        border-radius: var(--radius);
-        margin: 24px 0;
-    }
-    .preview-cta h2 {
-        font-size: 1.4rem;
-        margin-bottom: 8px;
-        background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    .preview-cta p {
-        color: var(--text-secondary);
-        margin-bottom: 16px;
-        font-size: 0.9rem;
-    }
-    .preview-cta button {
-        background: var(--primary);
-        color: white;
-        padding: 12px 32px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-    .preview-cta button:hover {
-        background: var(--primary-light);
-        transform: translateY(-2px);
-    }
-    .preview-locked {
-        opacity: 0.45;
-        pointer-events: none;
-        position: relative;
-    }  
 </style>
 </head>
 <body>
 <!-- 🎁 Preview Mode Banner (shown only to guests) -->
-<div class="preview-banner" id="previewBanner">
-    🎁 You're previewing the <strong>American Accent Course</strong> as a guest. 
-    <a onclick="showSignup && showSignup(); return false;">Sign up free</a> 
-    to unlock all lessons, audio, and recording tools.
-</div>
+<div class="preview-banner" id="previewBanner"></div>
 <div class="container">
 
   <header class="header">
@@ -1875,5 +1830,9 @@
     }
 })();
 </script>
+<script>
+    window.PREVIEW_COURSE_NAME = "American Accent Course";
+</script>
+<script src="../js/preview-mode.js"></script>
 </body>
 </html>

@@ -65,9 +65,32 @@
             .test-container { padding: 16px; }
             .nav-tabs { flex-direction: column; }
         }
+    /* Preview Mode Banner */
+    .preview-banner {
+        display: none;
+        position: sticky;
+        top: 0;
+        z-index: 9998;
+        background: linear-gradient(135deg, #6C3CE1, #F59E0B);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 20px rgba(108,60,225,0.4);
+        font-family: 'Inter', sans-serif;
+    }
+    .preview-banner a {
+        color: #FFD700;
+        text-decoration: underline;
+        font-weight: 800;
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
+<!-- 🎁 Preview Mode Banner (shown only to guests) -->
+<div class="preview-banner" id="previewBanner"></div>
 
     <div class="topbar">
         <div class="logo">Global EdTech Original SAT Practice Test 1</div>
@@ -303,5 +326,9 @@
             <a href="/contact" style="color: #2a7de1; text-decoration: none;">Contact</a>
         </div>
     </footer>
+<script>
+    window.PREVIEW_COURSE_NAME = "SAT Exam 1";
+</script>
+<script src="../../js/preview-mode.js"></script>
 </body>
 </html>

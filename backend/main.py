@@ -211,19 +211,24 @@ def serve_service(filename):
 
     # ✅ Pages guests can preview (marketing funnel)
     PREVIEW_WHITELIST = [
-        'PRACTICE_GUIDE_FOR_AMERICAN_ACCENT_COURSE.html',  # American Accent
+        'PRACTICE_GUIDE_FOR_AMERICAN_ACCENT_COURSE.html',
         'sat/sat_hub.html',
-        'sat/sat_exam.html',                                 # SAT Exam 1 (adjust if filename differs)
-        'ielts/exam1/ielts_listening_test.html',             # IELTS 1 Listening
-        'ielts/IELTS_SPEAKING_PRACTICE.html',                # IELTS Speaking Practice
+        'sat/sat_exam.html',
+        'ielts/exam1/ielts_listening_test.html',
+        'ielts/IELTS_SPEAKING_PRACTICE.html',
     ]
 
+    # ✅ ALWAYS allow static assets (JS, CSS, audio, images) — they don't reveal content
+    STATIC_EXTENSIONS = ('.js', '.css', '.mp3', '.wav', '.png', '.jpg', '.jpeg',
+                         '.gif', '.svg', '.ico', '.json', '.woff', '.woff2', '.ttf')
+    if filename.lower().endswith(STATIC_EXTENSIONS):
+        return send_from_directory(os.path.join(BASE_DIR, '../frontend/services'), filename)
+
+    # 🔒 Only protect HTML pages not in whitelist
     if not is_logged_in and filename not in PREVIEW_WHITELIST:
         return redirect('/?login_required=1')
 
     return send_from_directory(os.path.join(BASE_DIR, '../frontend/services'), filename)
-
-
 @app.route('/<path:path>')
 def static_files(path):
     return send_from_directory(os.path.join(BASE_DIR, '../frontend'), path)

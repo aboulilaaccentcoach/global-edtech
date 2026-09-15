@@ -7,6 +7,7 @@ from datetime import datetime
 import os
 import uuid
 import secrets
+import unicodedata
 
 # ============================================================
 # APP & DATABASE SETUP
@@ -100,12 +101,9 @@ def page_login_required(f):
 def signup():
     data = request.json or {}
     email = data.get('email', '').strip().lower()
+    email = unicodedata.normalize('NFKC', email)     # ← ADD THIS LINE
     if not email:
         return jsonify({'error': 'Email is required'}), 400
-
-    existing = User.query.filter_by(email=email).first()
-    if existing:
-        return jsonify({'error': 'Email already registered'}), 400
 
     plain_password = generate_password()
     new_user = User(
@@ -127,6 +125,7 @@ def signup():
 def login():
     data = request.json or {}
     email = data.get('email', '').strip().lower()
+    email = unicodedata.normalize('NFKC', email)   # ← ADD THIS LINE
     password = data.get('password', '')
 
     if not email or not password:
@@ -171,6 +170,7 @@ def check_auth():
 def forgot_password():
     data = request.json or {}
     email = data.get('email', '').strip().lower()
+    email = unicodedata.normalize('NFKC', email)   # ← ADD THIS LINE
     if not email:
         return jsonify({'error': 'Email is required'}), 400
 

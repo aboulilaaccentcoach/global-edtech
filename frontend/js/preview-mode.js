@@ -101,18 +101,31 @@
     // =========================================================
     // 3. UPGRADE CALL-TO-ACTION (Bottom of page)
     // =========================================================
-    function addUpgradeCTA() {
-        var container = document.querySelector('.container') || document.body;
-        
-        var cta = document.createElement('div');
+   function addUpgradeCTA() {
+    var container = document.querySelector('.container') || document.body;
+    
+    // Detect exam pages (SAT, IELTS) that need a compact, non-blocking CTA
+    var isExamPage = /sat|ielts|exam/i.test(window.location.pathname);
+    
+    var cta = document.createElement('div');
+    
+    if (isExamPage) {
+        // 🎯 COMPACT VERSION for exam pages — a slim bar that doesn't block the questions
+        cta.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 20px;background:linear-gradient(135deg,rgba(108,60,225,0.15),rgba(245,158,11,0.15));border:1px solid #6C3CE1;border-radius:10px;margin:16px 0;font-family:Inter,sans-serif;flex-wrap:wrap;text-align:center;';
+        cta.innerHTML =
+            '<span style="color:#B8B0D0;font-size:0.85rem;">🔒 <strong style="color:#8B5CF6;">' + courseName + '</strong> — Sign up to unlock all 4 exams</span>' +
+            '<a href="' + signupUrl + '" style="display:inline-block;background:#6C3CE1;color:white;padding:8px 20px;border-radius:8px;font-size:0.85rem;font-weight:700;text-decoration:none;white-space:nowrap;">Create Free Account →</a>';
+    } else {
+        // 📚 FULL VERSION for content pages (Accent Course) — the original banner
         cta.style.cssText = 'text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(108,60,225,0.15),rgba(245,158,11,0.15));border:2px dashed #6C3CE1;border-radius:16px;margin:24px 0;font-family:Inter,sans-serif;';
-        cta.innerHTML = 
+        cta.innerHTML =
             '<h2 style="font-size:1.4rem;margin-bottom:8px;color:#8B5CF6;">🚀 Ready to Continue Learning?</h2>' +
             '<p style="color:#B8B0D0;margin-bottom:16px;font-size:0.9rem;">Create your free account to unlock the full course, audio files, progress tracking, and voice recording tools.</p>' +
-            '<a href="' + PREVIEW_CONFIG.signupUrl + '" style="display:inline-block;background:#6C3CE1;color:white;padding:12px 32px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;transition:all 0.3s;">Create Free Account →</a>';
-        container.appendChild(cta);
+            '<a href="' + signupUrl + '" style="display:inline-block;background:#6C3CE1;color:white;padding:12px 32px;border-radius:8px;font-size:1rem;font-weight:700;text-decoration:none;">Create Free Account →</a>';
     }
-
+    
+    container.appendChild(cta);
+}
     // =========================================================
     // TOAST NOTIFICATION
     // =========================================================

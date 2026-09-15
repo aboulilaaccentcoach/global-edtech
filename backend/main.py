@@ -212,6 +212,7 @@ def serve_service(filename):
     # ✅ Pages guests can preview (marketing funnel)
     PREVIEW_WHITELIST = [
         'PRACTICE_GUIDE_FOR_AMERICAN_ACCENT_COURSE.html',  # American Accent
+        'sat/sat_hub.html',
         'sat/sat_exam.html',                                 # SAT Exam 1 (adjust if filename differs)
         'ielts/exam1/ielts_listening_test.html',             # IELTS 1 Listening
         'ielts/IELTS_SPEAKING_PRACTICE.html',                # IELTS Speaking Practice

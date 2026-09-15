@@ -111,6 +111,48 @@
     <section class="services-section">
         <div class="container">
             <h2 class="section-title">📚 Your Learning Dashboard</h2>
+<!-- 🎁 Free Preview Banner -->
+<div id="free-preview-banner" style="display: none; background: linear-gradient(135deg, #6C3CE1, #F59E0B); border-radius: 16px; padding: 20px 24px; margin: 20px 0 30px; color: white; box-shadow: 0 10px 40px rgba(108,60,225,0.35); position: relative; overflow: hidden; font-family: 'Inter', 'Segoe UI', sans-serif;">
+    <div style="position: absolute; top: -50px; right: -30px; font-size: 180px; opacity: 0.12; transform: rotate(15deg);">🎁</div>
+    <div style="position: absolute; bottom: -60px; left: -20px; font-size: 140px; opacity: 0.08; transform: rotate(-15deg);">🎓</div>
+    <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; position: relative; z-index: 1;">
+        <div style="font-size: 2.5rem; flex-shrink: 0;">🎁</div>
+        <div style="flex: 1; min-width: 250px;">
+            <h3 style="margin: 0 0 6px; font-size: 1.25rem; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+                Try 4 Free Samples — No Signup Required!
+            </h3>
+            <p style="margin: 0; font-size: 0.95rem; color: rgba(255,255,255,0.95); line-height: 1.5;">
+                Click on the <strong>SAT Exam</strong>, <strong>IELTS Listening Test 1</strong>, <strong>IELTS Speaking Practice</strong>, or <strong>American Accent Course</strong> cards below to preview them for free. No login needed.
+            </p>
+        </div>
+        <button onclick="document.getElementById('services-grid').scrollIntoView({behavior:'smooth', block:'center'}); document.querySelectorAll('.service-card').forEach(function(c,i){ setTimeout(function(){ c.style.transform='scale(1.05)'; c.style.boxShadow='0 15px 40px rgba(108,60,225,0.5)'; setTimeout(function(){ c.style.transform=''; c.style.boxShadow=''; }, 1200); }, i*150); });" style="background: white; color: #6C3CE1; border: none; padding: 14px 28px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer; white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,0.2); transition: all 0.3s; flex-shrink: 0; font-family: inherit;">
+            🚀 Show Me the Free Samples
+        </button>
+    </div>
+</div>
+
+<!-- Banner Animation Styles -->
+<style>
+    #free-preview-banner {
+        animation: pulse-glow 3s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 10px 40px rgba(108,60,225,0.35); }
+        50% { box-shadow: 0 15px 55px rgba(245,158,11,0.55); }
+    }
+    #free-preview-banner button:hover {
+        transform: translateY(-2px);
+        background: #F59E0B !important;
+        color: white !important;
+    }
+    .service-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    @media (max-width: 640px) {
+        #free-preview-banner h3 { font-size: 1.05rem; }
+        #free-preview-banner p { font-size: 0.85rem; }
+    }
+</style>
             <p class="section-subtitle">Click any service to start learning. Login required for full access.</p>
             
             <div id="services-grid" class="services-grid">
@@ -291,6 +333,34 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
     }
+</script>
+<script>
+    // Show the free preview banner ONLY for guests (not logged-in users)
+    (function() {
+        var banner = document.getElementById('free-preview-banner');
+        if (!banner) return;
+
+        fetch('/api/check-auth')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.authenticated) {
+                    // Guest — show the banner
+                    banner.style.display = 'block';
+                    
+                    // Softly slide it in
+                    banner.style.opacity = '0';
+                    banner.style.transform = 'translateY(-10px)';
+                    setTimeout(function() {
+                        banner.style.transition = 'opacity 0.5s, transform 0.5s';
+                        banner.style.opacity = '1';
+                        banner.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            })
+            .catch(function() {
+                // Silent fail — if API is unreachable, don't show banner
+            });
+    })();
 </script>
 </body>
 </html>

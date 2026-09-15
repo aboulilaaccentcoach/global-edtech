@@ -157,9 +157,77 @@
       transform: rotate(15deg) scale(1.1);
     }
     @media (max-width: 640px) { .dashboard { grid-template-columns: repeat(2,1fr); } .nav-tabs { flex-wrap: nowrap; overflow-x: auto; } .nav-tab { min-width: 60px; font-size: 0.65rem; } .home-btn { position: relative; top: 0; left: 0; margin-bottom: 10px; display: inline-flex; } .daily-challenge { flex-direction: column; text-align: center; } .dc-btn { width: 100%; } }
-  </style>
+    /* Preview Mode Banner */
+    .preview-banner {
+        display: none;
+        position: sticky;
+        top: 0;
+        z-index: 9998;
+        background: linear-gradient(135deg, #6C3CE1, #F59E0B);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 20px rgba(108,60,225,0.4);
+    }
+    .preview-banner a {
+        color: #FFD700;
+        text-decoration: underline;
+        font-weight: 800;
+        cursor: pointer;
+    }
+    .preview-cta {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, rgba(108,60,225,0.15), rgba(245,158,11,0.15));
+        border: 2px dashed var(--primary);
+        border-radius: var(--radius);
+        margin: 24px 0;
+    }
+    .preview-cta h2 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .preview-cta p {
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+        font-size: 0.9rem;
+    }
+    .preview-cta button {
+        background: var(--primary);
+        color: white;
+        padding: 12px 32px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .preview-cta button:hover {
+        background: var(--primary-light);
+        transform: translateY(-2px);
+    }
+    .preview-locked {
+        opacity: 0.45;
+        pointer-events: none;
+        position: relative;
+    }  
+</style>
 </head>
 <body>
+<!-- 🎁 Preview Mode Banner (shown only to guests) -->
+<div class="preview-banner" id="previewBanner">
+    🎁 You're previewing the <strong>American Accent Course</strong> as a guest. 
+    <a onclick="showSignup && showSignup(); return false;">Sign up free</a> 
+    to unlock all lessons, audio, and recording tools.
+</div>
 <div class="container">
 
   <header class="header">
@@ -1733,5 +1801,79 @@
             <a href="/contact" style="color: #2a7de1; text-decoration: none;">Contact</a>
         </div>
     </footer>
+<!-- 🎁 Guest Preview Mode Logic -->
+<script>
+(function() {
+    // Check if user is logged in
+    fetch('/api/check-auth')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.authenticated) {
+                // User is logged in — do nothing. All features work normally.
+                return;
+            }
+            
+            // User is a guest — enable Preview Mode
+            console.log('👤 Guest detected. Enabling preview mode.');
+            
+            // 1. Show the top banner
+            var banner = document.getElementById('previewBanner');
+            if (banner) banner.style.display = 'block';
+            
+            // 2. Disable checkboxes (visual only)
+            document.querySelectorAll('.checkbox').forEach(function(cb) {
+                cb.style.opacity = '0.4';
+                cb.style.cursor = 'not-allowed';
+                cb.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    showPreviewToast('Sign up to save your progress!');
+                }, true);
+            });
+            
+            // 3. Disable recording buttons
+            document.querySelectorAll('.record-btn').forEach(function(btn) {
+                btn.disabled = true;
+                btn.style.opacity = '0.4';
+                btn.style.cursor = 'not-allowed';
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    showPreviewToast('Sign up to record your voice!');
+                }, true);
+            });
+            
+            // 4. Add upgrade CTA at the end of the page
+            var container = document.querySelector('.container') || document.body;
+            var cta = document.createElement('div');
+            cta.className = 'preview-cta';
+            cta.style.display = 'block';
+            cta.innerHTML = 
+                '<h2>🚀 Ready to Master the American Accent?</h2>' +
+                '<p>Create your free account to unlock all 50+ lessons, audio files, progress tracking, and voice recording tools.</p>' +
+                '<button onclick="showSignup && showSignup();">Create Free Account →</button>';
+            container.appendChild(cta);
+        })
+        .catch(function() { /* Silent fail — no preview mode on error */ });
+    
+    // Small toast notification for guests
+    function showPreviewToast(msg) {
+        var existing = document.getElementById('previewToast');
+        if (existing) existing.remove();
+        
+        var toast = document.createElement('div');
+        toast.id = 'previewToast';
+        toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#6C3CE1;color:white;padding:12px 24px;border-radius:10px;font-weight:600;font-size:0.85rem;box-shadow:0 8px 30px rgba(108,60,225,0.5);z-index:10000;opacity:0;transition:opacity 0.3s;';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        
+        setTimeout(function() { toast.style.opacity = '1'; }, 10);
+        setTimeout(function() {
+            toast.style.opacity = '0';
+            setTimeout(function() { toast.remove(); }, 300);
+        }, 2500);
+    }
+})();
+</script>
 </body>
 </html>

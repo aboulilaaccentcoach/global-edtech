@@ -204,9 +204,19 @@ def contact():
 
 
 # 🔒 PROTECTED: Only logged-in users can access course/service pages
+# 🔓 SMART PROTECTION: Guests can preview specific pages; full access requires login
 @app.route('/services/<path:filename>')
-@page_login_required
 def serve_service(filename):
+    is_logged_in = 'user_id' in session
+
+    # ✅ Pages guests can preview (marketing funnel)
+    PREVIEW_WHITELIST = [
+        'PRACTICE_GUIDE_FOR_AMERICAN_ACCENT_COURSE.html',
+    ]
+
+    if not is_logged_in and filename not in PREVIEW_WHITELIST:
+        return redirect('/?login_required=1')
+
     return send_from_directory(os.path.join(BASE_DIR, '../frontend/services'), filename)
 
 

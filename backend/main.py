@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import uuid
 import secrets
@@ -121,10 +121,15 @@ def signup():
     if existing:
         return jsonify({'error': 'Email already registered'}), 400
 
-    plain_password = generate_password()
+       plain_password = generate_password()
+    now = datetime.utcnow()
     new_user = User(
         email=email,
-        password_hash=generate_password_hash(plain_password, method='pbkdf2:sha256')
+        password_hash=generate_password_hash(plain_password, method='pbkdf2:sha256'),
+        password_expires_at=now + timedelta(days=30),
+        access_expires_at=now + timedelta(days=30),
+        subscription_tier='trial',
+        is_active=True
     )
     db.session.add(new_user)
     db.session.commit()
@@ -203,7 +208,7 @@ def signup():
 def login():
     data = request.json or {}
     email = data.get('email', '').strip().lower()
-    email = unicodedata.normalize('NFKC', email)   # ← ADD THIS LINE
+    email = unicodedata.normalize('NFKC', email)
     password = data.get('password', '')
 
     if not email or not password:
@@ -213,10 +218,40 @@ def login():
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({'error': 'Invalid credentials'}), 401
 
+    # ============================================================
+    # GATE 1: Is the account active?
+    # ============================================================
     if not user.is_active:
-        return jsonify({'error': 'Account is disabled'}), 403
+        return jsonify({
+            'error': 'Your access has been revoked. Contact support.',
+            'reason': 'account_disabled'
+        }), 403
 
-    user.last_login = datetime.utcnow()
+    # ============================================================
+    # GATE 2: Has the ACCESS expired? (business)
+    # ============================================================
+    now = datetime.utcnow()
+    if user.access_expires_at and user.access_expires_at < now:
+        days_expired = (now - user.access_expires_at).days
+        return jsonify({
+            'error': f'Your subscription expired {days_expired} days ago. Please renew to continue.',
+            'reason': 'access_expired',
+            'expired_on': user.access_expires_at.isoformat()
+        }), 403
+
+    # ============================================================
+    # GATE 3: Has the PASSWORD expired? (security)
+    # ============================================================
+    if user.password_expires_at and user.password_expires_at < now:
+        return jsonify({
+            'error': 'Your password has expired. Please click "Forgot Password" to get a new one.',
+            'reason': 'password_expired'
+        }), 403
+
+    # ============================================================
+    # ALL GATES PASSED — LOG THE USER IN
+    # ============================================================
+    user.last_login = now
     db.session.commit()
 
     session['user_id'] = user.id
@@ -225,7 +260,12 @@ def login():
     return jsonify({
         'success': True,
         'message': 'Login successful',
-        'user': {'id': user.id, 'email': user.email}
+        'user': {
+            'id': user.id,
+            'email': user.email,
+            'subscription_tier': user.subscription_tier,
+            'access_expires_at': user.access_expires_at.isoformat() if user.access_expires_at else None
+        }
     })
 
 
@@ -248,7 +288,7 @@ def check_auth():
 def forgot_password():
     data = request.json or {}
     email = data.get('email', '').strip().lower()
-    email = unicodedata.normalize('NFKC', email)   # ← ADD THIS LINE
+    email = unicodedata.normalize('NFKC', email)
     if not email:
         return jsonify({'error': 'Email is required'}), 400
 
@@ -258,15 +298,60 @@ def forgot_password():
 
     new_password = generate_password()
     user.password_hash = generate_password_hash(new_password, method='pbkdf2:sha256')
+    user.password_expires_at = datetime.utcnow() + timedelta(days=30)
     db.session.commit()
 
-    return jsonify({
-        'success': True,
-        'message': 'New password generated',
-        'email': email,
-        'new_password': new_password
-    })
+    # Send the new password via email
+    email_sent = False
+    try:
+        params = {
+            "from": f"Global EdTech <{FROM_EMAIL}>",
+            "to": [email],
+            "subject": "Your New Password — Global EdTech",
+            "html": f"""
+            <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="background: linear-gradient(135deg, #6C3CE1, #F59E0B); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
+                    <h1 style="color: white; margin: 0; font-size: 28px;">🌍 Global EdTech</h1>
+                    <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Password Reset</p>
+                </div>
+                <div style="background: #ffffff; padding: 30px; border: 1px solid #e0d6f0; border-top: none;">
+                    <h2 style="color: #1A142F; margin-top: 0;">Your New Password 🔑</h2>
+                    <p style="color: #4A3A6B; line-height: 1.6;">Here is your new login password:</p>
+                    <div style="background: #F5F0FF; border-left: 4px solid #6C3CE1; padding: 16px; border-radius: 8px; margin: 20px 0;">
+                        <p style="margin: 0; color: #4A3A6B;"><strong>Password:</strong> <span style="font-family: monospace; font-size: 16px; background: #fff; padding: 2px 8px; border-radius: 4px;">{new_password}</span></p>
+                    </div>
+                    <p style="color: #4A3A6B; line-height: 1.6;"><strong>⚠️ Important:</strong> Your <strong>access expiry date is unchanged</strong>. Resetting your password does not extend your subscription.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="https://www.aliaboulila.com" style="display: inline-block; background: #6C3CE1; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 700;">Login to Your Account →</a>
+                    </div>
+                </div>
+                <div style="background: #1A142F; padding: 20px; border-radius: 0 0 16px 16px; text-align: center;">
+                    <p style="color: #B8B0D0; font-size: 12px; margin: 0;">© 2026 Ali Aboulila. All Rights Reserved.</p>
+                </div>
+            </div>
+            """
+        }
+        resend.Emails.send(params)
+        email_sent = True
+        print(f"✅ Password reset email sent to: {email}")
+    except Exception as e:
+        print(f"⚠️ Password reset email failed for {email}: {e}")
 
+    if email_sent:
+        return jsonify({
+            'success': True,
+            'message': 'A new password has been sent to your email.',
+            'email': email,
+            'email_sent': True
+        })
+    else:
+        return jsonify({
+            'success': True,
+            'message': 'Password reset! (Email delivery failed — please save this password.)',
+            'email': email,
+            'new_password': new_password,
+            'email_sent': False
+        })
 
 # ============================================================
 # PAGE ROUTES

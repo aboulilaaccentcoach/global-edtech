@@ -7,6 +7,11 @@ async function signup(event) {
     const email = document.getElementById('signup-email').value;
     const resultDiv = document.getElementById('signup-result');
     
+    // Show a loading state
+    resultDiv.className = 'result-message';
+    resultDiv.innerHTML = '⏳ Creating your account...';
+    resultDiv.style.display = 'block';
+    
     try {
         const response = await fetch(`${API_BASE}/signup`, {
             method: 'POST',
@@ -18,22 +23,36 @@ async function signup(event) {
         
         if (data.success) {
             resultDiv.className = 'result-message success';
-            resultDiv.innerHTML = `
-                ✅ Account created!<br>
-                <strong>Email:</strong> ${data.email}<br>
-                <strong>Password:</strong> <span style="font-family: monospace;">${data.password}</span><br>
-                <small>Please save this password. You can now login.</small>
-            `;
+            
+            if (data.email_sent === true) {
+                // ✅ Email sent successfully — show "check your inbox" message
+                resultDiv.innerHTML = `
+                    ✅ <strong>Account created!</strong><br>
+                    📧 We've sent your login password to:<br>
+                    <strong style="color: #6C3CE1;">${data.email}</strong><br>
+                    <small>Please check your inbox (and spam folder, just in case). Then log in with the password we sent you.</small>
+                `;
+            } else {
+                // ⚠️ Email failed — show password as fallback
+                resultDiv.innerHTML = `
+                    ✅ <strong>Account created!</strong><br>
+                    ⚠️ Email delivery is temporarily unavailable.<br>
+                    <strong>Email:</strong> ${data.email}<br>
+                    <strong>Password:</strong> <span style="font-family: monospace; background: #fff; padding: 2px 6px; border-radius: 4px;">${data.password || 'N/A'}</span><br>
+                    <small>Please save this password immediately. You can now login.</small>
+                `;
+            }
+            
             resultDiv.style.display = 'block';
             
             // Clear form
             document.getElementById('signup-email').value = '';
             
-            // Switch to login after 3 seconds
+            // Switch to login modal after 8 seconds
             setTimeout(() => {
                 switchModal('signup-modal', 'login-modal');
                 resultDiv.style.display = 'none';
-            }, 30000);
+            }, 8000);
         } else {
             resultDiv.className = 'result-message error';
             resultDiv.textContent = data.error || 'Signup failed';

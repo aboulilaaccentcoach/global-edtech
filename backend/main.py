@@ -8,6 +8,7 @@ import os
 import uuid
 import secrets
 import unicodedata
+import resend                    
 
 # ============================================================
 # APP & DATABASE SETUP
@@ -20,6 +21,9 @@ app = Flask(__name__,
 
 # SECRET KEY: Fixed via environment variable (prevents logout on restart)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-change-me-in-production')
+# Resend email configuration
+resend.api_key = os.environ.get('RESEND_API_KEY', '')
+FROM_EMAIL = os.environ.get('FROM_EMAIL', 'noreply@aliaboulila.com')
 
 # DATABASE: PostgreSQL in production, SQLite fallback locally
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(BASE_DIR, 'local.db'))
@@ -101,9 +105,13 @@ def page_login_required(f):
 def signup():
     data = request.json or {}
     email = data.get('email', '').strip().lower()
-    email = unicodedata.normalize('NFKC', email)     # ← ADD THIS LINE
+    email = unicodedata.normalize('NFKC', email)
     if not email:
         return jsonify({'error': 'Email is required'}), 400
+
+    existing = User.query.filter_by(email=email).first()
+    if existing:
+        return jsonify({'error': 'Email already registered'}), 400
 
     plain_password = generate_password()
     new_user = User(
@@ -112,6 +120,68 @@ def signup():
     )
     db.session.add(new_user)
     db.session.commit()
+
+    # ============================================================
+    # SEND EMAIL VIA RESEND
+    # ============================================================
+    email_sent = False
+    email_error = None
+    try:
+        params = {
+            "from": f"Global EdTech <{FROM_EMAIL}>",
+            "to": [email],
+            "subject": "Welcome to Global EdTech — Your Login Credentials",
+            "html": f"""
+            <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="background: linear-gradient(135deg, #6C3CE1, #F59E0B); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
+                    <h1 style="color: white; margin: 0; font-size: 28px;">🌍 Global EdTech</h1>
+                    <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Welcome to your learning journey!</p>
+                </div>
+                <div style="background: #ffffff; padding: 30px; border: 1px solid #e0d6f0; border-top: none;">
+                    <h2 style="color: #1A142F; margin-top: 0;">Your Account is Ready 🎉</h2>
+                    <p style="color: #4A3A6B; line-height: 1.6;">Thank you for signing up. Here are your login credentials:</p>
+                    <div style="background: #F5F0FF; border-left: 4px solid #6C3CE1; padding: 16px; border-radius: 8px; margin: 20px 0;">
+                        <p style="margin: 0 0 8px; color: #4A3A6B;"><strong>Email:</strong> {email}</p>
+                        <p style="margin: 0; color: #4A3A6B;"><strong>Password:</strong> <span style="font-family: monospace; font-size: 16px; background: #fff; padding: 2px 8px; border-radius: 4px;">{plain_password}</span></p>
+                    </div>
+                    <p style="color: #4A3A6B; line-height: 1.6;"><strong>🔒 Security Tip:</strong> Please change your password after your first login.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="https://www.aliaboulila.com" style="display: inline-block; background: #6C3CE1; color: white; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-weight: 700;">Login to Your Account →</a>
+                    </div>
+                    <p style="color: #7A7199; font-size: 13px; line-height: 1.6;">If you didn't create this account, please ignore this email.</p>
+                </div>
+                <div style="background: #1A142F; padding: 20px; border-radius: 0 0 16px 16px; text-align: center;">
+                    <p style="color: #B8B0D0; font-size: 12px; margin: 0;">© 2026 Ali Aboulila. All Rights Reserved.</p>
+                </div>
+            </div>
+            """
+        }
+        resend.Emails.send(params)
+        email_sent = True
+        print(f"✅ Welcome email sent to: {email}")
+    except Exception as e:
+        email_error = str(e)
+        print(f"⚠️ Email failed for {email}: {e}")
+
+    # ============================================================
+    # RESPONSE
+    # ============================================================
+    if email_sent:
+        return jsonify({
+            'success': True,
+            'message': 'Account created! Check your email for your password.',
+            'email': email,
+            'email_sent': True
+        })
+    else:
+        return jsonify({
+            'success': True,
+            'message': 'Account created! (Email delivery failed — please save this password.)',
+            'email': email,
+            'password': plain_password,
+            'email_sent': False,
+            'email_error': email_error
+        })
 
     return jsonify({
         'success': True,

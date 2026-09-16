@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import os
 import uuid
 import secrets
@@ -51,7 +51,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
     is_admin = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     last_login = db.Column(db.DateTime, nullable=True)
     password_expires_at = db.Column(db.DateTime, nullable=True)
     access_expires_at = db.Column(db.DateTime, nullable=True)
@@ -122,7 +122,7 @@ def signup():
         return jsonify({'error': 'Email already registered'}), 400
 
     plain_password = generate_password()
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     new_user = User(
         email=email,
         password_hash=generate_password_hash(plain_password, method='pbkdf2:sha256'),
@@ -219,7 +219,7 @@ def login():
     # ============================================================
     # GATE 2: Has the ACCESS expired? (business)
     # ============================================================
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     if user.access_expires_at and user.access_expires_at < now:
         days_expired = (now - user.access_expires_at).days
         return jsonify({
@@ -287,7 +287,7 @@ def forgot_password():
 
     new_password = generate_password()
     user.password_hash = generate_password_hash(new_password, method='pbkdf2:sha256')
-    user.password_expires_at = datetime.utcnow() + timedelta(days=30)
+    user.password_expires_at = datetime.now(timezone.utc) + timedelta(days=30)
     db.session.commit()
 
     # Send the new password via email
@@ -422,7 +422,7 @@ def health_check():
 
     return jsonify({
         'status': 'healthy',
-        'timestamp': datetime.utcnow().isoformat(),
+        'timestamp': datetime.now(timezone.utc).isoformat(),
         'database': db_status,
         'total_users': user_count
     })

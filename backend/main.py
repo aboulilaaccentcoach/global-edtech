@@ -53,16 +53,24 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime, nullable=True)
+    password_expires_at = db.Column(db.DateTime, nullable=True)
+    access_expires_at = db.Column(db.DateTime, nullable=True)
+    subscription_tier = db.Column(db.String(50), default='free')
+    notes = db.Column(db.Text, nullable=True)
 
     def to_dict(self):
         return {
             'id': self.id,
             'email': self.email,
             'is_active': self.is_active,
+            'is_admin': self.is_admin,
             'created_at': self.created_at.isoformat() if self.created_at else None,
-            'last_login': self.last_login.isoformat() if self.last_login else None
+            'last_login': self.last_login.isoformat() if self.last_login else None,
+            'password_expires_at': self.password_expires_at.isoformat() if self.password_expires_at else None,
+            'access_expires_at': self.access_expires_at.isoformat() if self.access_expires_at else None,
+            'subscription_tier': self.subscription_tier,
+            'notes': self.notes
         }
-
 
 # Create all tables on first run
 with app.app_context():

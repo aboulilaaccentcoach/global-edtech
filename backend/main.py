@@ -121,7 +121,7 @@ def signup():
     if existing:
         return jsonify({'error': 'Email already registered'}), 400
 
-       plain_password = generate_password()
+    plain_password = generate_password()
     now = datetime.utcnow()
     new_user = User(
         email=email,
@@ -134,9 +134,7 @@ def signup():
     db.session.add(new_user)
     db.session.commit()
 
-    # ============================================================
     # SEND EMAIL VIA RESEND
-    # ============================================================
     email_sent = False
     email_error = None
     try:
@@ -156,6 +154,7 @@ def signup():
                     <div style="background: #F5F0FF; border-left: 4px solid #6C3CE1; padding: 16px; border-radius: 8px; margin: 20px 0;">
                         <p style="margin: 0 0 8px; color: #4A3A6B;"><strong>Email:</strong> {email}</p>
                         <p style="margin: 0; color: #4A3A6B;"><strong>Password:</strong> <span style="font-family: monospace; font-size: 16px; background: #fff; padding: 2px 8px; border-radius: 4px;">{plain_password}</span></p>
+                        <p style="margin: 8px 0 0; color: #4A3A6B; font-size: 13px;"><strong>Access valid until:</strong> {(now + timedelta(days=30)).strftime('%B %d, %Y')}</p>
                     </div>
                     <p style="color: #4A3A6B; line-height: 1.6;"><strong>🔒 Security Tip:</strong> Please change your password after your first login.</p>
                     <div style="text-align: center; margin: 30px 0;">
@@ -176,9 +175,6 @@ def signup():
         email_error = str(e)
         print(f"⚠️ Email failed for {email}: {e}")
 
-    # ============================================================
-    # RESPONSE
-    # ============================================================
     if email_sent:
         return jsonify({
             'success': True,
@@ -195,13 +191,6 @@ def signup():
             'email_sent': False,
             'email_error': email_error
         })
-
-    return jsonify({
-        'success': True,
-        'message': 'Account created successfully',
-        'email': email,
-        'password': plain_password
-    })
 
 
 @app.route('/api/login', methods=['POST'])

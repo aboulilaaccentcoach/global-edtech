@@ -290,41 +290,6 @@ async function extendUser(userId, days) {
 // ============================================================
 // THEME TOGGLE (Light / Dark Mode)
 // ============================================================
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('admin_theme', theme);
-  const icon = document.getElementById('themeIcon');
-  if (icon) {
-    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-  }
-}
-
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'dark';
-  applyTheme(current === 'dark' ? 'light' : 'dark');
-}
-
-// Load saved theme on page load (default: dark)
-applyTheme(localStorage.getItem('admin_theme') || 'dark');
-// ============================================================
-// THEME TOGGLE (Light / Dark Mode)
-// ============================================================
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('admin_theme', theme);
-  var icon = document.getElementById('themeIcon');
-  if (icon) {
-    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-  }
-}
-
-function toggleTheme() {
-  var current = document.documentElement.getAttribute('data-theme') || 'dark';
-  applyTheme(current === 'dark' ? 'light' : 'dark');
-}
-
-// Load saved theme on page load (default: dark)
-applyTheme(localStorage.getItem('admin_theme') || 'dark');
 
       loadAll();
     } else {
@@ -408,6 +373,25 @@ async function loadAll() {
 }
 
 loadAll();
+</script>
+<!-- ⚙️ THEME TOGGLE (Standalone Script) -->
+<script>
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('admin_theme', theme); } catch(e) {}
+    var icon = document.getElementById('themeIcon');
+    if (icon) {
+      icon.className = (theme === 'light') ? 'fas fa-moon' : 'fas fa-sun';
+    }
+  }
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+  applyTheme((function() {
+    try { return localStorage.getItem('admin_theme'); } catch(e) { return null; }
+  })() || 'dark');
+  console.log('✅ Theme toggle loaded successfully');
 </script>
 </body>
 </html>

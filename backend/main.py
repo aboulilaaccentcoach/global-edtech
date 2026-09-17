@@ -94,6 +94,17 @@ def login_required(f):
             return jsonify({'error': 'Please login first', 'redirect': '/'}), 401
         return f(*args, **kwargs)
     return decorated_function
+def admin_required(f):
+    """Protects admin routes - returns 403 if user is not admin."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return jsonify({'error': 'Login required'}), 401
+        user = User.query.get(session['user_id'])
+        if not user or not user.is_admin:
+            return jsonify({'error': 'Admin access required'}), 403
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 def page_login_required(f):
@@ -431,6 +442,153 @@ def health_check():
 # ============================================================
 # ENTRY POINT
 # ============================================================
+# ============================================================
+# ADMIN DASHBOARD ROUTES
+# ============================================================
+@app.route('/admin/dashboard')
+def serve_admin_dashboard():
+    if 'user_id' not in session:
+        return redirect('/?login_required=1')
+    user = User.query.get(session['user_id'])
+    if not user or not user.is_admin:
+        return redirect('/?admin_required=1')
+    return send_from_directory(os.path.join(BASE_DIR, '../frontend'), 'admin_dashboard.html')
+
+
+@app.route('/api/admin/stats', methods=['GET'])
+@admin_required
+def admin_stats():
+    now = datetime.now(timezone.utc)
+    total = User.query.count()
+    active = User.query.filter(
+        (User.access_expires_at == None) | (User.access_expires_at > now)
+    ).filter_by(is_active=True).count()
+    expired = User.query.filter(User.access_expires_at < now).count()
+    disabled = User.query.filter_by(is_active=False).count()
+    return jsonify({'total': total, 'active': active, 'expired': expired, 'disabled': disabled})
+
+
+@app.route('/api/admin/users', methods=['GET'])
+@admin_required
+def admin_list_users():
+    now = datetime.now(timezone.utc)
+    users = User.query.order_by(User.created_at.desc()).all()
+    result = []
+    for u in users:
+        status = 'active'
+        if not u.is_active:
+            status = 'disabled'
+        elif u.access_expires_at and u.access_expires_at < now:
+            status = 'expired'
+        elif u.password_expires_at and u.password_expires_at < now:
+            status = 'password_expired'
+        result.append({
+            'id': u.id, 'email': u.email, 'is_active': u.is_active, 'is_admin': u.is_admin,
+            'status': status, 'subscription_tier': u.subscription_tier,
+            'created_at': u.created_at.isoformat() if u.created_at else None,
+            'last_login': u.last_login.isoformat() if u.last_login else None,
+            'access_expires_at': u.access_expires_at.isoformat() if u.access_expires_at else None,
+            'password_expires_at': u.password_expires_at.isoformat() if u.password_expires_at else None,
+            'notes': u.notes
+        })
+    return jsonify(result)
+
+
+@app.route('/api/admin/users/<user_id>/toggle', methods=['POST'])
+@admin_required
+def admin_toggle_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    if user.is_admin:
+        return jsonify({'error': 'Cannot disable admin account'}), 400
+    user.is_active = not user.is_active
+    db.session.commit()
+    return jsonify({'success': True, 'is_active': user.is_active})
+
+
+@app.route('/api/admin/users/<user_id>/extend', methods=['POST'])
+@admin_required
+def admin_extend_user(user_id):
+    data = request.json or {}
+    days = int(data.get('days', 30))
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    now = datetime.now(timezone.utc)
+    base = user.access_expires_at if user.access_expires_at and user.access_expires_at > now else now
+    user.access_expires_at = base + timedelta(days=days)
+    user.is_active = True
+    db.session.commit()
+    return jsonify({'success': True, 'access_expires_at': user.access_expires_at.isoformat()})
+
+
+@app.route('/api/admin/users/<user_id>/reset-password', methods=['POST'])
+@admin_required
+def admin_reset_password(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    new_password = generate_password()
+    user.password_hash = generate_password_hash(new_password, method='pbkdf2:sha256')
+    user.password_expires_at = datetime.now(timezone.utc) + timedelta(days=30)
+    db.session.commit()
+    email_sent = False
+    try:
+        params = {
+            "from": f"Global EdTech <{FROM_EMAIL}>",
+            "to": [user.email],
+            "subject": "Your Password Has Been Reset — Global EdTech",
+            "html": f"""
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="background: linear-gradient(135deg, #6C3CE1, #F59E0B); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
+                    <h1 style="color: white; margin: 0;">🌍 Global EdTech</h1>
+                    <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0;">Password Reset by Admin</p>
+                </div>
+                <div style="background: #fff; padding: 30px; border: 1px solid #e0d6f0;">
+                    <h2 style="color: #1A142F;">Your New Password 🔑</h2>
+                    <p style="color: #4A3A6B;">Your password has been reset by the administrator:</p>
+                    <div style="background: #F5F0FF; border-left: 4px solid #6C3CE1; padding: 16px; border-radius: 8px; margin: 20px 0;">
+                        <p style="margin: 0; color: #4A3A6B;"><strong>Password:</strong> <span style="font-family: monospace; font-size: 16px; background: #fff; padding: 2px 8px; border-radius: 4px;">{new_password}</span></p>
+                    </div>
+                    <p style="color: #7A7199; font-size: 13px;">If you did not request this, please contact support.</p>
+                </div>
+                <div style="background: #1A142F; padding: 20px; border-radius: 0 0 16px 16px; text-align: center;">
+                    <p style="color: #B8B0D0; font-size: 12px; margin: 0;">© 2026 Ali Aboulila. All Rights Reserved.</p>
+                </div>
+            </div>
+            """
+        }
+        resend.Emails.send(params)
+        email_sent = True
+    except Exception as e:
+        print(f"⚠️ Admin password reset email failed: {e}")
+    return jsonify({'success': True, 'email_sent': email_sent, 'new_password': new_password if not email_sent else None})
+
+
+@app.route('/api/admin/users/<user_id>/notes', methods=['POST'])
+@admin_required
+def admin_update_notes(user_id):
+    data = request.json or {}
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    user.notes = data.get('notes', '')
+    db.session.commit()
+    return jsonify({'success': True})
+
+
+@app.route('/api/admin/users/<user_id>', methods=['DELETE'])
+@admin_required
+def admin_delete_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    if user.is_admin:
+        return jsonify({'error': 'Cannot delete admin account'}), 400
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({'success': True})
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)

@@ -15,6 +15,13 @@
       --text: #FFFFFF; --text-2: #B8B0D0; --text-3: #7A7199;
       --radius: 12px;
     }
+    [data-theme="light"] {
+      --bg: #F5F0FF; --card: #FFFFFF; --border: #E0D6F0;
+      --text: #1A142F; --text-2: #4A3A6B; --text-3: #7A7199;
+    }
+    [data-theme="light"] .user-row.header { background: rgba(108,60,225,0.08); }
+    [data-theme="light"] .icon-btn { background: #F5F0FF; }
+    [data-theme="light"] body { background: var(--bg); }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
     .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
     
@@ -99,7 +106,10 @@
 
   <div class="top-bar">
     <h1>🛡️ Admin Dashboard</h1>
-    <div class="actions">
+        <div class="actions">
+      <button class="btn btn-ghost" id="themeToggle" title="Toggle Light/Dark Mode" onclick="toggleTheme()">
+        <i class="fas fa-sun" id="themeIcon"></i>
+      </button>
       <a href="/" class="btn btn-ghost"><i class="fas fa-home"></i> Home</a>
       <button class="btn btn-primary" onclick="loadAll()"><i class="fas fa-sync"></i> Refresh</button>
     </div>
@@ -277,6 +287,26 @@ async function extendUser(userId, days) {
     const d = await r.json();
     if (d.success) {
       showToast(`✅ Extended by ${days} days`);
+// ============================================================
+// THEME TOGGLE (Light / Dark Mode)
+// ============================================================
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('admin_theme', theme);
+  const icon = document.getElementById('themeIcon');
+  if (icon) {
+    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+// Load saved theme on page load (default: dark)
+applyTheme(localStorage.getItem('admin_theme') || 'dark');
+
       loadAll();
     } else {
       showToast(d.error || 'Failed', 'error');

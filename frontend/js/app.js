@@ -152,14 +152,21 @@ function updateUI(user) {
     const authButtons = document.getElementById('auth-buttons');
     const userInfo = document.getElementById('user-info');
     const userEmail = document.getElementById('user-email');
+    const adminBtn = document.getElementById('admin-dashboard-btn');
     
     if (user) {
         authButtons.style.display = 'none';
         userInfo.style.display = 'flex';
         userEmail.textContent = user.email;
+        
+        // Show admin dashboard button ONLY for admin users
+        if (adminBtn) {
+            adminBtn.style.display = user.is_admin ? 'inline-flex' : 'none';
+        }
     } else {
         authButtons.style.display = 'flex';
         userInfo.style.display = 'none';
+        if (adminBtn) adminBtn.style.display = 'none';
         sessionStorage.clear();
     }
 }

@@ -280,7 +280,7 @@ def check_auth():
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
         if user and user.is_active:
-            return jsonify({'authenticated': True, 'user': {'id': user.id, 'email': user.email}})
+            return jsonify({'authenticated': True, 'user': {'id': user.id, 'email': user.email, 'is_admin': user.is_admin}})
     return jsonify({'authenticated': False})
 
 

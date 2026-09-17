@@ -21,10 +21,13 @@
                     <button class="btn btn-primary" onclick="showSignup()">Sign Up</button>
                     <button class="btn btn-outline" onclick="window.location.href='/contact'">Contact Us</button>
                 </div>
-                <div id="user-info" style="display: none;">
-                    <span id="user-email" class="user-email"></span>
-                    <button class="btn btn-danger" onclick="logout()">Logout</button>
-                </div>
+                <div id="user-info" style="display: none; align-items: center; gap: 10px;">
+    <a href="/admin/dashboard" id="admin-dashboard-btn" class="btn btn-primary" style="display: none; text-decoration: none;">
+        🛡️ Admin Dashboard
+    </a>
+    <span id="user-email" class="user-email"></span>
+    <button class="btn btn-danger" onclick="logout()">Logout</button>
+</div>
             </div>
         </div>
     </nav>

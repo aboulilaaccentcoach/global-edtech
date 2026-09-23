@@ -474,16 +474,16 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     // Initialize on page load
-    window.onload = function() {
-        switchSection(1);
-    };
+window.addEventListener('DOMContentLoaded', () => {
+    buildAllSections();
+    switchSection(1);
+});
 </script>
 
 <!-- Navigation -->
 <div style="text-align: center; margin-top: 40px;">
     <button onclick="window.location.href='IELTS_READING_TEST1.HTML'" style="padding: 15px 30px; font-size: 1.2rem; background: #2a7de1; color: white; border: none; border-radius: 8px; cursor: pointer;">Next: Reading Section</button>
 </div>
-<script>
     <!-- Compact Footer for Exam Pages -->
     <footer style="background: #1a1a2e; color: #a0a0c0; padding: 10px 20px; text-align: center; border-top: 2px solid #2a7de1; margin-top: 10px; font-family: Arial, sans-serif; font-size: 11px;">
         <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -494,7 +494,6 @@ window.addEventListener('DOMContentLoaded', () => {
             <a href="/contact" style="color: #2a7de1; text-decoration: none;">Contact</a>
         </div>
     </footer>
-<script>
     window.PREVIEW_COURSE_NAME = "IELTS Listening Test 1";
 </script>
 <script src="../../../js/preview-mode.js"></script>

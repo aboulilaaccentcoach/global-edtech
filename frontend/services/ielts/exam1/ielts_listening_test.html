@@ -213,151 +213,134 @@
     // SECTION SWITCHING & BUILDING
     // ============================================================
     function switchSection(n) {
-        // Update Tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.tab-btn[data-section="${n}"]`).classList.add('active');
-        
-        // Toggle Audio
-        for (let i = 1; i <= 4; i++) {
-            document.getElementById(`audio-${i}`).style.display = (i === n) ? 'block' : 'none';
-        }
-        
-        // Build the section content
-        buildSection(n);
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.tab-btn[data-section="${n}"]`).classList.add('active');
+    
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById(`audio-${i}`).style.display = (i === n) ? 'block' : 'none';
+        const wrapper = document.getElementById(`section-wrapper-${i}`);
+        if (wrapper) wrapper.style.display = (i === n) ? 'block' : 'none';
     }
+}
     
     // ============================================================
     // SECTION BUILDERS (Based on your data)
     // ============================================================
-    function buildSection(n) {
-        const content = document.getElementById('section-content');
-        let html = '';
-        
-        // --- SECTION 1 (Notes Completion) ---
-        if (n === 1 && examData.section1) {
-            const data = examData.section1;
-            html += `<div class="section-card">
-                <div class="section-topic">${data.title}</div>
-                <p><strong>Instructions:</strong> ${data.instruction}</p>
-                <div style="margin-top:20px;">`;
-            
-            data.questions.forEach(q => {
-               html += `<div style="margin-bottom:15px;">
-               <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
-               </div>`;
-            });
-            
-            html += `</div></div>`;
-        }
-        
-        // --- SECTION 2 (Part 1: Multiple Choice + Part 2: Map) ---
-        else if (n === 2) {
-            // Part 1
-            const p1 = examData.section2_part1;
-            html += `<div class="section-card">
-                <div class="section-topic">${p1.title}</div>
-                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
-            
-            p1.questions.forEach(q => {
-                html += `<div style="margin-top:20px;">
-                    <strong>${q.id}.</strong> ${q.q}<br>`;
-                q.options.forEach((opt, i) => {
-                    const letter = String.fromCharCode(65 + i);
-                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
-                });
-                html += `</div>`;
-            });
-            html += `</div>`;
-            
-            // Part 2 (Map)
-            const p2 = examData.section2_part2;
-            html += `<div class="section-card">
-                <div class="section-topic">${p2.title}</div>
-                <p><strong>Instructions:</strong> ${p2.instruction}</p>
-                <div class="map-container">
-                    <img src="${p2.image}" alt="Map">
-                </div>`;
-            
-            p2.questions.forEach(q => {
-                html += `<div style="margin-bottom:10px;">
-                    <strong>${q.id}.</strong> ${q.label} <input type="text" class="answer-box" data-q="${q.id}">
-                </div>`;
-            });
-            html += `</div>`;
-        }
-        
-        // --- SECTION 3 (Part 1: Multiple Choice) ---
-               // --- SECTION 3 (Multiple Choice + Fill-in-the-blank) ---
-        else if (n === 3 && examData.section3_part1) {
-            const p1 = examData.section3_part1;
-            const p2 = examData.section3_part2;
-            
-            // Part 1: Multiple Choice
-            html += `<div class="section-card">
-                <div class="section-topic">${p1.title}</div>
-                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
-            
-            p1.questions.forEach(q => {
-                html += `<div style="margin-top:20px;">
-                    <strong>${q.id}.</strong> ${q.q}<br>`;
-                q.options.forEach((opt, i) => {
-                    const letter = String.fromCharCode(65 + i);
-                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
-                });
-                html += `</div>`;
-            });
-            html += `</div>`;
-            
-            // Part 2: Fill in the blank
-            html += `<div class="section-card">
-                <div class="section-topic">${p2.title}</div>
-                <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
-            
-            p2.questions.forEach(q => {
-                html += `<div style="margin-bottom:15px;">
-                    <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
-                </div>`;
-            });
-            html += `</div>`;
-        }
-        
-        // --- SECTION 4 (Part 1: Multiple Choice) ---
-                // --- SECTION 4 (Multiple Choice + Fill-in-the-blank) ---
-        else if (n === 4 && examData.section4_part1) {
-            const p1 = examData.section4_part1;
-            const p2 = examData.section4_part2;
-            
-            // Part 1: Multiple Choice
-            html += `<div class="section-card">
-                <div class="section-topic">${p1.title}</div>
-                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
-            
-            p1.questions.forEach(q => {
-                html += `<div style="margin-top:20px;">
-                    <strong>${q.id}.</strong> ${q.q}<br>`;
-                q.options.forEach((opt, i) => {
-                    const letter = String.fromCharCode(65 + i);
-                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
-                });
-                html += `</div>`;
-            });
-            html += `</div>`;
-            
-            // Part 2: Fill in the blank
-            html += `<div class="section-card">
-                <div class="section-topic">${p2.title}</div>
-                <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
-            
-            p2.questions.forEach(q => {
-                html += `<div style="margin-bottom:15px;">
-                    <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
-                </div>`;
-            });
-            html += `</div>`;
-        }
-        
-        content.innerHTML = html;
+   // Build ALL sections once on page load
+function buildAllSections() {
+    const container = document.getElementById('section-content');
+    let html = '';
+    for (let n = 1; n <= 4; n++) {
+        const sectionHtml = buildSectionHTML(n);
+        const display = (n === 1) ? 'block' : 'none';
+        html += `<div id="section-wrapper-${n}" style="display: ${display};">${sectionHtml}</div>`;
     }
+    container.innerHTML = html;
+}
+
+// Returns the HTML for a single section (does not inject)
+function buildSectionHTML(n) {
+    let html = '';
+    
+    // --- SECTION 1 (Notes Completion) ---
+    if (n === 1 && examData.section1) {
+        const data = examData.section1;
+        html += `<div class="section-card">
+            <div class="section-topic">${data.title}</div>
+            <p><strong>Instructions:</strong> ${data.instruction}</p>
+            <div style="margin-top:20px;">`;
+        data.questions.forEach(q => {
+            html += `<div style="margin-bottom:15px;">
+                <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
+            </div>`;
+        });
+        html += `</div></div>`;
+    }
+    
+    // --- SECTION 2 ---
+    else if (n === 2 && examData.section2_part1) {
+        const p1 = examData.section2_part1;
+        const p2 = examData.section2_part2;
+        
+        html += `<div class="section-card">
+            <div class="section-topic">${p1.title}</div>
+            <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+        p1.questions.forEach(q => {
+            html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
+            q.options.forEach((opt, i) => {
+                const letter = String.fromCharCode(65 + i);
+                html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+            });
+            html += `</div>`;
+        });
+        html += `</div>`;
+        
+        html += `<div class="section-card">
+            <div class="section-topic">${p2.title}</div>
+            <p><strong>Instructions:</strong> ${p2.instruction}</p>
+            <div class="map-container"><img src="${p2.image}" alt="Map"></div>`;
+        p2.questions.forEach(q => {
+            html += `<div style="margin-bottom:10px;"><strong>${q.id}.</strong> ${q.label} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
+        });
+        html += `</div>`;
+    }
+    
+    // --- SECTION 3 ---
+    else if (n === 3 && examData.section3_part1) {
+        const p1 = examData.section3_part1;
+        const p2 = examData.section3_part2;
+        
+        html += `<div class="section-card">
+            <div class="section-topic">${p1.title}</div>
+            <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+        p1.questions.forEach(q => {
+            html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
+            q.options.forEach((opt, i) => {
+                const letter = String.fromCharCode(65 + i);
+                html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+            });
+            html += `</div>`;
+        });
+        html += `</div>`;
+        
+        html += `<div class="section-card">
+            <div class="section-topic">${p2.title}</div>
+            <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
+        p2.questions.forEach(q => {
+            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
+        });
+        html += `</div>`;
+    }
+    
+    // --- SECTION 4 ---
+    else if (n === 4 && examData.section4_part1) {
+        const p1 = examData.section4_part1;
+        const p2 = examData.section4_part2;
+        
+        html += `<div class="section-card">
+            <div class="section-topic">${p1.title}</div>
+            <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+        p1.questions.forEach(q => {
+            html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
+            q.options.forEach((opt, i) => {
+                const letter = String.fromCharCode(65 + i);
+                html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+            });
+            html += `</div>`;
+        });
+        html += `</div>`;
+        
+        html += `<div class="section-card">
+            <div class="section-topic">${p2.title}</div>
+            <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
+        p2.questions.forEach(q => {
+            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
+        });
+        html += `</div>`;
+    }
+    
+    return html;
+}
     
     // ============================================================
     // TIMER FUNCTIONS
@@ -449,6 +432,13 @@
         document.getElementById('score-display').textContent = '📊 0 / 40';
         document.getElementById('results-panel').style.display = 'none';
     }
+// ============================================================
+// INITIALIZATION
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+    buildAllSections();
+    switchSection(1);
+});
     
         function showAnswers() {
         // Fill in Section 1 answers

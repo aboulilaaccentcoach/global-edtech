@@ -230,13 +230,16 @@
    // Build ALL sections once on page load
 function buildAllSections() {
     const container = document.getElementById('section-content');
-    let html = '';
+    container.innerHTML = '';  // clear any existing content
+    
     for (let n = 1; n <= 4; n++) {
-        const sectionHtml = buildSectionHTML(n);
-        const display = (n === 1) ? 'block' : 'none';
-        html += `<div id="section-wrapper-${n}" style="display: ${display};">${sectionHtml}</div>`;
+        // Create wrapper as a real DOM node (bulletproof — can't nest incorrectly)
+        const wrapper = document.createElement('div');
+        wrapper.id = 'section-wrapper-' + n;
+        wrapper.style.display = (n === 1) ? 'block' : 'none';
+        wrapper.innerHTML = buildSectionHTML(n);
+        container.appendChild(wrapper);
     }
-    container.innerHTML = html;
 }
 
 // Returns the HTML for a single section (does not inject)

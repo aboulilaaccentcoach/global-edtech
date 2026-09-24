@@ -2,27 +2,27 @@
 // ORIGINAL GLOBAL EDTECH LISTENING DATA - EXAM 2
 // ==============================================
 
-const newListeningQuestions2 = {
-    // SECTION 1 - Swimming Course Enquiry
+const newListeningQuestions = {
+    // SECTION 1
     section1: {
         title: "Weekend Swimming Course Enquiry",
         instruction: "Write ONE WORD AND/OR A NUMBER for each answer.",
         audio: "section1.mp3",
         questions: [
-            { id: 1, type: "note", label: "Course start date:", answer: "7 May", placeholder: "______" },
-            { id: 2, type: "note", label: "Course location: ______ pool", answer: "training", placeholder: "______" },
-            { id: 3, type: "note", label: "Maximum participants:", answer: "12", placeholder: "______" },
-            { id: 4, type: "note", label: "Fee includes training fins and a waterproof ______", answer: "cap", placeholder: "______" },
-            { id: 5, type: "note", label: "Participants must bring their own ______", answer: "towel", placeholder: "______" },
-            { id: 6, type: "note", label: "Course starts at ______ a.m.", answer: "8:45", placeholder: "______" },
-            { id: 7, type: "note", label: "Break time is at ______", answer: "10:20", placeholder: "______" },
-            { id: 8, type: "note", label: "Outdoor activity takes place in the ______ Garden", answer: "Courtyard", placeholder: "______" },
-            { id: 9, type: "note", label: "Instructor's surname:", answer: "Linton", placeholder: "______" },
-            { id: 10, type: "note", label: "Certificates sent within ______ days", answer: "four", placeholder: "______" }
+            { id: 1, type: "note", label: "Course start date: ______", answer: "7 May" },
+            { id: 2, type: "note", label: "Course location: ______ pool", answer: "training" },
+            { id: 3, type: "note", label: "Maximum participants: ______", answer: "12" },
+            { id: 4, type: "note", label: "Fee includes training fins and a waterproof ______", answer: "cap" },
+            { id: 5, type: "note", label: "Participants must bring their own ______", answer: "towel" },
+            { id: 6, type: "note", label: "Course starts at ______ a.m.", answer: "8:45" },
+            { id: 7, type: "note", label: "Break time is at ______", answer: "10:20" },
+            { id: 8, type: "note", label: "Outdoor activity takes place in the ______ Garden", answer: "Courtyard" },
+            { id: 9, type: "note", label: "Instructor's surname: ______", answer: "Linton" },
+            { id: 10, type: "note", label: "Certificates sent within ______ days", answer: "four" }
         ]
     },
 
-    // SECTION 2 - Part 1 (Multiple Choice)
+    // SECTION 2 (Part 1 - Multiple Choice)
     section2_part1: {
         title: "Overview of the New Exhibition Hall",
         instruction: "Choose the correct letter A, B, or C.",
@@ -36,7 +36,7 @@ const newListeningQuestions2 = {
         ]
     },
 
-    // SECTION 2 - Part 2 (Map)
+    // SECTION 2 (Part 2 - Map Labeling)
     section2_part2: {
         title: "Exhibition Hall - Map Description",
         instruction: "Label the map. Choose the correct letter A-G.",
@@ -51,7 +51,7 @@ const newListeningQuestions2 = {
         ]
     },
 
-    // SECTION 3 - Part 1 (Multiple Choice)
+    // SECTION 3 (Part 1 - Multiple Choice)
     section3_part1: {
         title: "Group Presentation Progress Meeting",
         instruction: "Choose the correct letter A, B, or C.",
@@ -66,7 +66,7 @@ const newListeningQuestions2 = {
         ]
     },
 
-    // SECTION 3 - Part 2 (Completion)
+    // SECTION 3 (Part 2 - Completion)
     section3_part2: {
         title: "Final Adjustments to the Presentation",
         instruction: "Complete the sentences. Write NO MORE THAN TWO WORDS.",
@@ -79,7 +79,7 @@ const newListeningQuestions2 = {
         ]
     },
 
-    // SECTION 4 - Part 1 (Multiple Choice)
+    // SECTION 4 (Part 1 - Multiple Choice)
     section4_part1: {
         title: "Lecture on Habit Formation",
         instruction: "Choose the correct letter A, B, or C.",
@@ -87,26 +87,26 @@ const newListeningQuestions2 = {
         questions: [
             { id: 31, type: "mc", q: "A habit begins with a", options: ["Reward", "Cue", "Routine"], answer: "B" },
             { id: 32, type: "mc", q: "The routine is described as the", options: ["Trigger", "Behavior", "Outcome"], answer: "B" },
-            { id: 33, type: "mc", q: "Rewards strengthen habits by providing", options: ["Stress", "Punishment", "Satisfaction"], answer: "C" },
+            { id: 33, type: "mc", q: "Rewards strengthen habits by providing", options: ["Stress", "Anticipation", "Pleasure"], answer: "C" },
             { id: 34, type: "mc", q: "Habit strength increases through", options: ["Consistency", "Randomness", "Avoidance"], answer: "A" },
             { id: 35, type: "mc", q: "The lecturer says environment can", options: ["Prevent all habits", "Influence behavior", "Replace rewards"], answer: "B" }
         ]
     },
 
-    // SECTION 4 - Part 2 (Completion)
+    // SECTION 4 (Part 2 - Completion)
     section4_part2: {
         title: "Summary of Habit Formation Principles",
         instruction: "Complete the summary. Write NO MORE THAN TWO WORDS.",
         audio: "section4.mp3",
         questions: [
-            { id: 36, label: "Habits begin with a ______", answer: "cue" },
-            { id: 37, label: "The routine is the actual ______", answer: "behavior" },
-            { id: 38, label: "Rewards help reinforce the habit ______", answer: "loop" },
-            { id: 39, label: "Changing the ______", answer: "environment" },
-            { id: 40, label: "Long-term habit change requires deliberate ______", answer: "practice" }
+            { id: 36, label: "Habits begin with a ______.", answer: "cue" },
+            { id: 37, label: "The routine is the actual ______ performed.", answer: "behavior" },
+            { id: 38, label: "Rewards help reinforce the habit ______.", answer: "loop" },
+            { id: 39, label: "Changing the ______ can help reshape habits.", answer: "environment" },
+            { id: 40, label: "Long-term habit change requires deliberate ______.", answer: "practice" }
         ]
     }
 };
 
 // Expose the data globally so the exam HTML can find it
-window.newListeningQuestions2 = newListeningQuestions2;
+window.newListeningQuestions = newListeningQuestions;

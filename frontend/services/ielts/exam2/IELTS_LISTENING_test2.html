@@ -32,9 +32,6 @@
         .tab-btn { padding: 15px; border: 2px solid #e6edf8; border-radius: 15px; background: white; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.3s ease; }
         .tab-btn.active { border-color: #2a7de1; background: #f0f4fe; color: #2a7de1; transform: translateY(-2px); }
         
-        .section-panel { display: none; }
-        .section-panel.active { display: block; }
-        
         .section-card { border: 1px solid #e6edf8; border-radius: 15px; padding: 20px; margin-bottom: 20px; }
         .section-topic { font-size: 20px; font-weight: 700; color: #2a7de1; margin-bottom: 15px; }
         
@@ -61,10 +58,32 @@
         .band-scale-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #e6edf8; }
         
         .map-container { text-align: center; margin: 20px 0; }
-        .map-container img { max-width: 100%; border-radius: 10px; border: 2px solid #e6edf8; }
+        .map-container img { max-width: 400px; width: 50%; border-radius: 10px; border: 2px solid #e6edf8; display: block; margin: 0 auto; }
+        
+        .preview-banner {
+            display: none;
+            position: sticky;
+            top: 0;
+            z-index: 9998;
+            background: linear-gradient(135deg, #6C3CE1, #F59E0B);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 20px rgba(108,60,225,0.4);
+            font-family: 'Inter', sans-serif;
+        }
+        .preview-banner a {
+            color: #FFD700;
+            text-decoration: underline;
+            font-weight: 800;
+            cursor: pointer;
+        }    
     </style>
 </head>
 <body>
+<div class="preview-banner" id="previewBanner"></div>
 
 <div class="main-content">
     
@@ -86,7 +105,7 @@
                 <button class="btn-timer primary" id="btn-start" onclick="startTimer()">Start</button>
                 <button class="btn-timer secondary" id="btn-pause" onclick="pauseTimer()" disabled>Pause</button>
                 <button class="btn-timer secondary" onclick="resetTimer()">Reset</button>
-        <a href="/" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 11px; font-weight: bold; margin-left: 15px; line-height: 1.2;"><span style="font-size: 20px; margin-bottom: 2px;">🏠</span>Home</a>
+                <a href="/" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 11px; font-weight: bold; margin-left: 15px; line-height: 1.2;"><span style="font-size: 20px; margin-bottom: 2px;">🏠</span>Home</a>
             </div>
         </div>
 
@@ -129,7 +148,7 @@
             <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
             <button class="btn btn-success" onclick="showAnswers()">Show Answers</button>
             <div class="score-display" id="score-display">📊 0 / 40</div>
-<div style="font-size: 11px; color: #888; text-align: right; margin-top: 4px;">Total across all 4 sections</div>
+            <div style="font-size: 11px; color: #888; text-align: right; margin-top: 4px;">Total across all 4 sections</div>
         </div>
 
         <div class="results-panel" id="results-panel">
@@ -152,147 +171,152 @@
     </div>
 </div>
 
-<!-- IMPORT DATA -->
-<script src="new_listening_data2.js"></script>
+<script src="new_listening_data.js"></script>
 
-<!-- MAIN LOGIC -->
 <script>
-    // ============================================================
-    // GLOBAL EDTECH LISTENING LOGIC - EXAM 2
-    // ============================================================
-    
-    const examData = window.newListeningQuestions2;
+    const examData = window.newListeningQuestions;
     
     let timeLeft = 35 * 60;
     let timerInterval = null;
     let isRunning = false;
     
-   function switchSection(n) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`.tab-btn[data-section="${n}"]`).classList.add('active');
-    
-    for (let i = 1; i <= 4; i++) {
-        document.getElementById(`audio-${i}`).style.display = (i === n) ? 'block' : 'none';
-        const wrapper = document.getElementById(`section-wrapper-${i}`);
-        if (wrapper) wrapper.style.display = (i === n) ? 'block' : 'none';
-    }
-}
-    
-    // Build ALL sections once on page load
-function buildAllSections() {
-    const container = document.getElementById('section-content');
-    let html = '';
-    for (let n = 1; n <= 4; n++) {
-        const sectionHtml = buildSectionHTML(n);
-        const display = (n === 1) ? 'block' : 'none';
-        html += `<div id="section-wrapper-${n}" style="display: ${display};">${sectionHtml}</div>`;
-    }
-    container.innerHTML = html;
-}
-
-// Returns the HTML for a single section (does not inject)
-function buildSectionHTML(n) {
-    let html = '';
-    
-    // --- SECTION 1 ---
-    if (n === 1 && examData.section1) {
-        const data = examData.section1;
-        html += `<div class="section-card">
-            <div class="section-topic">${data.title}</div>
-            <p><strong>Instructions:</strong> ${data.instruction}</p>
-            <div style="margin-top:20px;">`;
-        data.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;">
-                <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
-            </div>`;
-        });
-        html += `</div></div>`;
-    }
-    
-    // --- SECTION 2 ---
-    else if (n === 2 && examData.section2_part1) {
-        const p1 = examData.section2_part1;
-        const p2 = examData.section2_part2;
+    function switchSection(n) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.tab-btn[data-section="${n}"]`).classList.add('active');
         
-        html += `<div class="section-card">
-            <div class="section-topic">${p1.title}</div>
-            <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
-        p1.questions.forEach(q => {
-            html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
-            q.options.forEach((opt, i) => {
-                const letter = String.fromCharCode(65 + i);
-                html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById(`audio-${i}`).style.display = (i === n) ? 'block' : 'none';
+            const wrapper = document.getElementById(`section-wrapper-${i}`);
+            if (wrapper) wrapper.style.display = (i === n) ? 'block' : 'none';
+        }
+    }
+    
+    function buildAllSections() {
+        const container = document.getElementById('section-content');
+        container.innerHTML = '';
+        
+        for (let n = 1; n <= 4; n++) {
+            const wrapper = document.createElement('div');
+            wrapper.id = 'section-wrapper-' + n;
+            wrapper.style.display = (n === 1) ? 'block' : 'none';
+            wrapper.innerHTML = buildSectionHTML(n);
+            container.appendChild(wrapper);
+        }
+    }
+    
+    function buildSectionHTML(n) {
+        let html = '';
+        
+        // --- SECTION 1 ---
+        if (n === 1 && examData.section1) {
+            const data = examData.section1;
+            html += `<div class="section-card">
+                <div class="section-topic">${data.title}</div>
+                <p><strong>Instructions:</strong> ${data.instruction}</p>
+                <div style="margin-top:20px;">`;
+            data.questions.forEach(q => {
+                const inputHtml = '<input type="text" class="answer-box" data-q="' + q.id + '">';
+                html += '<div style="margin-bottom:15px;">';
+                html += '<strong>' + q.id + '.</strong> ';
+                html += q.label.replace('______', inputHtml);
+                html += '</div>';
+            });
+            html += `</div></div>`;
+        }
+        
+        // --- SECTION 2 ---
+        else if (n === 2 && examData.section2_part1) {
+            const p1 = examData.section2_part1;
+            const p2 = examData.section2_part2;
+            
+            html += `<div class="section-card">
+                <div class="section-topic">${p1.title}</div>
+                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+            p1.questions.forEach(q => {
+                html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+                });
+                html += `</div>`;
             });
             html += `</div>`;
-        });
-        html += `</div>`;
-        
-        html += `<div class="section-card">
-            <div class="section-topic">${p2.title}</div>
-            <p><strong>Instructions:</strong> ${p2.instruction}</p>
-            <div class="map-container"><img src="${p2.image}" alt="Map"></div>`;
-        p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:10px;"><strong>${q.id}.</strong> ${q.label} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
-        });
-        html += `</div>`;
-    }
-    
-    // --- SECTION 3 ---
-    else if (n === 3 && examData.section3_part1) {
-        const p1 = examData.section3_part1;
-        const p2 = examData.section3_part2;
-        
-        html += `<div class="section-card">
-            <div class="section-topic">${p1.title}</div>
-            <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
-        p1.questions.forEach(q => {
-            html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
-            q.options.forEach((opt, i) => {
-                const letter = String.fromCharCode(65 + i);
-                html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+            
+            html += `<div class="section-card">
+                <div class="section-topic">${p2.title}</div>
+                <p><strong>Instructions:</strong> ${p2.instruction}</p>
+                <div class="map-container"><img src="${p2.image}" alt="Map"></div>`;
+            p2.questions.forEach(q => {
+                html += `<div style="margin-bottom:10px;"><strong>${q.id}.</strong> ${q.label} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
             });
             html += `</div>`;
-        });
-        html += `</div>`;
+        }
         
-        html += `<div class="section-card">
-            <div class="section-topic">${p2.title}</div>
-            <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
-        p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
-        });
-        html += `</div>`;
-    }
-    
-    // --- SECTION 4 ---
-    else if (n === 4 && examData.section4_part1) {
-        const p1 = examData.section4_part1;
-        const p2 = examData.section4_part2;
-        
-        html += `<div class="section-card">
-            <div class="section-topic">${p1.title}</div>
-            <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
-        p1.questions.forEach(q => {
-            html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
-            q.options.forEach((opt, i) => {
-                const letter = String.fromCharCode(65 + i);
-                html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+        // --- SECTION 3 ---
+        else if (n === 3 && examData.section3_part1) {
+            const p1 = examData.section3_part1;
+            const p2 = examData.section3_part2;
+            
+            html += `<div class="section-card">
+                <div class="section-topic">${p1.title}</div>
+                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+            p1.questions.forEach(q => {
+                html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+                });
+                html += `</div>`;
             });
             html += `</div>`;
-        });
-        html += `</div>`;
+            
+            html += `<div class="section-card">
+                <div class="section-topic">${p2.title}</div>
+                <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
+            p2.questions.forEach(q => {
+                const inputHtml = '<input type="text" class="answer-box" data-q="' + q.id + '">';
+                html += '<div style="margin-bottom:15px;">';
+                html += '<strong>' + q.id + '.</strong> ';
+                html += q.label.replace('______', inputHtml);
+                html += '</div>';
+            });
+            html += `</div>`;
+        }
         
-        html += `<div class="section-card">
-            <div class="section-topic">${p2.title}</div>
-            <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
-        p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
-        });
-        html += `</div>`;
+        // --- SECTION 4 ---
+        else if (n === 4 && examData.section4_part1) {
+            const p1 = examData.section4_part1;
+            const p2 = examData.section4_part2;
+            
+            html += `<div class="section-card">
+                <div class="section-topic">${p1.title}</div>
+                <p><strong>Instructions:</strong> ${p1.instruction}</p>`;
+            p1.questions.forEach(q => {
+                html += `<div style="margin-top:20px;"><strong>${q.id}.</strong> ${q.q}<br>`;
+                q.options.forEach((opt, i) => {
+                    const letter = String.fromCharCode(65 + i);
+                    html += `<label class="option-label"><input type="radio" name="q${q.id}" class="answer-radio" data-q="${q.id}" value="${letter}"><span class="opt-letter">${letter}</span> ${opt}</label>`;
+                });
+                html += `</div>`;
+            });
+            html += `</div>`;
+            
+            html += `<div class="section-card">
+                <div class="section-topic">${p2.title}</div>
+                <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
+            p2.questions.forEach(q => {
+                const inputHtml = '<input type="text" class="answer-box" data-q="' + q.id + '">';
+                html += '<div style="margin-bottom:15px;">';
+                html += '<strong>' + q.id + '.</strong> ';
+                html += q.label.replace('______', inputHtml);
+                html += '</div>';
+            });
+            html += `</div>`;
+        }
+        
+        return html;
     }
     
-    return html;
-}
     function startTimer() {
         if (isRunning) return;
         isRunning = true;
@@ -338,7 +362,11 @@ function buildSectionHTML(n) {
                     if (selected && selected.value === q.answer) correctCount++;
                 } else {
                     const input = document.querySelector(`input[data-q="${q.id}"]`);
-                    if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) correctCount++;
+                    if (input) {
+                        const userAns = input.value.trim().toLowerCase().replace(/[-–—]/g, ' ').replace(/,/g, '').replace(/\s+/g, ' ').trim();
+                        const correctAns = String(q.answer || '').trim().toLowerCase().replace(/[-–—]/g, ' ').replace(/,/g, '').replace(/\s+/g, ' ').trim();
+                        if (userAns !== '' && userAns === correctAns) correctCount++;
+                    }
                 }
             });
         };
@@ -377,78 +405,70 @@ function buildSectionHTML(n) {
         document.getElementById('results-panel').style.display = 'none';
     }
     
-   function showAnswers() {
-    // Detect which section is currently visible
-    const activeTab = document.querySelector('.tab-btn.active');
-    const currentSection = activeTab ? parseInt(activeTab.dataset.section) : 1;
-    
-    // --- SECTION 1 ---
-    if (currentSection === 1) {
-        examData.section1.questions.forEach(q => {
-            const input = document.querySelector(`input[data-q="${q.id}"]`);
-            if (input) input.value = q.answer;
-        });
+    function showAnswers() {
+        const activeTab = document.querySelector('.tab-btn.active');
+        const currentSection = activeTab ? parseInt(activeTab.dataset.section) : 1;
+        
+        if (currentSection === 1) {
+            examData.section1.questions.forEach(q => {
+                const input = document.querySelector(`input[data-q="${q.id}"]`);
+                if (input) input.value = q.answer;
+            });
+        }
+        else if (currentSection === 2) {
+            examData.section2_part1.questions.forEach(q => {
+                const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+                if (radio) radio.checked = true;
+            });
+            examData.section2_part2.questions.forEach(q => {
+                const input = document.querySelector(`input[data-q="${q.id}"]`);
+                if (input) input.value = q.answer;
+            });
+        }
+        else if (currentSection === 3) {
+            examData.section3_part1.questions.forEach(q => {
+                const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+                if (radio) radio.checked = true;
+            });
+            examData.section3_part2.questions.forEach(q => {
+                const input = document.querySelector(`input[data-q="${q.id}"]`);
+                if (input) input.value = q.answer;
+            });
+        }
+        else if (currentSection === 4) {
+            examData.section4_part1.questions.forEach(q => {
+                const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+                if (radio) radio.checked = true;
+            });
+            examData.section4_part2.questions.forEach(q => {
+                const input = document.querySelector(`input[data-q="${q.id}"]`);
+                if (input) input.value = q.answer;
+            });
+        }
     }
     
-    // --- SECTION 2 ---
-    else if (currentSection === 2) {
-        examData.section2_part1.questions.forEach(q => {
-            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
-            if (radio) radio.checked = true;
-        });
-        examData.section2_part2.questions.forEach(q => {
-            const input = document.querySelector(`input[data-q="${q.id}"]`);
-            if (input) input.value = q.answer;
-        });
-    }
-    
-    // --- SECTION 3 ---
-    else if (currentSection === 3) {
-        examData.section3_part1.questions.forEach(q => {
-            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
-            if (radio) radio.checked = true;
-        });
-        examData.section3_part2.questions.forEach(q => {
-            const input = document.querySelector(`input[data-q="${q.id}"]`);
-            if (input) input.value = q.answer;
-        });
-    }
-    
-    // --- SECTION 4 ---
-    else if (currentSection === 4) {
-        examData.section4_part1.questions.forEach(q => {
-            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
-            if (radio) radio.checked = true;
-        });
-        examData.section4_part2.questions.forEach(q => {
-            const input = document.querySelector(`input[data-q="${q.id}"]`);
-            if (input) input.value = q.answer;
-        });
-    }
-}
-    
-   window.addEventListener('DOMContentLoaded', () => {
-    buildAllSections();
-    switchSection(1);
-});
+    window.addEventListener('DOMContentLoaded', () => {
+        buildAllSections();
+        switchSection(1);
+    });
 </script>
 
-<!-- Navigation -->
 <div style="text-align: center; margin-top: 40px;">
     <button onclick="window.location.href='IELTS_READING_TEST2.HTML'" style="padding: 15px 30px; font-size: 1.2rem; background: #2a7de1; color: white; border: none; border-radius: 8px; cursor: pointer;">Next: Reading Section</button>
 </div>
-    <!-- Compact Footer for Exam Pages -->
-    <footer style="background: #1a1a2e; color: #a0a0c0; padding: 10px 20px; text-align: center; border-top: 2px solid #2a7de1; margin-top: 10px; font-family: Arial, sans-serif; font-size: 11px;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <span>© 2026 Ali Aboulila. All Rights Reserved.</span>
-            <span style="color: #444;">|</span>
-            <a href="/" style="color: #2a7de1; text-decoration: none;">Home</a>
-            <span style="color: #444;">|</span>
-            <a href="/contact" style="color: #2a7de1; text-decoration: none;">Contact</a>
-        </div>
-    </footer>
+
+<footer style="background: #1a1a2e; color: #a0a0c0; padding: 10px 20px; text-align: center; border-top: 2px solid #2a7de1; margin-top: 10px; font-family: Arial, sans-serif; font-size: 11px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span>© 2026 Ali Aboulila. All Rights Reserved.</span>
+        <span style="color: #444;">|</span>
+        <a href="/" style="color: #2a7de1; text-decoration: none;">Home</a>
+        <span style="color: #444;">|</span>
+        <a href="/contact" style="color: #2a7de1; text-decoration: none;">Contact</a>
+    </div>
+</footer>
+
 <script>
-  window.PREVIEW_COURSE_NAME = "IELTS Listening Test 2";
+    window.PREVIEW_COURSE_NAME = "IELTS Listening Test 2";
 </script>
 <script src="../../../js/preview-mode.js"></script>
 </body>

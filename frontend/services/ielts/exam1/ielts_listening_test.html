@@ -71,7 +71,7 @@
         
         /* MAP IMAGE */
         .map-container { text-align: center; margin: 20px 0; }
-        .map-container img { max-width: 100%; border-radius: 10px; border: 2px solid #e6edf8; }
+        .map-container img { max-width: 400px; width: 50%; border-radius: 10px; border: 2px solid #e6edf8; display: block; margin: 0 auto; }
     /* Preview Mode Banner */
     .preview-banner {
         display: none;
@@ -252,7 +252,7 @@ function buildSectionHTML(n) {
             <div style="margin-top:20px;">`;
         data.questions.forEach(q => {
             html += `<div style="margin-bottom:15px;">
-                <strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}">
+                <strong>${q.id}.</strong> ${q.label.replace('______', `<input type="text" class="answer-box" data-q="${q.id}">`)} class="answer-box" data-q="${q.id}">
             </div>`;
         });
         html += `</div></div>`;
@@ -308,7 +308,7 @@ function buildSectionHTML(n) {
             <div class="section-topic">${p2.title}</div>
             <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
         p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
+            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', `<input type="text" class="answer-box" data-q="${q.id}">`)} class="answer-box" data-q="${q.id}"></div>`;
         });
         html += `</div>`;
     }
@@ -335,7 +335,7 @@ function buildSectionHTML(n) {
             <div class="section-topic">${p2.title}</div>
             <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
         p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', '')} <input type="text" class="answer-box" data-q="${q.id}"></div>`;
+            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', `<input type="text" class="answer-box" data-q="${q.id}">`)} class="answer-box" data-q="${q.id}"></div>`;
         });
         html += `</div>`;
     }
@@ -394,7 +394,11 @@ function buildSectionHTML(n) {
                     if (selected && selected.value === q.answer) correctCount++;
                 } else {
                     const input = document.querySelector(`input[data-q="${q.id}"]`);
-                    if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) correctCount++;
+                    if (input) {
+    const userAns = input.value.trim().toLowerCase().replace(/[-–—]/g, ' ').replace(/,/g, '').replace(/\s+/g, ' ').trim();
+    const correctAns = String(q.answer || '').trim().toLowerCase().replace(/[-–—]/g, ' ').replace(/,/g, '').replace(/\s+/g, ' ').trim();
+    if (userAns !== '' && userAns === correctAns) correctCount++;
+}
                 }
             });
         };

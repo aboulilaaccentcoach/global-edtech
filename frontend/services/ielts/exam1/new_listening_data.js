@@ -9,16 +9,16 @@ const newListeningQuestions = {
         instruction: "Write ONE WORD AND/OR A NUMBER for each answer.",
         audio: "section1.mp3",
         questions: [
-            { id: 1, type: "note", label: "Workshop date:", answer: "14 March", placeholder: "______" },
-            { id: 2, type: "note", label: "Location:", answer: "Riverside Centre", placeholder: "______" },
-            { id: 3, type: "note", label: "Maximum participants:", answer: "20", placeholder: "______" },
-            { id: 4, type: "note", label: "Fee includes a printed handbook and a free writing:", answer: "journal", placeholder: "______" },
-            { id: 5, type: "note", label: "Participants must bring their own:", answer: "laptop", placeholder: "______" },
-            { id: 6, type: "note", label: "Workshop starts at: ______ a.m.", answer: "9:30", placeholder: "______" },
-            { id: 7, type: "note", label: "Break time is at:", answer: "11:15", placeholder: "______" },
-            { id: 8, type: "note", label: "Outdoor activity takes place in the ______ Garden", answer: "Maple", placeholder: "______" },
-            { id: 9, type: "note", label: "Instructor's surname:", answer: "Kingsley", placeholder: "______" },
-            { id: 10, type: "note", label: "Certificates sent within: ______ days", answer: "seven", placeholder: "______" }
+            { id: 1, type: "note", label: "Workshop date: ______", answer: "14 March" },
+            { id: 2, type: "note", label: "Location: Riverside ______ Centre", answer: "Arts" },
+            { id: 3, type: "note", label: "Maximum participants: ______", answer: "20" },
+            { id: 4, type: "note", label: "Fee includes a printed handbook and a free writing ______", answer: "journal" },
+            { id: 5, type: "note", label: "Participants must bring their own ______", answer: "laptop" },
+            { id: 6, type: "note", label: "Workshop starts at: ______ a.m.", answer: "9:30" },
+            { id: 7, type: "note", label: "Break time is at: ______", answer: "11:15" },
+            { id: 8, type: "note", label: "Outdoor activity takes place in the ______ Garden", answer: "Maple" },
+            { id: 9, type: "note", label: "Instructor's surname: ______", answer: "Kingsley" },
+            { id: 10, type: "note", label: "Certificates sent within: ______ days", answer: "seven" }
         ]
     },
 
@@ -61,7 +61,7 @@ const newListeningQuestions = {
             { id: 22, type: "mc", q: "Their biggest challenge so far is", options: ["Scheduling interviews", "Finding reliable sources", "Designing the survey"], answer: "A" },
             { id: 23, type: "mc", q: "The professor advised them to", options: ["Reduce the number of participants", "Expand their literature review", "Change their research method"], answer: "B" },
             { id: 24, type: "mc", q: "The students plan to finish data collection by", options: ["Friday", "Sunday", "Next Wednesday"], answer: "C" },
-            { id: 25, type: "mc", q: "They will present their findings using", options: ["A poster", "A slideshow", "A video"], answer: "B" },
+            { id: 25, type: "mc", q: "They will present their findings using", options: ["A poster", "A slideshow", "A written report"], answer: "B" },
             { id: 26, type: "mc", q: "The group decided that editing will be done by", options: ["Maya", "Leon", "Both of them"], answer: "C" }
         ]
     },
@@ -74,7 +74,7 @@ const newListeningQuestions = {
         questions: [
             { id: 27, label: "The research topic focuses on student use of ______ tools.", answer: "digital" },
             { id: 28, label: "The group wants to compare habits between local and ______ students.", answer: "exchange" },
-            { id: 29, label: "Their survey will include both multiple-choice and ______ questions.", answer: "open-ended" },
+            { id: 29, label: "Their survey will include both multiple-choice and ______ questions.", answer: "open ended" },
             { id: 30, label: "They expect their final report to be around ______ words.", answer: "3,000" }
         ]
     },

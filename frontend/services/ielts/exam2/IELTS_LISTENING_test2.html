@@ -377,33 +377,55 @@ function buildSectionHTML(n) {
         document.getElementById('results-panel').style.display = 'none';
     }
     
-    function showAnswers() {
+   function showAnswers() {
+    // Detect which section is currently visible
+    const activeTab = document.querySelector('.tab-btn.active');
+    const currentSection = activeTab ? parseInt(activeTab.dataset.section) : 1;
+    
+    // --- SECTION 1 ---
+    if (currentSection === 1) {
         examData.section1.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
-        
-        const mcData = [...examData.section2_part1.questions, ...examData.section3_part1.questions, ...examData.section4_part1.questions];
-        mcData.forEach(q => {
+    }
+    
+    // --- SECTION 2 ---
+    else if (currentSection === 2) {
+        examData.section2_part1.questions.forEach(q => {
             const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
             if (radio) radio.checked = true;
         });
-        
         examData.section2_part2.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
-        
+    }
+    
+    // --- SECTION 3 ---
+    else if (currentSection === 3) {
+        examData.section3_part1.questions.forEach(q => {
+            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+            if (radio) radio.checked = true;
+        });
         examData.section3_part2.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
-        
+    }
+    
+    // --- SECTION 4 ---
+    else if (currentSection === 4) {
+        examData.section4_part1.questions.forEach(q => {
+            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+            if (radio) radio.checked = true;
+        });
         examData.section4_part2.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
     }
+}
     
    window.addEventListener('DOMContentLoaded', () => {
     buildAllSections();

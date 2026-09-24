@@ -441,38 +441,61 @@ window.addEventListener('DOMContentLoaded', () => {
     switchSection(1);
 });
     
-        function showAnswers() {
-        // Fill in Section 1 answers
+       function showAnswers() {
+    // Detect which section is currently visible
+    const activeTab = document.querySelector('.tab-btn.active');
+    const currentSection = activeTab ? parseInt(activeTab.dataset.section) : 1;
+    
+    // --- SECTION 1 ---
+    if (currentSection === 1) {
         examData.section1.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
-        
-        // Fill in Multiple Choice answers
-        const mcData = [...examData.section2_part1.questions, ...examData.section3_part1.questions, ...examData.section4_part1.questions];
-        mcData.forEach(q => {
+    }
+    
+    // --- SECTION 2 ---
+    else if (currentSection === 2) {
+        // Part 1: Multiple Choice
+        examData.section2_part1.questions.forEach(q => {
             const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
             if (radio) radio.checked = true;
         });
-        
-        // Fill in Section 2 Map answers
+        // Part 2: Map
         examData.section2_part2.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
-        
-        // Fill in Section 3 Part 2 (Q27-30) answers
+    }
+    
+    // --- SECTION 3 ---
+    else if (currentSection === 3) {
+        // Part 1: Multiple Choice
+        examData.section3_part1.questions.forEach(q => {
+            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+            if (radio) radio.checked = true;
+        });
+        // Part 2: Fill-in
         examData.section3_part2.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
-        
-        // Fill in Section 4 Part 2 (Q36-40) answers
+    }
+    
+    // --- SECTION 4 ---
+    else if (currentSection === 4) {
+        // Part 1: Multiple Choice
+        examData.section4_part1.questions.forEach(q => {
+            const radio = document.querySelector(`input[name="q${q.id}"][value="${q.answer}"]`);
+            if (radio) radio.checked = true;
+        });
+        // Part 2: Fill-in
         examData.section4_part2.questions.forEach(q => {
             const input = document.querySelector(`input[data-q="${q.id}"]`);
             if (input) input.value = q.answer;
         });
     }
+}
     
     // Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {

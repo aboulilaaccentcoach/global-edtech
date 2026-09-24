@@ -29,6 +29,8 @@ FROM_EMAIL = os.environ.get('FROM_EMAIL', 'noreply@aliaboulila.com')
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///' + os.path.join(BASE_DIR, 'local.db'))
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
+if database_url.startswith("postgresql://") and not database_url.startswith("postgresql+psycopg://"):
+    database_url = database_url.replace("postgresql://", "postgresql+psycopg://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

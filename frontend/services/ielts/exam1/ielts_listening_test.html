@@ -251,9 +251,11 @@ function buildSectionHTML(n) {
             <p><strong>Instructions:</strong> ${data.instruction}</p>
             <div style="margin-top:20px;">`;
         data.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;">
-                <strong>${q.id}.</strong> ${q.label.replace('______', `<input type="text" class="answer-box" data-q="${q.id}">`)} class="answer-box" data-q="${q.id}">
-            </div>`;
+            const inputHtml = '<input type="text" class="answer-box" data-q="' + q.id + '">';
+html += '<div style="margin-bottom:15px;">';
+html += '<strong>' + q.id + '.</strong> ';
+html += q.label.replace('______', inputHtml);
+html += '</div>';
         });
         html += `</div></div>`;
     }
@@ -308,9 +310,12 @@ function buildSectionHTML(n) {
             <div class="section-topic">${p2.title}</div>
             <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
         p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', `<input type="text" class="answer-box" data-q="${q.id}">`)} class="answer-box" data-q="${q.id}"></div>`;
-        });
-        html += `</div>`;
+    const inputHtml = '<input type="text" class="answer-box" data-q="' + q.id + '">';
+    html += '<div style="margin-bottom:15px;">';
+    html += '<strong>' + q.id + '.</strong> ';
+    html += q.label.replace('______', inputHtml);
+    html += '</div>';
+});
     }
     
     // --- SECTION 4 ---
@@ -335,8 +340,12 @@ function buildSectionHTML(n) {
             <div class="section-topic">${p2.title}</div>
             <p><strong>Instructions:</strong> ${p2.instruction}</p>`;
         p2.questions.forEach(q => {
-            html += `<div style="margin-bottom:15px;"><strong>${q.id}.</strong> ${q.label.replace('______', `<input type="text" class="answer-box" data-q="${q.id}">`)} class="answer-box" data-q="${q.id}"></div>`;
-        });
+    const inputHtml = '<input type="text" class="answer-box" data-q="' + q.id + '">';
+    html += '<div style="margin-bottom:15px;">';
+    html += '<strong>' + q.id + '.</strong> ';
+    html += q.label.replace('______', inputHtml);
+    html += '</div>';
+});
         html += `</div>`;
     }
     

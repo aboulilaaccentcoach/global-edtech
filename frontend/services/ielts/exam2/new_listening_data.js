@@ -3,7 +3,6 @@
 // ==============================================
 
 const newListeningQuestions = {
-    // SECTION 1
     section1: {
         title: "Weekend Swimming Course Enquiry",
         instruction: "Write ONE WORD AND/OR A NUMBER for each answer.",
@@ -22,7 +21,6 @@ const newListeningQuestions = {
         ]
     },
 
-    // SECTION 2 (Part 1 - Multiple Choice)
     section2_part1: {
         title: "Overview of the New Exhibition Hall",
         instruction: "Choose the correct letter A, B, or C.",
@@ -36,7 +34,6 @@ const newListeningQuestions = {
         ]
     },
 
-    // SECTION 2 (Part 2 - Map Labeling)
     section2_part2: {
         title: "Exhibition Hall - Map Description",
         instruction: "Label the map. Choose the correct letter A-G.",
@@ -51,7 +48,6 @@ const newListeningQuestions = {
         ]
     },
 
-    // SECTION 3 (Part 1 - Multiple Choice)
     section3_part1: {
         title: "Group Presentation Progress Meeting",
         instruction: "Choose the correct letter A, B, or C.",
@@ -66,7 +62,6 @@ const newListeningQuestions = {
         ]
     },
 
-    // SECTION 3 (Part 2 - Completion)
     section3_part2: {
         title: "Final Adjustments to the Presentation",
         instruction: "Complete the sentences. Write NO MORE THAN TWO WORDS.",
@@ -79,7 +74,6 @@ const newListeningQuestions = {
         ]
     },
 
-    // SECTION 4 (Part 1 - Multiple Choice)
     section4_part1: {
         title: "Lecture on Habit Formation",
         instruction: "Choose the correct letter A, B, or C.",
@@ -93,7 +87,6 @@ const newListeningQuestions = {
         ]
     },
 
-    // SECTION 4 (Part 2 - Completion)
     section4_part2: {
         title: "Summary of Habit Formation Principles",
         instruction: "Complete the summary. Write NO MORE THAN TWO WORDS.",
@@ -108,5 +101,4 @@ const newListeningQuestions = {
     }
 };
 
-// Expose the data globally so the exam HTML can find it
 window.newListeningQuestions = newListeningQuestions;

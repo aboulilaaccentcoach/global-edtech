@@ -254,11 +254,20 @@ function renderServices(services) {
        
         const cardBackground = service.path.includes('sat') ? 'url("css/images/sat.jpg")' : service.path.includes('exam1') ? 'url("css/images/ielts1.jpg")' : service.path.includes('exam2') ? 'url("css/images/ielts2.jpg")' : service.path.includes('ACCENT') ? 'url("css/images/american_accent.jpg")' : service.path.includes('SPEAKING') ? 'url("css/images/ielts_speaking.jpg")' : service.path.includes('international') ? 'url("css/images/international_speaker.jpg")' : 'none';
         
-        return `
+// Dictionary for Arabic Descriptions
+const arabicDescriptions = {
+    "SAT Adaptive 4 Exams": "امتحانات محاكاة تكيفية لأربع اختبارات SAT لتقييم مستواك وتحسين أدائك.",
+    "IELTS Exam 1": "الاختبار التجريبي الأول للآيلتس، يشمل ثلاث مهارات للتدريب المكثف.",
+    "IELTS Exam 2": "الاختبار التجريبي الثاني للآيلتس، لتدريبك على نمط الامتحان الحقيقي.",
+    "IELTS Speaking Practice": "تدريب تفاعلي على مهارة التحدث في الآيلتس لزيادة طلاقتك وثقتك.",
+    "American Accent Guide": "دليل شامل لإتقان اللكنة الأمريكية وتحسين النطق بطلاقة.",
+    "Secrets of International Speaker": "اكتشف أسرار التحدث بطلاقة كمتحدث دولي ومواجهة الجمهور بثقة."
+};        
+return `
             <div class="service-card" style="background-image: ${cardBackground};" onclick="${isLocked ? "showLogin()" : `navigateTo('${service.path}')`}">
                 <span class="icon">${service.icon}</span>
                 <h3>${service.name}</h3>
-                <p>${service.description}</p>
+                <p>${arabicDescriptions[service.name] || service.description || ''}</p>
                 ${subServicesHTML}
                 <span class="badge ${requiresAuth ? 'badge-auth' : 'badge-free'}">
                     ${requiresAuth ? '🔒 Login Required' : '🌟 Free'}

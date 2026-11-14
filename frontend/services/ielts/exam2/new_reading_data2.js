@@ -64,6 +64,7 @@ const newReadingQuestions2 = {
                 { id: 22, type: "ynng", q: "Climate change may have contributed to the civilization's decline.", answer: "Yes" },
                 { id: 23, type: "fill", q: "The Indus Valley people used engraved ______ to mark goods.", answer: "seals" },
                 { id: 24, type: "fill", q: "and standardized ______ indicate a regulated system of trade.", answer: "weights and measures" },
+                { id: 25, type: "fill", q: "which was essential for their growing __________.", answer: "economy" },
                 { id: 26, type: "mc", q: "What has hindered the deciphering of the Indus script?", options: ["Lack of bilingual inscriptions", "Too few surviving artifacts", "The script contains no symbols"], answer: "A" }
             ]
         },

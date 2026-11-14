@@ -66,6 +66,7 @@ const newReadingQuestions1 = {
                 { id: 22, type: "ynng", q: "Archaeologists have discovered written records explaining how the stelae were built.", answer: "Not Given" },
                 { id: 23, type: "fill", q: "Aksum's conversion to Christianity strengthened ties with the ______", answer: "Roman Empire" },
                 { id: 24, type: "fill", q: "and encouraged the translation of religious texts into ______", answer: "Ge'ez" },
+                { id: 25, type: "fill", q: "contributing to the spread of __________.", answer: "literacy" },
                 { id: 26, type: "mc", q: "Which factor most contributed to Aksum's decline?", options: ["Increased rainfall", "Disrupted trade routes", "Overpopulation"], answer: "B" }
             ]
         },

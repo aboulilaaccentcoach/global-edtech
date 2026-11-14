@@ -164,10 +164,157 @@
             // Build Right Panel (Questions)
             let questionHtml = `<div class="questions-panel">
                 <h3>Questions ${qStart} – ${qEnd}</h3>
-                <div class="q-section">
-                    <div class="q-label">Answer the questions below.</div>`;
-
-            passage.questions.forEach(q => {
+                <div class="q-section">`;
+            passage.questions.forEach(q => {        // --- INSTRUCTION INJECTION HACK ---
+        if (q.id == 1) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 1–5</p>
+                <p style="margin-bottom: 10px;">Do the following statements agree with the information given in Reading Passage 1?</p>
+                <p style="margin-bottom: 10px;">In boxes 1–5 on your answer sheet, write</p>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li><strong>TRUE</strong> if the statement agrees with the information</li>
+                    <li><strong>FALSE</strong> if the statement contradicts the information</li>
+                    <li><strong>NOT GIVEN</strong> if there is no information on this</li>
+                </ul>
+            </div>`;
+                } else if (q.id == 6) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 6–9</p>
+                <p style="margin-bottom: 10px;">Look at the following statements (Questions 6–9) and the list of options below.</p>
+                <p style="margin-bottom: 10px;">Match each statement with the correct option, <strong>A–F</strong>.</p>
+                <p style="margin-bottom: 10px;">Write the correct letter, <strong>A–F</strong>, in boxes 6–9 on your answer sheet.</p>
+                <p style="margin-bottom: 15px; font-weight: bold;"><strong>NB</strong> You may use any letter more than once.</p>
+                
+                <div style="border: 1px solid #ccc; padding: 10px; background-color: #ffffff; border-radius: 4px;">
+                    <p style="font-weight: bold; text-align: center; margin-bottom: 10px; color: #1F3864;">List of Options</p>
+                    <ul style="list-style-type: none; padding-left: 0; margin-bottom: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <li><strong>A.</strong> Air quality</li>
+                        <li><strong>B.</strong> Temperature regulation</li>
+                        <li><strong>C.</strong> Social well being</li>
+                        <li><strong>D.</strong> Economic impact</li>
+                        <li><strong>E.</strong> Challenges</li>
+                        <li><strong>F.</strong> Solutions</li>
+                    </ul>
+                </div>
+            </div>`;
+                } else if (q.id == 10) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 10–11</p>
+                <p style="margin-bottom: 10px;">Complete the sentences below.</p>
+                <p style="margin-bottom: 10px;">Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</p>
+                <p style="margin-bottom: 0;">Write your answers in boxes 10–11 on your answer sheet.</p>
+            </div>`;
+              } else if (q.id == 12) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 12–13</p>
+                <p style="margin-bottom: 10px;">Choose the correct letter, <strong>A</strong>, <strong>B</strong> or <strong>C</strong>.</p>
+                <p style="margin-bottom: 0;">Write the correct letter in boxes 12–13 on your answer sheet.</p>
+            </div>`;
+        // ==========================================
+        // --- PASSAGE 2 INSTRUCTIONS (Q14 - Q26) ---
+        // ==========================================
+        } else if (q.id == 14) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 14–19</p>
+                <p style="margin-bottom: 10px;">Reading Passage 2 has six paragraphs, <strong>A–F</strong>.</p>
+                <p style="margin-bottom: 10px;">Choose the correct heading for each paragraph from the list of headings below.</p>
+                <p style="margin-bottom: 15px;">Write the correct number, <strong>i–x</strong>, in boxes 14–19 on your answer sheet.</p>
+                <div style="border: 1px solid #ccc; padding: 15px; background-color: #ffffff; border-radius: 4px;">
+                    <p style="font-weight: bold; text-align: center; margin-bottom: 15px; color: #1F3864; border-bottom: 2px solid #1F3864; padding-bottom: 5px;">List of Headings</p>
+                    <ul style="list-style-type: none; padding-left: 0; margin-bottom: 0; display: grid; grid-template-columns: 1fr; gap: 8px; font-size: 0.95em;">
+                        <li><strong>i.</strong> Aksum’s strategic trading position</li>
+                        <li><strong>ii.</strong> Architectural achievements of the kingdom</li>
+                        <li><strong>iii.</strong> Early religious practices</li>
+                        <li><strong>iv.</strong> The spread of Christianity</li>
+                        <li><strong>v.</strong> Causes of Aksum’s decline</li>
+                        <li><strong>vi.</strong> Modern archaeological discoveries</li>
+                        <li><strong>vii.</strong> Aksum’s cultural legacy</li>
+                        <li><strong>viii.</strong> International trade connections</li>
+                        <li><strong>ix.</strong> The rise of Aksum</li>
+                        <li><strong>x.</strong> Engineering techniques used for stelae</li>
+                    </ul>
+                </div>
+            </div>`;
+        } else if (q.id == 20) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 20–22</p>
+                <p style="margin-bottom: 10px;">Do the following statements agree with the views of the writer in Reading Passage 2?</p>
+                <p style="margin-bottom: 10px;">In boxes 20–22 on your answer sheet, write</p>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li><strong>YES</strong> if the statement agrees with the views of the writer</li>
+                    <li><strong>NO</strong> if the statement contradicts the views of the writer</li>
+                    <li><strong>NOT GIVEN</strong> if it is impossible to say what the writer thinks about this</li>
+                </ul>
+            </div>`;
+        } else if (q.id == 23) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 23–25</p>
+                <p style="margin-bottom: 10px;">Complete the summary below.</p>
+                <p style="margin-bottom: 0;">Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</p>
+            </div>`;
+        } else if (q.id == 26) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Question 26</p>
+                <p style="margin-bottom: 10px;">Choose the correct letter, <strong>A</strong>, <strong>B</strong> or <strong>C</strong>.</p>
+                <p style="margin-bottom: 0;">Write the correct letter in box 26 on your answer sheet.</p>
+            </div>`;
+        
+        // ==========================================
+        // --- PASSAGE 3 INSTRUCTIONS (Q27 - Q40) ---
+        // ==========================================
+        } else if (q.id == 27) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 27–30</p>
+                <p style="margin-bottom: 10px;">Choose the correct letter, <strong>A</strong>, <strong>B</strong> or <strong>C</strong>.</p>
+                <p style="margin-bottom: 0;">Write the correct letter in boxes 27–30 on your answer sheet.</p>
+            </div>`;
+        } else if (q.id == 31) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 31–34</p>
+                <p style="margin-bottom: 10px;">Do the following statements agree with the claims of the writer in Reading Passage 3?</p>
+                <p style="margin-bottom: 10px;">In boxes 31–34 on your answer sheet, write</p>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li><strong>YES</strong> if the statement agrees with the claims of the writer</li>
+                    <li><strong>NO</strong> if the statement contradicts the claims of the writer</li>
+                    <li><strong>NOT GIVEN</strong> if it is impossible to say what the writer thinks about this</li>
+                </ul>
+            </div>`;
+        } else if (q.id == 35) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 35–37</p>
+                <p style="margin-bottom: 10px;">Look at the following statements (Questions 35–37) and the list of options below.</p>
+                <p style="margin-bottom: 10px;">Match each statement with the correct option, <strong>A</strong>, <strong>B</strong> or <strong>C</strong>.</p>
+                <p style="margin-bottom: 15px;">Write the correct letter, <strong>A</strong>, <strong>B</strong> or <strong>C</strong>, in boxes 35–37 on your answer sheet.</p>
+                <p style="margin-bottom: 15px; font-weight: bold;"><strong>NB</strong> You may use any letter more than once.</p>
+                <div style="border: 1px solid #ccc; padding: 15px; background-color: #ffffff; border-radius: 4px;">
+                    <p style="font-weight: bold; text-align: center; margin-bottom: 10px; color: #1F3864;">Sectors</p>
+                    <ul style="list-style-type: none; padding-left: 0; margin-bottom: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; font-weight: bold; color: #1F3864;">
+                        <li>A. Healthcare</li>
+                        <li>B. Manufacturing</li>
+                        <li>C. Creative industries</li>
+                    </ul>
+                </div>
+            </div>`;
+        } else if (q.id == 38) {
+            questionHtml += `
+            <div style="background-color: #f4f6f8; border-left: 5px solid #1F3864; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                <p style="font-weight: bold; margin-bottom: 10px; color: #1F3864;">Questions 38–40</p>
+                <p style="margin-bottom: 10px;">Complete the flowchart below.</p>
+                <p style="margin-bottom: 0;">Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</p>
+            </div>`;
+        }
+        // --- END OF INSTRUCTION INJECTION ---
                 if (q.type === 'tfng') {
                     questionHtml += `<div class="q-block" data-q="${q.id}" data-type="tfng">
                         <div class="q-text"><span class="q-num" id="n${q.id}">${q.id}</span>${q.q}</div>
